@@ -1,0 +1,2960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>双十一买买买 · 花开心</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23FFF8EE'/%3E%3Cg fill='%23FF3D2E'%3E%3Cellipse cx='16' cy='9' rx='4' ry='6'/%3E%3Cellipse cx='16' cy='23' rx='4' ry='6'/%3E%3Cellipse cx='9' cy='16' rx='6' ry='4'/%3E%3Cellipse cx='23' cy='16' rx='6' ry='4'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%23FFB31F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=ZCOOL+QingKe+HuangYou&display=swap">
+<script src="https://fastly.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+:root{
+  --cream:#FFF8EE; --cream2:#FFEEDC; --ink:#241811; --ink2:#4A3527; --muted:#8A7360;
+  --red:#FF3D2E; --mango:#FFB31F; --mint:#12B8A6; --grape:#7B5CFF; --sky:#2E8BFF; --pink:#FF7AA8;
+  --line:#241811; --r:14px; --pill:999px;
+  --disp:"ZCOOL QingKe HuangYou","PingFang SC",sans-serif;
+  --body:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --sh:3px 3px 0 rgba(36,24,17,.16);
+  --sh2:4px 4px 0 rgba(36,24,17,.9);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{
+  background:linear-gradient(165deg,#FFE2CB 0%,#FFF4E0 46%,#FFEDD5 100%);
+  display:grid;place-items:center;min-height:100%;font-family:var(--body);color:var(--ink);overflow:hidden;
+}
+.phone{
+  position:relative;width:min(390px,100vw);height:min(844px,100dvh);
+  border-radius:42px;background:#fff;border:2px solid var(--line);
+  box-shadow:12px 12px 0 rgba(36,24,17,.18),0 26px 60px rgba(120,74,40,.18);
+}
+@media (max-width:520px){
+  .phone{border-radius:0;border:0;box-shadow:none;height:100dvh;width:100vw}
+  body{background:var(--cream)}
+}
+.screen{position:relative;width:100%;height:100%;border-radius:40px;overflow:hidden;background:var(--cream)}
+@media (max-width:520px){.screen{border-radius:0}}
+.status{position:absolute;top:0;left:0;right:0;height:46px;z-index:90;display:flex;align-items:center;
+  justify-content:space-between;padding:0 20px;font:700 12.5px/1 var(--body);color:var(--ink);pointer-events:none}
+.status .left{display:flex;align-items:center;gap:8px}
+.status .clk{font-family:var(--disp);font-size:16px;letter-spacing:.06em}
+.status .day{color:var(--ink2);font-weight:500}
+.status .right{display:flex;align-items:center;gap:6px;opacity:.85}
+@media (min-width:521px){.notch{display:block;position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:92px;height:20px;border-radius:0 0 13px 13px;background:var(--line);z-index:95}}
+@media (max-width:520px){.notch{display:none}}
+.layer{position:absolute;inset:0;z-index:10}
+/* ===== 桌面 ===== */
+.launcher{background:url("assets/wall.jpg") center/cover no-repeat,linear-gradient(180deg,#FFF6E9,#FFE7D2)}
+.launcher::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,248,238,.74) 0%,rgba(255,248,238,.3) 34%,rgba(255,244,231,.72) 78%,#FFF8EE 100%)}
+.launcher .in{position:absolute;inset:0;z-index:2;padding:64px 22px 0}
+.clockbig{font-family:var(--disp);font-size:56px;line-height:1;letter-spacing:.03em;color:var(--ink)}
+.clockmeta{margin-top:8px;font-size:12px;color:var(--ink2);letter-spacing:.02em}
+.clockmeta b{color:var(--red)}
+.coinbar{margin-top:12px;display:flex;align-items:center;gap:10px}
+.coin{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:var(--pill);background:#fff;
+  border:2px solid var(--line);box-shadow:2px 2px 0 rgba(36,24,17,.16)}
+.coin em{font-style:normal;font-size:9.5px;color:var(--muted);letter-spacing:.1em}
+.coin b{font-family:var(--disp);font-size:19px;color:var(--red);margin-left:2px}
+.room{font-size:11px;color:var(--ink2);display:flex;align-items:center;gap:6px;font-weight:600}
+.live{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(18,184,166,.22)}
+.grid{margin-top:22px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px 8px}
+.tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;padding:0;color:inherit;font:inherit;cursor:pointer;min-width:0}
+.ico{position:relative;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;
+  border:2px solid var(--line);box-shadow:3px 3px 0 rgba(36,24,17,.75);transition:transform .14s,box-shadow .14s}
+.ico svg{width:26px;height:26px}
+.tile:active .ico{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(36,24,17,.75)}
+.tile span{font-size:10.5px;color:var(--ink);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}
+.i-jd{background:linear-gradient(160deg,#FF8B6B,#FF3D2E);color:#fff}
+.i-tb{background:linear-gradient(160deg,#FFD46B,#FFB31F);color:#5A3600}
+.i-pdd{background:linear-gradient(160deg,#FF7E9B,#FF3D63);color:#fff}
+.i-live{background:linear-gradient(160deg,#6FE6FF,#2E8BFF);color:#07314F}
+.i-story{background:linear-gradient(160deg,#FFC2D8,#FF7AA8);color:#5C1230}
+.i-wish{background:linear-gradient(160deg,#FFF3C8,#FFD24A);color:#5A3A00}
+.i-quiz{background:linear-gradient(160deg,#C2B2FF,#7B5CFF);color:#fff}
+.i-chat{background:linear-gradient(160deg,#A8EFE6,#12B8A6);color:#04322D}
+.i-grey{background:#EDE5DA;color:#9C8B7B}
+.badge{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;border-radius:var(--pill);background:#fff;
+  border:2px solid var(--line);color:var(--red);font:800 10px/15px var(--body);text-align:center;padding:0 4px;box-shadow:1px 1px 0 rgba(36,24,17,.3)}
+.chatter{margin-top:14px;display:flex;gap:9px;align-items:center;padding:10px 12px;border-radius:16px;background:#fff;
+  border:2px solid var(--line);box-shadow:var(--sh);width:100%;color:var(--ink2);font:400 11px/1.55 var(--body);cursor:pointer;text-align:left}
+.chatter:active{transform:translate(1px,1px);box-shadow:2px 2px 0 rgba(36,24,17,.16)}
+.nowcard{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:12px 6px;border-radius:18px;
+  background:#fff;border:2px solid var(--line);box-shadow:var(--sh)}
+.nci{text-align:center;min-width:0}
+.nci b{display:block;font-family:var(--disp);font-size:18px;color:var(--red)}
+.nci span{font-size:9px;color:var(--muted)}
+.dock{position:absolute;left:14px;right:14px;bottom:18px;z-index:3;padding:12px 12px 10px;border-radius:26px;
+  background:rgba(255,255,255,.92);border:2px solid var(--line);box-shadow:5px 5px 0 rgba(36,24,17,.16);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.dock .ico{width:48px;height:48px;border-radius:16px;background:#FFF3DF;color:var(--ink);box-shadow:2px 2px 0 rgba(36,24,17,.55)}
+.dock .tile span{font-size:10px}
+.hint{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:120px;height:4px;border-radius:var(--pill);background:rgba(36,24,17,.4);z-index:80;cursor:pointer}
+/* ===== App 壳 ===== */
+.app{position:absolute;inset:0;padding-top:46px;display:none;flex-direction:column;background:var(--cream);z-index:11}
+.app.on{display:flex}
+.appbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 14px;background:#fff;border-bottom:2px solid var(--line)}
+.appbar .who{display:flex;align-items:center;gap:8px;min-width:0}
+.mark{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto;border:2px solid var(--line)}
+.mark svg{width:16px;height:16px}
+.appbar{min-height:52px}
+.appbar b{font-family:var(--disp);font-size:20px;line-height:1.6;padding-top:3px;letter-spacing:.03em;white-space:nowrap}
+.appbar i{font-style:normal;font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.abacts{display:flex;gap:6px;align-items:center}
+.homebtn{border:2px solid var(--line);background:#fff;color:var(--ink);font:700 11.5px var(--body);padding:6px 12px;border-radius:var(--pill);cursor:pointer;flex:0 0 auto;box-shadow:2px 2px 0 rgba(36,24,17,.5)}
+.homebtn:active{transform:translate(2px,2px);box-shadow:none}
+.body{flex:1;overflow-y:auto;padding:14px 16px 38px;scrollbar-width:none}
+#qzStage{display:flex;flex-direction:column;min-height:100%}
+.qz-gap{flex:1;min-height:14px}
+.qz-fill{flex:1;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.bloom{position:relative;width:96px;height:96px;display:grid;place-items:center;animation:spin 16s linear infinite}
+.bloom i{position:absolute;width:40px;height:40px;border-radius:50%;background:#FFD24A;border:2px solid var(--line);top:0;left:28px;transform-origin:20px 48px}
+.bloom i:nth-child(2){transform:rotate(60deg)}.bloom i:nth-child(3){transform:rotate(120deg)}
+.bloom i:nth-child(4){transform:rotate(180deg)}.bloom i:nth-child(5){transform:rotate(240deg)}
+.bloom i:nth-child(6){transform:rotate(300deg)}
+.bloom b{position:relative;z-index:2;width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;border:2px solid var(--line);
+  display:grid;place-items:center;font:400 17px var(--disp);animation:spin 16s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.qbubble{border:2px dashed var(--line);border-radius:999px;padding:7px 14px;font-size:11px;color:var(--muted);background:rgba(255,255,255,.7)}
+.qz-slip{position:relative;margin-top:18px;padding:12px 14px 13px;background:#fff;border:2px solid var(--line);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
+.qz-slip::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-2px;height:9px;background:
+  radial-gradient(circle at 6px 9px, transparent 0 5px, #fff 5px) repeat-x;background-size:12px 9px}
+.slip-h{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.14em;color:var(--muted);border-bottom:1.5px dashed #E3D5C2;padding-bottom:7px}
+.barcode{height:30px;margin:9px 0 7px;border-radius:3px;background:repeating-linear-gradient(90deg,#241811 0 2px,transparent 2px 5px,#241811 5px 7px,transparent 7px 12px,#241811 12px 13px,transparent 13px 17px);opacity:.72}
+.slip-f{font-size:10.5px;color:var(--muted)}
+.body::-webkit-scrollbar{display:none}
+.toast{position:absolute;left:50%;bottom:92px;transform:translate(-50%,14px);max-width:308px;padding:11px 15px;border-radius:16px;
+  background:var(--ink);border:2px solid var(--ink);color:#FFF8EE;font-size:12.5px;line-height:1.5;text-align:center;
+  opacity:0;pointer-events:none;transition:.22s;z-index:200;box-shadow:3px 3px 0 rgba(36,24,17,.25)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+/* ===== 通用组件 ===== */
+.h3{margin:20px 0 10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;font-family:var(--disp);font-size:20px;letter-spacing:.03em}
+.h3 em{font-style:normal;font-size:10.5px;color:var(--muted);font-family:var(--body);font-weight:400}
+.paper{background:#fff;color:var(--ink);border-radius:var(--r);border:2px solid var(--line);padding:12px 14px;box-shadow:var(--sh)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;height:50px;border:2px solid var(--line);border-radius:var(--pill);
+  font:700 15px var(--body);cursor:pointer;background:var(--red);color:#fff;box-shadow:3px 3px 0 var(--line);transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.btn.ghost{background:#fff;color:var(--ink)}
+.btn.sm{height:34px;font-size:12px;font-weight:700;width:auto;padding:0 15px;box-shadow:2px 2px 0 var(--line)}
+.btn.dim{background:#EFE7DC;color:#A79786;border-color:#D6C9B8;box-shadow:none;cursor:not-allowed}
+.rowline{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-size:11px;color:var(--muted)}
+.num{font-family:var(--disp);font-size:22px;line-height:1;color:var(--red)}
+.num small{font-size:11px}
+.tagx{font-size:9.5px;padding:3px 7px;border-radius:6px;border:1.5px solid;white-space:nowrap}
+.statusstrip{margin-top:12px;display:flex;gap:7px;flex-wrap:wrap;font-size:10.5px;color:var(--ink2)}
+.statusstrip span{padding:5px 9px;border-radius:8px;background:#fff;border:1.5px solid var(--line);font-weight:600}
+/* ===== 01 补贴 ===== */
+.subsidy{position:relative;margin-top:4px;border-radius:16px;padding:16px;background:linear-gradient(135deg,#FFE7C9,#FFD3A8);
+  border:2px dashed var(--red);box-shadow:var(--sh)}
+.subsidy .lab{font-size:9.5px;letter-spacing:.18em;color:#B8532F;font-weight:700}
+.subsidy .big{font-family:var(--disp);font-size:44px;line-height:1.05;color:var(--red);margin-top:5px}
+.subsidy .big small{font-size:15px;margin-left:3px}
+.subsidy .sub{margin-top:6px;font-size:11.5px;color:#7A4A2E;line-height:1.65}
+.subsidy .sbtn{margin-top:12px;height:42px;border:2px solid var(--line);border-radius:var(--pill);background:#fff;color:var(--ink);
+  font:700 13px var(--body);cursor:pointer;padding:0 16px;box-shadow:2px 2px 0 var(--line)}
+.subsidy .sbtn:active{transform:translate(2px,2px);box-shadow:none}
+.couponbox{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.cpk{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:#fff;border:2px dashed var(--mango)}
+.cpk .amt{font-family:var(--disp);font-size:22px;color:var(--red);line-height:1}
+.cpk .txt{font-size:11px;color:var(--ink2);line-height:1.5}
+.cpk .txt b{color:var(--red)}
+.cart{margin-top:8px;border-radius:14px;border:2px solid var(--line);background:#fff;padding:2px 12px 10px;box-shadow:var(--sh)}
+.cart .empty{padding:20px 0;text-align:center;font-size:11.5px;color:var(--muted)}
+.ci{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1.5px dashed #E3D5C2;font-size:12px}
+.ci:last-child{border-bottom:0}
+.ci img{width:34px;height:34px;object-fit:cover;border-radius:6px;border:1.5px solid var(--line)}
+.ci .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.ci .pr{font-family:var(--disp);font-size:15px;color:var(--red)}
+.ci .del{border:0;background:none;color:var(--muted);font-size:16px;cursor:pointer;padding:0 2px}
+.sumrow{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;font-size:11.5px;color:var(--ink2)}
+.sumrow b{font-family:var(--disp);font-size:20px;color:var(--red)}
+.gapbar{margin-top:6px;height:10px;border-radius:var(--pill);background:#FFE7D2;border:1.5px solid var(--line);overflow:hidden}
+.gapbar i{display:block;height:100%;background:linear-gradient(90deg,var(--mango),var(--red));transition:width .3s}
+/* ===== 02 比价 ===== */
+.qcard{margin-top:8px;border-radius:14px;overflow:hidden;background:#fff;border:2px solid var(--line);box-shadow:var(--sh)}
+.qcard .top{display:flex;gap:10px;padding:12px}
+.qcard .top img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1.5px solid var(--line)}
+.qcard .top .t{flex:1}
+.qcard .top b{font-size:13.5px;display:block}
+.qcard .top .d{margin-top:5px;font-size:10.5px;color:var(--muted);line-height:1.5}
+.shops{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.shop{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:#fff;border:2px solid var(--line);
+  cursor:pointer;text-align:left;color:inherit;font:inherit;width:100%;box-shadow:2px 2px 0 rgba(36,24,17,.14)}
+.shop:active{transform:translate(1px,1px);box-shadow:1px 1px 0 rgba(36,24,17,.14)}
+.shop .nm{flex:1;min-width:0}
+.shop .nm b{font-size:12.5px}
+.shop .nm i{display:block;font-style:normal;font-size:10px;color:var(--muted);margin-top:3px}
+.shop .calc{display:block;margin-top:4px;font:600 10.5px var(--body);color:var(--muted);letter-spacing:.01em}
+.shop .tot{font-family:var(--disp);font-size:18px;color:var(--son,var(--ink));white-space:nowrap;text-align:right}
+.shop .tot small{display:block;font:400 9px var(--body);color:var(--muted);margin-top:2px}
+.shop.ok{border-color:var(--mint);background:#E9FBF7}
+.shop.ok .tot{color:#0C8A7C}
+.shop.bad{border-color:var(--red);background:#FFEDE9}
+.explain{margin-top:11px;font-size:11.5px;line-height:1.75;color:var(--ink2);border-left:3px solid var(--mango);padding-left:11px}
+/* ===== 03 砍价 ===== */
+.knife-hero{margin-top:4px;display:flex;gap:12px;padding:12px;border-radius:14px;background:#FFEDE9;border:2px solid var(--red);box-shadow:var(--sh)}
+.knife-hero img{width:72px;height:72px;object-fit:cover;border-radius:10px;border:1.5px solid var(--line)}
+.knife-hero .t{flex:1;display:flex;flex-direction:column;gap:4px}
+.knife-hero b{font-size:13.5px}
+.knife-hero .was{font-size:10.5px;color:var(--muted);text-decoration:line-through}
+.knife-hero .now{font-family:var(--disp);font-size:27px;color:var(--red);line-height:1}
+.spoils{margin-top:12px;padding:10px 12px;border:1.5px dashed rgba(36,24,17,.3);border-radius:12px;background:#FFFDF8;font:600 11.5px/1.7 var(--body);color:var(--ink2)}
+.spoils b{color:var(--red)}
+.spoils .empty{color:var(--muted);font-weight:600}
+.loot{margin-top:12px;padding:10px 12px;border:1.5px dashed rgba(36,24,17,.3);border-radius:12px;background:#fff;font:600 12px/1.8 var(--body);color:var(--ink2)}
+.loot .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(36,24,17,.12);padding:3px 0}
+.loot .row:last-child{border-bottom:0}
+.loot .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.loot .pr{color:var(--red)}
+.loot .empty{color:var(--muted)}
+.kwall{display:flex;gap:7px;margin:10px 0 0;flex-wrap:wrap;align-items:center}
+.kwall .kv{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:800 12px var(--body);border:1.5px solid var(--line);background:#fff;color:var(--ink);box-shadow:0 2px 0 var(--line)}
+.kwall .kv.used{background:var(--mint);color:#fff;border-color:var(--mint);box-shadow:0 2px 0 #0a8a7c}
+.kwall .kv.you{background:var(--mango);color:#fff;border-color:var(--mango);box-shadow:0 2px 0 #c9820a}
+.kwall .kv.slot{border-style:dashed;color:var(--muted);box-shadow:none;font-weight:700;font-size:11px}
+.ktip{margin-top:8px;font:600 11.5px/1.6 var(--body);color:var(--muted)}
+.kprog{margin-top:14px;height:14px;border-radius:var(--pill);background:#FFE7D2;border:2px solid var(--line);position:relative;overflow:hidden}
+.kprog i{display:block;height:100%;width:0%;background:repeating-linear-gradient(45deg,var(--red),var(--red) 8px,#FF7A5C 8px,#FF7A5C 16px);transition:width .45s}
+.kmeta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:8px}
+.klist{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.krow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:#fff;border:2px solid var(--line);
+  width:100%;color:inherit;font:inherit;cursor:pointer;text-align:left;box-shadow:2px 2px 0 rgba(36,24,17,.14)}
+.krow:active{transform:translate(1px,1px);box-shadow:none}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:800 12px var(--body);color:#fff;flex:0 0 auto;border:2px solid var(--line)}
+.av.z{background:var(--mint)}.av.m{background:var(--pink)}.av.c{background:var(--mango)}.av.x{background:#EFE7DC;color:var(--muted)}
+.krow .nm{font-size:12.5px;font-weight:700}
+.krow .st{font-size:10px;color:var(--muted);margin-top:2px}
+.krow .v{margin-left:auto;font-family:var(--disp);font-size:16px;color:var(--red)}
+.krow .v.grey{color:#B7A695}
+/* ===== 04 直播 ===== */
+.live-wrap{position:relative;margin:-14px -16px 0;height:196px;background:url("assets/wall.jpg") center/cover;overflow:hidden;border-bottom:2px solid var(--line)}
+.live-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,248,238,.1),rgba(58,26,10,.62))}
+.live-top{position:absolute;top:10px;left:12px;right:12px;z-index:2;display:flex;align-items:center;gap:8px}
+.livetag{background:var(--red);color:#fff;font:800 9.5px var(--body);padding:4px 8px;border-radius:7px;border:1.5px solid var(--line);letter-spacing:.08em}
+.liveview{background:rgba(255,255,255,.9);color:var(--ink);font:700 9.5px var(--body);padding:4px 8px;border-radius:7px;border:1.5px solid var(--line)}
+.anchor{position:absolute;bottom:12px;left:12px;right:12px;z-index:2;display:flex;align-items:flex-end;gap:10px}
+.anchor .avat{width:40px;height:40px;border-radius:50%;background:linear-gradient(160deg,#FFC2D8,#FF7AA8);border:2px solid var(--line);flex:0 0 auto}
+.anchor .say{flex:1;font-size:11.5px;line-height:1.6;color:#fff;text-shadow:0 1px 5px rgba(58,26,10,.9);min-height:38px}
+.danmu{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.dm{position:absolute;white-space:nowrap;font-size:11px;color:#fff;text-shadow:0 1px 4px rgba(58,26,10,.9);animation:dm 5s linear forwards}
+@keyframes dm{from{transform:translateX(0)}to{transform:translateX(-260px)}}
+.linkbox{margin-top:14px;padding:12px;border-radius:14px;background:#fff;border:2px solid var(--sky);box-shadow:var(--sh)}
+.linkbox b{font-size:13px}
+.linkbox .pr{display:flex;align-items:baseline;gap:8px;margin-top:6px}
+.linkbox .pr .n{font-family:var(--disp);font-size:26px;color:var(--sky)}
+.linkbox .pr .was{font-size:11px;color:var(--muted);text-decoration:line-through}
+.cd3{margin-top:10px;display:flex;align-items:center;gap:9px}
+.cd3 .n{font-family:var(--disp);font-size:32px;color:var(--red)}
+.cd3 .t{font-size:11px;color:var(--ink2)}
+.grabrow{display:flex;gap:9px;margin-top:11px}
+/* ===== 05 剧情 ===== */
+.story-top{margin-top:2px;display:flex;align-items:center;gap:9px;font-size:10.5px;color:var(--muted)}
+.chapter{flex:1;height:5px;border-radius:3px;background:#FFE7D2;border:1.5px solid var(--line);overflow:hidden}
+.chapter i{display:block;height:100%;background:var(--pink);width:0;transition:width .4s}
+.dialogue{margin-top:12px;min-height:150px;padding:15px 14px;border-radius:16px;background:#fff;color:var(--ink);
+  border:2px solid var(--line);box-shadow:5px 5px 0 rgba(36,24,17,.14);position:relative}
+.dialogue::after{content:"";position:absolute;left:24px;bottom:-16px;width:0;height:0;border:8px solid transparent;border-top-color:var(--line)}
+.dialogue .who{display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+.dialogue .who .av{width:22px;height:22px;font-size:10px}
+.dialogue p{margin:10px 0 0;font-size:14px;line-height:1.8;white-space:pre-wrap;font-weight:500}
+.caret{display:inline-block;width:2px;height:14px;background:var(--red);vertical-align:-2px;animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.choices{margin-top:20px;display:flex;flex-direction:column;gap:9px}
+.choice{display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;padding:13px 14px;border-radius:14px;
+  border:2px solid var(--line);background:#fff;color:var(--ink);font:600 13px/1.6 var(--body);cursor:pointer;
+  box-shadow:2px 2px 0 rgba(36,24,17,.14)}
+.choice:active{transform:translate(1px,1px);box-shadow:none;background:#FFF3DF}
+.choice .k{font-family:var(--disp);font-size:14px;color:var(--pink);flex:0 0 auto}
+.choice .hintx{display:block;margin-top:3px;font-size:10.5px;color:var(--muted);font-weight:400}
+/* ===== 06 许愿池 ===== */
+.tk{position:relative;background:#fff;color:var(--ink);border-radius:4px;padding:12px 14px;margin-top:10px;
+  border:2px solid var(--line);box-shadow:4px 4px 0 rgba(36,24,17,.14)}
+.tk::before,.tk::after{content:"";position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--cream);border:2px solid var(--line);transform:translateY(-50%)}
+.tk::before{left:-8px}.tk::after{right:-8px}
+.tk .top{display:flex;justify-content:space-between;align-items:baseline}
+.tk .nm{font-size:13.5px;font-weight:700}
+.tk .px{font-family:var(--disp);font-size:19px;color:var(--red)}
+.tk .from{margin-top:6px;display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--muted)}
+.tk .from .av{width:18px;height:18px;font-size:9px}
+.tk .act{margin-top:10px}
+.stamp{position:absolute;right:12px;top:38px;transform:rotate(-11deg);border:2px solid var(--red);color:var(--red);
+  font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;letter-spacing:.1em;opacity:.85}
+.chips{margin-top:11px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:2px solid var(--line);background:#fff;color:var(--ink);font:700 11.5px var(--body);padding:9px 12px;border-radius:var(--pill);cursor:pointer;box-shadow:2px 2px 0 rgba(36,24,17,.4)}
+.chip:active{transform:translate(2px,2px);box-shadow:none}
+.chip.on{background:var(--pink);color:#fff}
+.wishscroll{margin-top:8px;display:flex;flex-direction:column;gap:8px;max-height:186px;overflow-y:auto;padding:2px 2px 6px}
+.wrow2{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border:1.5px solid rgba(36,24,17,.16);border-radius:9px;background:#fff;font-size:11.5px;animation:wslide .4s ease}
+.wrow2 b{font:700 10px/1.6 var(--body);color:#7A5900;background:#FFF0BC;border:1px solid #E8C871;border-radius:5px;padding:1px 5px;flex:0 0 auto}
+.wrow2 span{color:var(--ink2);line-height:1.45}
+@keyframes wslide{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.winput{font:600 12.5px var(--body);border:1.5px solid rgba(36,24,17,.22);border-radius:7px;padding:3px 6px;background:#FFFDF7;color:var(--ink);width:100%;box-sizing:border-box}
+.winput:focus{outline:none;border-color:#E03A20}
+.tk .nm{flex:1;min-width:0}
+.tk .px{display:flex;align-items:baseline;gap:3px;flex:0 0 auto}
+.tk .act{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+.tk .act .btn{width:auto;flex:1 1 96px;padding:0 10px}
+.wprice{width:66px;text-align:right;font-family:var(--disp);font-size:13px}
+.wline{display:flex;gap:8px;align-items:center;border:2px solid var(--line);background:#fff;border-radius:11px;padding:8px 10px;
+  box-shadow:3px 3px 0 rgba(36,24,17,.10);animation:wdrop .34s ease}
+.wline.real{border-color:var(--mint);background:#F2FFFC}
+@keyframes wdrop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.wline .av{width:22px;height:22px;font-size:10px;flex:0 0 22px}
+.wline .tx{flex:1;min-width:0;font-size:11.5px;line-height:1.45}
+.wline .tx b{font-size:11px;margin-right:4px}
+.wline .px{font:700 12px var(--disp);color:var(--red);white-space:nowrap}
+.tk .editbtn{margin-top:9px;border:2px solid var(--line);background:#fff;color:var(--ink2);font:700 10.5px var(--body);
+  border-radius:999px;padding:5px 11px;cursor:pointer;box-shadow:2px 2px 0 rgba(36,24,17,.25)}
+.wedit{display:flex;gap:6px;margin-top:9px}
+.wedit input{flex:1;min-width:0;border:2px solid var(--line);border-radius:9px;padding:8px 10px;
+  font:700 12px var(--body);color:var(--ink);background:#FFFDF7}
+.wedit input.pxi{flex:0 0 76px}
+.wedit button{border:2px solid var(--line);border-radius:9px;background:var(--mango);font:800 11.5px var(--body);
+  padding:0 12px;cursor:pointer;box-shadow:2px 2px 0 rgba(36,24,17,.35);white-space:nowrap}
+/* ===== 07 结算 ===== */
+.flower{position:relative;width:186px;height:186px;margin:10px auto 0}
+.petal{position:absolute;left:50%;top:50%;width:56px;height:78px;margin:-39px 0 0 -28px;border:2px solid var(--line);
+  border-radius:50% 50% 44% 44%/58% 58% 42% 42%;
+  background:radial-gradient(circle at 50% 22%,#FFF3C8,#FFD24A 70%);transform-origin:50% 50%;box-shadow:2px 3px 0 rgba(36,24,17,.16)}
+.petal.dim{background:#F1E7D8;border-color:#C9B9A5;box-shadow:none}
+.core{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;
+  background:radial-gradient(circle at 40% 34%,#FF7A5C,var(--red) 70%);display:grid;place-items:center;border:2px solid var(--line);
+  font-family:var(--disp);font-size:30px;color:#fff;box-shadow:3px 3px 0 rgba(36,24,17,.3)}
+.settle-h{text-align:center;margin-top:14px;font-family:var(--disp);font-size:26px}
+.settle-s{text-align:center;margin-top:4px;font-size:11.5px;color:var(--muted)}
+.petal-list{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.pl{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;background:#fff;border:1.5px solid var(--line);font-size:11.5px;color:var(--ink2)}
+.pl i{width:8px;height:8px;border-radius:50%;background:var(--mango);border:1px solid var(--line);flex:0 0 auto}
+.pl.off i{background:#E4D6C4}
+.pl.off{color:#A2917E}
+.pl b{margin-left:auto;font-family:var(--disp);font-size:14px;color:var(--red)}
+.titleblock{margin-top:12px;background:linear-gradient(135deg,#FFE7C9,#FFD3A8);border:2px solid var(--line);border-radius:14px;padding:12px 15px;box-shadow:var(--sh)}
+.titleblock .lab{font-size:9.5px;letter-spacing:.16em;color:#B8532F;font-weight:700}
+.titleblock .tt{font-family:var(--disp);font-size:28px;margin-top:3px;color:var(--ink)}
+.report{margin-top:12px;white-space:pre-line;font-size:11.5px;line-height:1.85;color:var(--ink2);border-left:3px solid var(--red);padding-left:11px}
+/* ===== 08 购格 ===== */
+.qz-prog{display:flex;align-items:center;gap:9px;margin-top:2px;font-size:10.5px;color:var(--muted);font-weight:600}
+.qz-track{flex:1;height:8px;border-radius:var(--pill);background:#EFE4D4;border:1.5px solid var(--line);overflow:hidden}
+.qz-track i{display:block;height:100%;background:var(--grape);width:0;transition:width .35s}
+.qz-num{margin-top:18px;font-size:10px;letter-spacing:.2em;color:var(--grape);font-weight:800}
+.qz-q{margin-top:8px;font-family:var(--disp);font-size:25px;line-height:1.42;color:var(--ink)}
+.qz-hint{margin-top:7px;font-size:10.5px;color:var(--muted);line-height:1.6}
+.qz-opts{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.qz-opt{display:flex;gap:11px;width:100%;text-align:left;padding:14px 15px;border-radius:14px;border:2px solid var(--line);
+  background:#fff;color:var(--ink);font:500 13px/1.62 var(--body);cursor:pointer;box-shadow:2px 2px 0 rgba(36,24,17,.14)}
+.qz-opt:active{transform:translate(1px,1px);box-shadow:none;background:#F4F0FF;border-color:var(--grape)}
+.qz-opt .k{font-family:var(--disp);font-size:14px;color:var(--grape);flex:0 0 auto}
+.qz-dots{display:flex;gap:6px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.qz-dots i{width:8px;height:8px;border-radius:50%;background:#E7DACA;border:1.5px solid var(--line)}
+.qz-dots i.on{background:var(--grape)}
+.qz-foot{margin-top:10px;text-align:center;font-size:10px;color:var(--muted);letter-spacing:.03em}
+.qz-note{margin-top:34px;padding:14px 0 0;border-top:1.5px dashed #E3D5C2;font-size:11px;line-height:1.8;color:var(--muted);text-align:center}
+.qz-code{margin-top:12px;text-align:center;font-family:var(--disp);font-size:48px;letter-spacing:.08em;color:var(--grape)}
+.qz-name{text-align:center;font-family:var(--disp);font-size:23px;margin-top:0;color:var(--ink)}
+.qz-sub{text-align:center;margin-top:5px;font-size:10.5px;color:var(--muted)}
+.qz-axis{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:11px;color:#B3A08C}
+.qz-axis span{width:38px;text-align:center;font:600 11px var(--body);white-space:nowrap}
+.qz-axis span.win{color:var(--ink);font-weight:800}
+.qz-axis .bar{flex:1;height:8px;border-radius:99px;background:#EFE4D4;border:1.5px solid var(--line);position:relative;overflow:hidden}
+.qz-axis .bar i{position:absolute;left:0;top:0;height:100%;width:50%;background:var(--grape)}
+.qz-axis .bar i.r{left:auto;right:0;background:var(--mango)}
+.qz-desc{margin-top:14px;font-size:11.5px;line-height:1.85;color:var(--ink2);border-left:3px solid var(--grape);padding-left:11px}
+.qz-perk{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.qz-perk div{padding:9px 12px;border-radius:10px;background:#F4F0FF;border:1.5px solid var(--grape);font-size:11px;color:#4B3699;font-weight:600}
+.qz-friends{margin-top:12px;padding:11px 13px;border-radius:12px;background:#fff;border:2px dashed var(--grape);font-size:11px;line-height:1.7;color:var(--ink2)}
+.qz-friends b{color:var(--grape)}
+/* ===== 群聊 ===== */
+.chat-room{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;background:#fff;border:2px solid var(--line);box-shadow:var(--sh);font-size:11px;color:var(--ink2)}
+.feed{margin-top:12px;display:flex;flex-direction:column;gap:11px;padding-bottom:6px}
+.msg{display:flex;gap:8px;align-items:flex-start}
+.msg .av{width:30px;height:30px;font-size:11px}
+.msgb{flex:1;min-width:0;background:#fff;border:2px solid var(--line);border-radius:4px 14px 14px 14px;padding:8px 11px;box-shadow:2px 2px 0 rgba(36,24,17,.12)}
+.msg .top{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);margin-bottom:3px;flex-wrap:wrap}
+.msg .top b{font-size:11px;color:var(--ink);font-weight:800}
+.msg .txt{font-size:11.5px;line-height:1.65;color:var(--ink)}
+.msg.mine{flex-direction:row-reverse}
+.msg.mine .msgb{background:#FFF3D2;border-color:var(--line);border-radius:14px 4px 14px 14px}
+.msg.mine .top{justify-content:flex-end}
+.atag{font:800 9px var(--body);padding:2px 6px;border-radius:6px;color:#fff;white-space:nowrap}
+.atag.jd{background:var(--red)}.atag.tb{background:var(--mango);color:#5A3600}.atag.pdd{background:#FF3D63}
+.atag.live{background:var(--sky)}.atag.story{background:var(--pink)}.atag.wish{background:#E8B400;color:#4A2A00}
+.atag.quiz{background:var(--grape)}.atag.settle{background:var(--ink)}.atag.chat{background:var(--mint)}
+.msg.new .msgb{animation:pop .26s ease-out}
+@keyframes pop{from{transform:translateY(6px);opacity:.2}to{transform:none;opacity:1}}
+.chat-foot{flex:0 0 auto;padding:8px 14px 10px;background:#fff;border-top:2px solid var(--line);box-shadow:0 -3px 0 rgba(36,24,17,.06)}
+.chat-input{display:flex;gap:8px;align-items:center}
+.chat-input input{flex:1;height:42px;border-radius:var(--pill);border:2px solid var(--line);padding:0 14px;font:500 13px var(--body);background:#fff;outline:none}
+.chat-input input:focus{border-color:var(--grape)}
+.chat-input button{width:auto;height:42px;padding:0 16px;border-radius:var(--pill);border:2px solid var(--line);background:var(--red);color:#fff;font:800 12px var(--body);cursor:pointer;box-shadow:2px 2px 0 var(--line)}
+/* ===== 面板 / 弹层 ===== */
+.scrim{position:absolute;inset:0;z-index:150;background:rgba(74,53,39,.3);opacity:0;pointer-events:none;transition:.2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:160;background:var(--cream);border-top:2px solid var(--line);
+  border-radius:24px 24px 0 0;padding:14px 18px calc(20px + env(safe-area-inset-bottom));max-height:88%;overflow-y:auto;
+  transform:translateY(102%);transition:transform .28s cubic-bezier(.2,.9,.2,1);scrollbar-width:none}
+.sheet::-webkit-scrollbar{display:none}
+.sheet.on{transform:none}
+.sheet .grab{width:44px;height:5px;border-radius:var(--pill);background:#CDBCA8;margin:0 auto 12px}
+.sheet h2{margin:0 0 3px;font-family:var(--disp);font-size:22px;font-weight:400}
+.sheet .sd{font-size:10.5px;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.me-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.me-cell{background:#fff;border:2px solid var(--line);border-radius:12px;padding:9px 8px;text-align:center}
+.me-cell b{display:block;font-family:var(--disp);font-size:19px;color:var(--red)}
+.me-cell span{font-size:9px;color:var(--muted)}
+.me-line{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1.5px dashed #E3D5C2;font-size:11.5px;color:var(--ink2)}
+.me-line b{font-family:var(--disp);font-size:15px;color:var(--ink);text-align:right;padding-right:2px;min-width:0}
+.rank-row{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:10px;background:#fff;border:2px solid var(--line);margin-top:7px;font-size:11.5px}
+.rank-row b{margin-left:auto;font-family:var(--disp);font-size:15px;color:var(--red)}
+.rank-row .rn{font-family:-apple-system,"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;font-size:12px;font-weight:700;color:var(--ink)}
+/* ---- 转盘 ---- */
+.wheelbox{margin-top:14px;padding:16px 12px 14px;border:2px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 4px 0 var(--line)}
+.wheelbox .h3{font-family:var(--body);font-size:15px;font-weight:800;line-height:1.5;margin:0 0 2px}
+.wheel-wrap{position:relative;width:200px;height:200px;margin:12px auto 4px}
+.wheel{position:absolute;inset:0;border-radius:50%;border:3px solid var(--line);
+  background:conic-gradient(#FFD9D4 0 45deg,#FFEFC2 45deg 90deg,#D8F5E8 90deg 135deg,#E3EBFF 135deg 180deg,#FFD9D4 180deg 225deg,#FFEFC2 225deg 270deg,#D8F5E8 270deg 315deg,#E3EBFF 315deg 360deg);
+  transition:transform 2.6s cubic-bezier(.16,.86,.16,1);will-change:transform}
+.wl{position:absolute;left:50%;top:50%;width:64px;margin:-8px 0 0 -32px;font:700 11px var(--body);line-height:1.25;text-align:center;color:#4A3527}
+.wpin{position:absolute;left:50%;top:-8px;margin-left:-8px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:16px solid var(--red)}
+.wcore{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:var(--red);color:#fff;font:700 12px var(--disp);display:grid;place-items:center;border:2px solid var(--line);z-index:2}
+.wrow{display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--ink2)}
+.linkbtn{display:block;width:100%;margin-top:9px;background:none;border:0;font:700 12px var(--body);color:var(--sky);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.jdgrid .tile{align-items:stretch;gap:0}
+.hbtn{margin-top:6px;padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:var(--mango);
+  font:700 12px var(--body);color:#241811;box-shadow:0 2px 0 var(--line);cursor:pointer}
+
+.rank-row.me{background:#FFF3D2}
+
+/* ---- 补贴货架 ---- */
+.scard{position:relative;display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:12px;border:2px solid var(--line);background:#fff;box-shadow:0 3px 0 var(--line);cursor:pointer;text-align:left}
+.scard.on{border-color:var(--red);background:#FFF5F1;box-shadow:0 0 0 2px #FFD8D1,0 3px 0 var(--red)}
+.scard .tk{position:absolute;right:6px;top:6px;z-index:2;padding:2px 7px;border-radius:999px;font:800 10px var(--body);letter-spacing:.02em}
+.scard .tk.incart{background:var(--red);color:#fff}
+.scard .tk.bought{background:#241811;color:#fff}
+.jdselect{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.schip{border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;background:#fff;font:700 12px var(--body);cursor:pointer;box-shadow:0 2px 0 var(--line)}
+.schip.on{background:var(--mango);color:#fff}
+.scard:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.scard .pic{position:relative;display:grid;place-items:center;height:74px;border-radius:9px;font:700 26px var(--disp);color:#7A3200;overflow:hidden}
+.scard .pic img{width:100%;height:100%;object-fit:cover}
+.scard .pic .chit{position:absolute;inset:7px;display:flex;align-items:center;justify-content:center;
+  border:2px dashed rgba(36,24,17,.34);border-radius:8px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 6px,rgba(255,255,255,.12) 6px 12px);
+  font:700 25px var(--disp);color:#8A4B00;letter-spacing:.06em}
+.scard .nm{font:700 11.5px/1.3 var(--body);color:var(--ink)}
+.scard .pr{display:flex;align-items:baseline;gap:5px;font:700 15px var(--disp);color:var(--red)}
+.scard .pr i{font:700 9px var(--body);color:#8A6300;background:#FFE9A8;border:1px solid #E8C871;border-radius:4px;padding:1px 4px;font-style:normal}
+.scard .pr s{font:600 9.5px var(--body);color:var(--muted)}
+/* ---- 群内助力按钮 ---- */
+.chat-act{display:block;margin-top:7px;padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:var(--mango);font:800 11px var(--body);color:#241811;box-shadow:0 2px 0 var(--line);cursor:pointer}
+.chat-act[disabled]{background:#EFE4D4;color:#8A7360;box-shadow:none;cursor:default}
+/* ---- 直播间货架 ---- */
+.liveshelf{display:flex;gap:9px;overflow-x:auto;padding:3px 2px 8px;margin-top:8px;-webkit-overflow-scrolling:touch}
+.lsitem{flex:0 0 102px;padding:8px;border-radius:11px;border:2px solid var(--line);background:#fff;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.lsitem.on{background:#FFEFC2;border-color:#E0A800}
+.lsitem b{font:700 11px/1.35 var(--body);color:var(--ink);display:block;height:32px;overflow:hidden}
+.lsitem span{font:700 12px var(--disp);color:var(--red)}
+.lsitem em{font:600 8.5px var(--body);color:var(--muted);font-style:normal}
+.poster-wrap{position:absolute;inset:0;z-index:170;display:none;place-items:center;background:rgba(36,24,17,.55);padding:18px}
+.poster-wrap.on{display:grid}
+.poster-card{width:100%;max-width:318px;background:#fff;border:2px solid var(--line);border-radius:18px;padding:12px;box-shadow:6px 6px 0 rgba(36,24,17,.4)}
+.poster-card img{width:100%;border-radius:10px;display:block;border:1.5px solid var(--line)}
+.poster-card .prow{display:flex;gap:8px;margin-top:10px}
+.poster-card .phint{display:none;margin-top:8px;font:600 11px/1.6 var(--body);color:#8A7360;text-align:center}
+.poster-card img{-webkit-touch-callout:default;user-select:auto}
+.poster-card button{flex:1;height:40px;border-radius:var(--pill);border:2px solid var(--line);background:#fff;font:800 12px var(--body);cursor:pointer;box-shadow:2px 2px 0 var(--line)}
+.poster-card button.primary{background:var(--red);color:#fff}
+.poster-card .close{width:100%;margin-top:8px;height:34px;border:0;background:none;color:var(--muted);font:600 11px var(--body);cursor:pointer}
+</style>
+</head>
+<body>
+<script>
+/* 从 http 搬到 https 时把本机存档一起搬过去，避免老玩家进度丢失 */
+(function () {
+  var H = location.hostname;
+  if (location.protocol === 'http:' && /zhuhongquan\.com$/.test(H)) {
+    try {
+      var pack = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (/^hx_/.test(k)) pack[k] = localStorage.getItem(k);
+      }
+      location.replace('https://' + location.host + location.pathname + location.search + '#mig=' + encodeURIComponent(JSON.stringify(pack)));
+    } catch (e) {}
+  }
+  if (location.hash.indexOf('#mig=') === 0) {
+    try {
+      var obj = JSON.parse(decodeURIComponent(location.hash.slice(5)));
+      Object.keys(obj).forEach(function (k) {
+        if (/^hx_/.test(k) && !localStorage.getItem(k)) localStorage.setItem(k, obj[k]);
+      });
+      history.replaceState(null, '', location.pathname + location.search);
+    } catch (e2) {}
+  }
+})();
+</script>
+
+<div class="stage"><div class="phone"><div class="screen" id="screen">
+  <div class="notch"></div>
+
+  <div class="status">
+    <div class="left"><span class="clk" id="clk">--:--</span><span class="day" id="day">--月--日 · 周-</span></div>
+    <div class="right">
+      <svg width="16" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+      <span style="font-size:10px;font-weight:700">5G</span>
+      <svg width="23" height="11" viewBox="0 0 24 11" fill="none"><rect x=".5" y=".5" width="19" height="10" rx="2.5" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="13" height="7" rx="1.5" fill="currentColor"/><rect x="21" y="3.5" width="2" height="4" rx="1" fill="currentColor" opacity=".5"/></svg>
+    </div>
+  </div>
+
+  <!-- ===================== 桌面 ===================== -->
+  <div class="layer launcher" id="home">
+    <div class="in">
+      <div class="clockbig" id="clockbig">--:--</div>
+      <div class="clockmeta"><span id="dayMeta">--月--日</span> · 第 <b id="wave">3</b> 波 · 全房间进度 <b id="prog">62%</b></div>
+      <div class="coinbar">
+        <div class="coin"><em>开心币</em><b id="coinTxt">300</b></div>
+        <div class="room"><span class="live"></span>1111 · <span id="onlineN">4</span> 人在线</div>
+      </div>
+
+      <div class="grid">
+        <button class="tile" onclick="go('jd')"><span class="ico i-jd"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Z"/></svg><span class="badge">60</span></span><span>大额补贴</span></button>
+        <button class="tile" onclick="go('tb')"><span class="ico i-tb"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM128,80a48,48,0,1,0,48,48A48,48,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></svg></span><span>比价神器</span></button>
+        <button class="tile" onclick="go('pdd')"><span class="ico i-pdd"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M157.73,113.13A8,8,0,0,1,159.82,102L227.48,55.7a8,8,0,0,1,9,13.21l-67.67,46.3a7.92,7.92,0,0,1-4.51,1.4A8,8,0,0,1,157.73,113.13Zm80.87,85.09a8,8,0,0,1-11.12,2.08L136,137.7,93.49,166.78a36,36,0,1,1-9-13.19L121.83,128,84.44,102.41a35.86,35.86,0,1,1,9-13.19l143,97.87A8,8,0,0,1,238.6,198.22Z"/></svg><span class="badge" style="background:#FFD24A;color:#4A2A00">3</span></span><span>砍一刀</span></button>
+        <button class="tile" onclick="go('live')"><span class="ico i-live"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M164,124.7l-44,28a8,8,0,0,1-12-6.7V104a8,8,0,0,1,12-6.7l44,28A8,8,0,0,1,164,124.7Z"/></svg><span class="badge" style="background:#2E8BFF;color:#fff;font-size:8px;padding:0 4px;right:-2px;line-height:15px">直播</span></span><span>直播间</span></button>
+
+        <button class="tile" onclick="go('story')"><span class="ico i-story"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40Z"/></svg></span><span>真情买买买</span></button>
+        <button class="tile" onclick="go('wish')"><span class="ico i-wish"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Z"/></svg><span class="badge" style="background:#fff;color:#251A12">2</span></span><span>许愿池</span></button>
+        <button class="tile" onclick="go('quiz')"><span class="ico i-quiz"><svg viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="currentColor" stroke-width="14" opacity=".55"/><path d="M128 32v192M32 128h192" stroke="currentColor" stroke-width="14" opacity=".55"/><circle cx="128" cy="128" r="24" fill="currentColor"/></svg><span class="badge" style="background:#FFD24A;color:#4A2A00">测</span></span><span>购格测试</span></button>
+        <button class="tile" onclick="go('chat')"><span class="ico i-chat"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,124a8,8,0,0,1-8,8H85l-40,36a8,8,0,0,1-13-6V60a8,8,0,0,1,8-8H224a8,8,0,0,1,8,8Z"/></svg><span class="badge" id="chatBadge">0</span></span><span>1111 群聊</span></button>
+      </div>
+
+      <div class="nowcard">
+        <div class="nci"><b id="nowWish">0/3</b><span>心愿</span></div>
+        <div class="nci"><b id="nowCoin">300</b><span>预算剩余</span></div>
+        <div class="nci"><b id="nowRank">第 2</b><span>房间排名</span></div>
+        <div class="nci"><b id="nowDebt">2</b><span>人情债</span></div>
+      </div>
+
+      <button class="chatter" onclick="go('chat')">
+        <span class="av m" id="homeChatAv">M</span>
+        <span style="flex:1"><b style="color:#251A12">阿May</b> · <span id="homeChatT">21:06</span>　<span id="homeChatMsg">我把你那件空气炸锅截了，别砍了 —— 反正你也砍不到。</span></span>
+        <span style="color:#8A7360;font-size:10px;font-weight:700">群</span>
+      </button>
+    </div>
+    <div class="dock">
+      <button class="tile" onclick="go('settle')"><span class="ico"><svg viewBox="0 0 256 256" fill="currentColor"><ellipse cx="128" cy="72" rx="34" ry="50"/><ellipse cx="184" cy="128" rx="50" ry="34"/><ellipse cx="184" cy="184" rx="34" ry="50"/></svg></span><span>结算</span></button>
+      <button class="tile" onclick="openRank()"><span class="ico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,208a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V96a8,8,0,0,1,8-8h64a8,8,0,0,1,8,8Zm-88,0V32a8,8,0,0,0-8-8H40a8,8,0,0,0-8,8v176a8,8,0,0,0,8,8H144A8,8,0,0,0,144,208Z"/></svg></span><span>排行</span></button>
+      <button class="tile" onclick="openMe()"><span class="ico"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M128,80a48,48,0,1,0,48,48A48,48,0,0,0,128,80Zm0,120a80,80,0,0,1-64-32c0-32,48-40,64-40s64,8,64,40A80,80,0,0,1,128,200Z"/></svg></span><span>我</span></button>
+      <button class="tile" onclick="openSettings()"><span class="ico"><svg viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="88" stroke="currentColor" stroke-width="16"/><circle cx="128" cy="128" r="30" stroke="currentColor" stroke-width="16"/></svg></span><span>设置</span></button>
+    </div>
+    <div class="hint" onclick="home()"></div>
+  </div>
+  <!-- ===================== 01 大额补贴 ===================== -->
+  <section class="app" id="app-jd">
+    <div class="appbar">
+      <div class="who"><span class="mark i-jd"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96Z"/></svg></span><b>大额补贴</b><i>满 300 减 60</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div class="subsidy">
+        <div class="lab">双十一 · 平台补贴池</div>
+        <div class="big">60<small>元</small> 起</div>
+        <div class="sub">补贴不是白给的：领到手，就得把购物车凑到 300 才用得上。<br>还差多少，下面这行会一直算给你看。</div>
+        <button class="sbtn" id="jdDraw" onclick="jdDraw()">抽一次补贴券（还有 <span id="drawLeftTxt">3</span> 次）</button>
+      </div>
+
+      <div class="couponbox" id="jdCoupons"></div>
+
+      <div class="h3">凑单区<em>加一件，差额就变一次</em></div>
+      <div class="cart" id="jdCart">
+        <div class="empty">还空着。下面货架随便点，先凑到 300。</div>
+      </div>
+      <div class="sumrow"><span>合计</span><b id="jdTotal">¥0</b></div>
+      <div class="sumrow"><span id="jdGapTxt">还差 300 块到满减</span><span style="color:#FF3D2E;font-weight:700" id="jdSaveTxt">可省 ¥0</span></div>
+      <div class="gapbar"><i id="jdBar" style="width:0%"></i></div>
+      <button class="btn" id="jdPay" style="margin-top:14px" onclick="jdPay()">结算这一车</button>
+
+      <div class="h3">今日货架<em id="jdShelfTip">28 件，点一下进凑单区</em></div>
+      <div class="jdselect" id="jdSort">
+        <button class="schip on" onclick="jdSortBy('hot')">默认</button>
+        <button class="schip" onclick="jdSortBy('price')">价格从低到高</button>
+        <button class="schip" onclick="jdSortBy('off')">补贴力度</button>
+      </div>
+      <div class="grid jdgrid" id="jdShelf" style="margin-top:9px;gap:10px;grid-template-columns:1fr 1fr"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 02 比价神器 ===================== -->
+  <section class="app" id="app-tb">
+    <div class="appbar">
+      <div class="who"><span class="mark i-tb"><svg viewBox="0 0 256 256" fill="currentColor"><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-width="16"/><circle cx="128" cy="128" r="40" fill="none" stroke="currentColor" stroke-width="16"/></svg></span><b>比价神器</b><i>同一件，四家店</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div class="statusstrip" style="margin-top:2px"><span>第 <b id="tbIdx">1</b> / <span id="tbTotalNum">10</span> 件</span><span>答对 <b id="tbScore">0</b></span><span>先涨后降预警 <b id="tbWarn">1</b></span></div>
+      <div class="qcard">
+        <div class="top">
+          <img id="tbImg" src="assets/blanket.jpg" alt="比价商品">
+          <div class="t"><b id="tbName">羊毛毯</b><div class="d" id="tbDesc">四家店挂的价一样，到手价不一样。谁最低？</div></div>
+        </div>
+      </div>
+      <div class="shops" id="tbShops"></div>
+      <div class="explain" id="tbExplain">到手价 = 标价 − 店铺券 + 运费。别只看那个划了线的数字。</div>
+      <button class="btn ghost" style="margin-top:14px" id="tbNext" onclick="tbNext()" disabled>下一件</button>
+    </div>
+  </section>
+  <!-- ===================== 03 砍一刀 ===================== -->
+  <section class="app" id="app-pdd">
+    <div class="appbar">
+      <div class="who"><span class="mark i-pdd"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M157.73,113.13A8,8,0,0,1,159.82,102L227.48,55.7a8,8,0,0,1,9,13.21l-67.67,46.3a7.92,7.92,0,0,1-4.51,1.4A8,8,0,0,1,157.73,113.13Zm80.87,85.09a8,8,0,0,1-11.12,2.08L136,137.7,93.49,166.78a36,36,0,1,1-9-13.19L121.83,128,84.44,102.41a35.86,35.86,0,1,1,9-13.19l143,97.87A8,8,0,0,1,238.6,198.22Z"/></svg></span><b>砍一刀</b><i>砍到 0 元，或者被截走</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div class="knife-hero">
+        <img src="assets/airfryer.jpg" alt="空气炸锅">
+        <div class="t"><b>空气炸锅 · 已在砍</b><span class="was">原价 ¥199</span><span class="now">¥<span id="pddPrice">199.00</span></span></div>
+      </div>
+      <div class="kprog"><i id="pddBar"></i></div>
+      <div class="kmeta"><span>已砍掉 <b style="color:#FF3D2E" id="pddCut">0.00</b> 元</span><span>还给 <b id="pddLeft">100.00</b> 就到手</span></div>
+      <div class="kwall" id="pddWall"></div>
+      <div class="ktip" id="pddTip">还差 199.00 元 · 已经砍了 0%</div>
+      <div class="klist" id="pddList"></div>
+      <button class="btn" style="margin-top:14px" onclick="pddSelf()">自己砍一刀</button>
+      <button class="btn ghost" style="margin-top:9px" onclick="pddShare()">甩到 1111 群，让人来砍</button>
+
+      <div class="wheelbox">
+        <div class="h3" style="margin:0 0 4px">补贴转盘<em>转一次少一次 · 群友点一下 +1</em></div>
+        <div class="wheel-wrap">
+          <div class="wheel" id="wheel"></div>
+          <div class="wpin"></div>
+          <div class="wcore" id="wcore">转</div>
+        </div>
+        <div class="wrow"><span>还剩 <b id="spinLeft">3</b> 次</span><button class="btn" style="width:auto;padding:0 24px;margin:0" id="spinBtn" onclick="spin()">转一下</button></div>
+        <button class="linkbtn" onclick="askSpin()">次数用完了？丢到 1111 群，别人点一下就给你 +1 次</button>
+      </div>
+
+
+      <div class="paper" style="margin-top:14px;font-size:11.5px;line-height:1.75">
+        <b>这局的规则：</b>砍下来的钱不归砍的人。任意好友在 30 秒内点「截胡」，你省下的那部分就进他购物车 —— 所以你得算<b>什么时候喊人</b>。
+      </div>
+    </div>
+  </section>
+  <!-- ===================== 04 直播间 ===================== -->
+  <section class="app" id="app-live">
+    <div class="appbar">
+      <div class="who"><span class="mark i-live"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M164,124.7l-44,28a8,8,0,0,1-12-6.7V104a8,8,0,0,1,12-6.7l44,28A8,8,0,0,1,164,124.7Z"/></svg></span><b>直播间</b><i>手速 + 眼力</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div class="live-wrap">
+        <div class="danmu" id="danmu"></div>
+        <div class="live-top"><span class="livetag">直播中</span><span class="liveview">1.2 万人看 · 1111 房间 3 人在</span></div>
+        <div class="anchor">
+          <div class="avat"></div>
+          <div class="say" id="anchorSay">家人们，今天这个价我不敢挂太久，你们自己看。</div>
+        </div>
+      </div>
+
+      <div class="linkbox" id="liveBox" style="margin-top:16px">
+        <b id="liveName">羊毛毯 · 福利款</b>
+        <div class="pr"><span class="n" id="livePrice">¥45</span><span class="was" id="liveWas">日常 ¥89</span></div>
+        <div class="cd3"><span class="n" id="liveCd">3</span><span class="t" id="liveCdTxt">倒计时结束才上链接，抢慢一步就没了</span></div>
+        <div class="grabrow">
+          <button class="btn dim" id="liveGrab" onclick="liveGrab()" disabled>等倒计时</button>
+          <button class="btn ghost" style="width:76px;font-size:12px;padding:0" onclick="liveNext()">换一个</button>
+        </div>
+      </div>
+
+      <div class="spoils" id="liveSpoils"></div>
+
+      <div class="h3">今晚还有这些<em id="liveCount">整场 12 件，换着抢</em></div>
+      <div class="liveshelf" id="liveShelf"></div>
+
+      <div class="h3">弹幕里有人在说实话<em>看仔细</em></div>
+      <div class="paper" style="font-size:11.5px;line-height:1.8">
+        主播喊的是「福利价」，但有的场次是<b>先涨后降</b>：昨天 89，今天标「日常 129 / 福利 89」。<br>
+        抢到抬价的链接，预算照扣，群里会给你记一笔 —— 这就是「冤大头」的来路。
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 05 真情买买买 ===================== -->
+  <section class="app" id="app-story">
+    <div class="appbar">
+      <div class="who"><span class="mark i-story"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40Z"/></svg></span><b>真情买买买</b><i>文字局 · 每个选择都记账</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div class="story-top"><span id="stCh">序章</span><div class="chapter"><i id="stProg" style="width:0%"></i></div><span id="stNo">1/6</span></div>
+      <div class="dialogue">
+        <div class="who"><span class="av m" id="stAv">M</span><span id="stWho">阿May</span></div>
+        <p id="stText"></p>
+      </div>
+      <div class="choices" id="stChoices"></div>
+      <div class="statusstrip">
+        <span>开心 <b id="stJoy" style="color:#FFB31F">0</b></span>
+        <span>预算 <b id="stCoin" style="color:#FF3D2E">300</b></span>
+        <span>人情 <b id="stDebt" style="color:#7B5CFF">2</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 06 许愿池 ===================== -->
+  <section class="app" id="app-wish">
+    <div class="appbar">
+      <div class="who"><span class="mark i-wish"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Z"/></svg></span><b>许愿池</b><i>你的愿望能改名改价 · 别人的会滚上来</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div class="h3">轮到你了 · 别人许的<em id="wishLive">实时滚 · 不重复</em></div>
+      <div class="wishscroll" id="wishScroll"></div>
+      <div class="h3" style="margin-top:14px">我的三件<em>名字和价都能改</em></div>
+      <div id="wishList"></div>
+      <div class="h3">轮到你了<em id="wishGiveTip">只能塞一件</em></div>
+      <div class="chips" id="wishChips"></div>
+      <div class="paper" style="margin-top:14px;font-size:11.5px;line-height:1.8">
+        心愿不能自己写，三件里至少一件是别人替你挑的。反过来也成立：你塞给别人那件，他结算时才会看见 —— 埋雷和许愿，是同一个动作。
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 07 结算 · 开花 ===================== -->
+  <section class="app" id="app-settle">
+    <div class="appbar">
+      <div class="who"><span class="mark i-wish"><svg viewBox="0 0 256 256" fill="currentColor"><ellipse cx="128" cy="72" rx="34" ry="50"/><ellipse cx="184" cy="128" rx="50" ry="34"/><ellipse cx="184" cy="184" rx="34" ry="50"/></svg></span><b>结算 · 开花</b><i>第 4 波</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div class="flower" id="flower"></div>
+      <div class="settle-h" id="settleH">5 瓣</div>
+      <div class="settle-s" id="settleS">六瓣满差一瓣</div>
+      <div class="petal-list" id="petalList"></div>
+      <div class="titleblock"><div class="lab">本局称号</div><div class="tt" id="settleTitle">凑单鬼才</div></div>
+      <div class="statusstrip" style="margin-top:12px">
+        <span>预算 <b id="setCoin">300</b></span><span>已花 <b id="setSpent">0</b></span><span>心愿 <b id="setWish">0/3</b></span>
+      </div>
+      <div class="report" id="settleReport"></div>
+      <div class="loot" id="settleLoot"></div>
+      <div style="display:flex;gap:9px;margin-top:14px">
+        <button class="btn" onclick="shareSettle()">生成战报</button>
+        <button class="btn ghost" onclick="restart()">再来一局</button>
+      </div>
+      <button class="btn ghost" style="margin-top:9px;height:42px;font-size:12.5px" onclick="go('chat')">看看群里在说什么</button>
+    </div>
+  </section>
+
+  <!-- ===================== 08 购格测试 ===================== -->
+  <section class="app" id="app-quiz">
+    <div class="appbar">
+      <div class="who"><span class="mark i-quiz"><svg viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="currentColor" stroke-width="14" opacity=".55"/><path d="M128 32v192M32 128h192" stroke="currentColor" stroke-width="14" opacity=".55"/><circle cx="128" cy="128" r="24" fill="currentColor"/></svg></span><b>购格测试</b><i id="qzBarSub">随机 15 题 · 测你的购买属性</i></div>
+      <button class="homebtn" onclick="home()">桌面</button>
+    </div>
+    <div class="body">
+      <div id="qzStage"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 09 群聊 ===================== -->
+  <section class="app" id="app-chat">
+    <div class="appbar">
+      <div class="who"><span class="mark i-chat"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,124a8,8,0,0,1-8,8H85l-40,36a8,8,0,0,1-13-6V60a8,8,0,0,1,8-8H224a8,8,0,0,1,8,8Z"/></svg></span><b>1111 群聊</b><i id="chatSub">正在连房间…</i></div>
+      <span class="abacts"><button class="homebtn" onclick="home()">桌面</button><button class="homebtn" onclick="openMe()">我</button></span>
+    </div>
+    <div class="body">
+      <div class="chat-room"><span class="live"></span><span style="font-weight:700">1111 · 双11 花开心群</span><span id="chatOnline" style="margin-left:auto;color:#8A7360">4 人在线</span></div>
+      <div class="feed" id="feed"></div>
+    </div>
+    <div class="chat-foot">
+      <div class="chat-input">
+        <input id="chatIn" placeholder="在群里说一句…" onkeydown="if(event.key==='Enter')sendChat()">
+        <button onclick="sendChat()">发送</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 我 ===================== -->
+  <div class="scrim" id="scrim" onclick="closeSheets()"></div>
+  <div class="sheet" id="sheetMe">
+    <div class="grab"></div>
+    <h2>我的这局</h2>
+    <div class="sd" id="meSub">会话 1111 · 第 3 波 · 21:07</div>
+    <div id="meBody"></div>
+    <div style="display:flex;gap:9px;margin-top:14px">
+      <button class="btn" style="height:44px;font-size:13px" onclick="shareMe()">生成我的名片</button>
+      <button class="btn ghost" style="height:44px;font-size:13px" onclick="go('quiz');closeSheets()">去测购格</button>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheetRank">
+    <div class="grab"></div>
+    <h2>房间排行</h2>
+    <div class="sd">按「花瓣数」排：心愿到手 3 瓣，预算花光 1 瓣，用上满减 1 瓣，没被截胡 1 瓣。</div>
+    <div id="rankBody"></div>
+    <div class="paper" style="margin-top:12px;font-size:11px;line-height:1.7">
+      排行每 30 秒刷新一次：同房间真实玩家（按花瓣数）+ 三个常驻好友。开着网页的人都会被算进在线数。
+    </div>
+  </div>
+
+  <div class="sheet" id="sheetSettings">
+    <div class="grab"></div>
+    <h2>设置</h2>
+    <div class="sd">这局不接真钱、不接支付、不接真奖品。开心币花光才算赢。</div>
+    <div class="me-line"><span>房间码</span><b>1111</b></div>
+    <div class="me-line"><span>群昵称</span><b id="setNick">你</b></div>
+    <div style="display:flex;gap:8px;margin:10px 0 4px">
+      <input id="nickIn" maxlength="10" placeholder="给自己起个群昵称，别人会看到" style="flex:1;height:40px;border:2px solid var(--line);border-radius:999px;padding:0 14px;font:500 13px var(--body);background:#fff">
+      <button class="btn sm" style="height:40px" onclick="saveNick()">保存</button>
+    </div>
+    <div class="me-line"><span>购格</span><b id="setQz">未测</b></div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px">
+      <button class="btn" style="height:44px;font-size:13px" onclick="copyInvite()">复制邀请链接</button>
+      <button class="btn ghost" style="height:44px;font-size:13px" onclick="shareMe()">生成分享海报</button>
+      <button class="btn ghost" style="height:44px;font-size:13px" onclick="restart()">重开这一局</button>
+    </div>
+    <div style="margin-top:16px;font-size:11px;color:#8A7360;text-align:center">
+      <span id="onlineTip">正在连接房间…</span>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="poster-wrap" id="posterWrap">
+    <div class="poster-card">
+      <img id="posterImg" alt="分享海报">
+      <div class="phint" id="posterHint"></div>
+      <div class="prow">
+        <button class="primary" onclick="downloadPoster()">保存图片</button>
+        <button onclick="nativeShare()">分享出去</button>
+      </div>
+      <div class="prow">
+        <button onclick="copyInvite()">复制链接</button>
+        <button onclick="closePoster()">关闭</button>
+      </div>
+      <button class="close" onclick="closePoster()">点空白处也能关</button>
+    </div>
+  </div>
+</div></div></div>
+<script>
+/* ============ 全局状态 ============ */
+const ROOM = '1111';
+const S = {
+  coin: 300, start: 300, spent: 0,
+  items: [], cart: [], bought: [],
+  joy: 0, debt: 2,
+  granted: 0, drawLeft: 3, usedCoupon: false, spin: 3, spinMax: 10, pddFirst: false,
+  pddCut: 0, pddDone: false, pddStolen: false,
+  liveTrap: false, liveCatch: 0, liveSaved: 0, tbRight: 0,
+  qz: null, nick: '你', clock: 21 * 60 + 7, settled: false, giveUsed: false,
+  wish: [
+    { name: '羊毛毯', price: 89, mine: true, got: false },
+    { name: '一斤勇气', price: 6.6, mine: true, got: false },
+    { name: '老板周末不打扰符', price: 29, mine: false, got: false, from: '阿May' }
+  ]
+};
+const $ = id => document.getElementById(id);
+const yuan = n => (Math.round(n * 100) / 100).toFixed(n % 1 === 0 ? 0 : 2);
+
+let toastTimer;
+function toast(msg) {
+  const t = $('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('on'), 2800);
+}
+function hud() {
+  if ($('coinTxt')) $('coinTxt').textContent = yuan(S.coin);
+  if ($('stCoin')) $('stCoin').textContent = yuan(S.coin);
+  if ($('stJoy')) $('stJoy').textContent = S.joy;
+  if ($('stDebt')) $('stDebt').textContent = S.debt;
+  var got = S.wish.filter(function(w){ return w.got; }).length;
+  if ($('nowWish')) $('nowWish').textContent = got + '/3';
+  if ($('nowCoin')) $('nowCoin').textContent = yuan(S.coin);
+  if ($('nowDebt')) $('nowDebt').textContent = S.debt;
+  if ($('nowRank')) $('nowRank').textContent = '第 ' + myRank();
+  scheduleSave();
+  rtState();
+}
+function spend(n) {
+  if (S.coin < n) { toast('开心币不够了：你想花 ' + yuan(n) + '，只剩 ' + yuan(S.coin)); return false; }
+  S.coin -= n; S.spent += n; hud(); return true;
+}
+
+/* ============ 群聊引擎 ============ */
+const EV = [];
+const AVATARS = {
+  '你': { cls: 'x', ch: '你' }, '阿May': { cls: 'm', ch: 'M' },
+  '老陈': { cls: 'c', ch: '陈' }, '小周': { cls: 'z', ch: '周' }, '系统': { cls: 'x', ch: '·' }
+};
+/* ---- 线上房间：真实多人（同一台服务器上的 Node 房间服务） ---- */
+const RT = { on: false, seq: 0, online: 0, players: [], cuid: '', n: 0, lastState: 0 };
+try {
+  RT.cuid = localStorage.getItem('hx_uid') || '';
+  var savedNick = localStorage.getItem('hx_nick');
+  if (savedNick) S.nick = savedNick;
+} catch (e) {}
+if (!RT.cuid) {
+  RT.cuid = 'u' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+  try { localStorage.setItem('hx_uid', RT.cuid); } catch (e) {}
+}
+if (S.nick === '你') S.nick = '花友' + RT.cuid.slice(-4).toUpperCase();
+function apiFetch(u, opt) {
+  var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
+  var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 6000);
+  opt = opt || {};
+  if (ctrl) opt.signal = ctrl.signal;
+  return fetch(u, opt).then(function (r) { return r.json(); }).then(function (d) {
+    clearTimeout(timer); return d;
+  }).catch(function (e) { clearTimeout(timer); throw e; });
+}
+function avFor(name) {
+  var h = 0;
+  for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 9973;
+  return { cls: ['m', 'c', 'z', 'x'][h % 4], ch: name.slice(0, 1) };
+}
+function rtApply(d) {
+  if (!d || !d.ok) return;
+  RT.on = true;
+  if (!RT.sent) { RT.sent = 1; rtState(true); }
+  if (typeof d.online === 'number') RT.online = d.online;
+  if (d.players) { RT.players = d.players; renderClock(); }
+  var added = 0;
+  (d.evts || []).forEach(function (e) {
+    if (e.cid && e.cid.indexOf(RT.cuid + ':') === 0) return;
+    if (e.cid && EV.some(function (x) { return x.cid === e.cid; })) return;
+    var nm = e.who || '花友';
+    if (e.meta && e.meta.kind === 'wish' && e.meta.target === RT.cuid && e.meta.item) receiveWish(nm, e.meta.item);
+    EV.push({ who: nm, av: avFor(nm), app: e.app || 'chat', text: e.text || '', t: e.t || '', mine: false, cid: e.cid || '', meta: e.meta || null });
+    if (EV.length > 90) EV.shift();
+    added++;
+  });
+  if (d.seq) RT.seq = d.seq;
+  if (d.helps && d.helps.length) {
+    var seen = RT.helpSeen || (RT.helpSeen = {});
+    d.helps.forEach(function (h) {
+      if (seen[h.id]) return;
+      seen[h.id] = 1;
+      if (h.kind === 'pdd') {
+        pddAddDrop(+(h.amt || 0.0085));
+        toast('「' + h.from + '」在群里帮你砍了一刀');
+        chatRender(false);
+      } else {
+        S.spin = Math.min(S.spinMax, S.spin + 1);
+        spinLeftTxt();
+        toast('「' + h.from + '」点了一下，转盘 +1 次');
+        chatRender(false);
+      }
+    });
+  }
+  if (added) { chatRender(); if (!$('app-chat').classList.contains('on')) bumpBadge(); }
+  var onN = $('onlineN'); if (onN) onN.textContent = Math.max(1, RT.online);
+  var cOn = $('chatOnline'); if (cOn) cOn.textContent = Math.max(1, RT.online) + ' 人在线';
+  var cSub = $('chatSub'); if (cSub) cSub.textContent = (d.players ? d.players.length : 1) + ' 个真人玩家在逛';
+  var tip = $('onlineTip');
+  if (tip) tip.textContent = '房间里现在 ' + Math.max(1, RT.online) + ' 人';
+}
+function rtBoot() {
+  apiFetch('api/room?room=' + ROOM + '&u=' + RT.cuid).then(rtApply).catch(function () { RT.on = false; });
+}
+function rtPoll() {
+  if (!RT.on) { rtBoot(); return; }
+  apiFetch('api/since?room=' + ROOM + '&after=' + RT.seq + '&u=' + RT.cuid).then(rtApply).catch(function () { RT.on = false; });
+}
+function rtState(force) {
+  if (!RT.on) return;
+  var now = Date.now();
+  if (!force && now - RT.lastState < 2500) return;
+  RT.lastState = now;
+  apiFetch('api/state', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ u: RT.cuid, room: ROOM, name: nickOut(), petals: petalsNow(), spent: Math.round(S.spent * 100) / 100, qz: qzCode, spins: S.spin, wishes: S.wish.filter(function(w){return w.mine;}).map(function(w){return w.name;}) })
+  }).catch(function () {});
+}
+function nickOut() {
+  var n = (S.nick || '').trim();
+  if (!n || n === '你') return '花友' + String(RT.cuid || '0000').slice(-4).toUpperCase();
+  return n.slice(0, 10);
+}
+function saveNick() {
+  var v = ($('nickIn').value || '').trim();
+  if (!v) { toast('昵称不能为空'); return; }
+  S.nick = v.slice(0, 10);
+  try { localStorage.setItem('hx_nick', S.nick); } catch (e) {}
+  $('setNick').textContent = S.nick;
+  $('nickIn').value = '';
+  RT.lastState = 0; rtState();
+  toast('群昵称改成「' + S.nick + '」，群里的人都看得到');
+}
+var WEEKDAY = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+function pad2(n) { return String(n).padStart(2, '0'); }
+function nowTime() {
+  var d = new Date();
+  return pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+}
+function nowDateText() {
+  var d = new Date();
+  return (d.getMonth() + 1) + '月' + d.getDate() + '日';
+}
+function waveNo() {
+  var h = new Date().getHours();
+  return h < 10 ? 1 : (h < 20 ? 2 : 3);
+}
+function roomProgressPct() {
+  var spent = S.spent, n = 1;
+  (RT.players || []).forEach(function (p) {
+    if (!p || p.u === RT.cuid) return;
+    var v = +p.spent;
+    if (isFinite(v)) { spent += v; n++; }
+  });
+  return Math.max(0, Math.min(100, Math.round(spent / (n * 300) * 100)));
+}
+function renderClock() {
+  var t = nowTime();
+  var w = $('wave'); if (w) w.textContent = waveNo();
+  var pg = $('prog'); if (pg) pg.textContent = roomProgressPct() + '%';
+  var c = $('clk'); if (c) c.textContent = t;
+  var b = $('clockbig'); if (b) b.textContent = t;
+  var day = nowDateText();
+  var wd = WEEKDAY[new Date().getDay()];
+  var dEl = $('day'); if (dEl) dEl.textContent = day + ' · ' + wd;
+  var dm = $('dayMeta'); if (dm) dm.textContent = day;
+  var ms = $('meSub'); if (ms) ms.textContent = '会话 ' + ROOM + ' · 第 3 波 · ' + t;
+}
+function tickClock() {
+  renderClock();
+}
+function pushEvt(who, appKey, text, quiet, meta) {
+  var av = AVATARS[who] || AVATARS['系统'];
+  tickClock();
+  var mine = who === '你';
+  var cid = '';
+  if (mine) { RT.n++; cid = RT.cuid + ':' + RT.n; }
+  EV.push({ who: who, av: av, app: appKey, text: text, t: nowTime(), mine: mine, cid: cid, meta: meta || null });
+  if (EV.length > 90) EV.shift();
+  if (mine && RT.on) {
+    apiFetch('api/evt', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ room: ROOM, who: nickOut(), app: appKey, text: text, t: nowTime(), cid: cid, meta: meta || null })
+    }).catch(function () {});
+  }
+  var inChat = $('app-chat') && $('app-chat').classList.contains('on');
+  if (inChat) chatRender(false);
+  else if (!quiet) bumpBadge();
+}
+function bumpBadge() {
+  var b = $('chatBadge');
+  if (!b) return;
+  var n = (+b.textContent || 0) + 1;
+  b.textContent = n > 9 ? '9+' : n;
+  b.style.background = '#FF3D2E';
+  b.style.color = '#fff';
+}
+function clearBadge() { var b = $('chatBadge'); if (b) { b.textContent = '0'; b.style.background = '#fff'; b.style.color = '#FF3D2E'; } }
+const APP_NAME = { jd:'大额补贴', tb:'比价神器', pdd:'砍一刀', live:'直播间', story:'真情买买买', wish:'许愿池', quiz:'购格测试', settle:'结算开花', chat:'群聊' };
+function helpedSet() {
+  if (!RT.helped) RT.helped = {};
+  return RT.helped;
+}
+function helpBtn(e) {
+  if (!e.meta || !e.meta.target) return '';
+  if (e.meta.target === RT.cuid && !e.mine) return '';
+  if (e.meta.target === RT.cuid) return '';
+  var d = helpedSet();
+  var done = d[e.meta.kind + ':' + e.meta.target];
+  return '<button class="chat-act"' + (done ? ' disabled' : '') +
+    ' onclick="helpFrom(\'' + e.meta.target + '\',\'' + e.meta.kind + '\')">' +
+    (done ? '已经帮过 TA 了' : (e.meta.kind === 'pdd' ? '点开帮他砍一刀' : '点开帮他转一次')) + '</button>';
+}
+function helpFrom(target, kind) {
+  if (!target) return;
+  var d = helpedSet();
+  var key = kind + ':' + target;
+  if (d[key]) { toast('这一刀你已经帮过了'); return; }
+  d[key] = 1;
+  apiFetch('api/help', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ target: target, from: S.nick, kind: kind === 'pdd' ? 'pdd' : 'spin', amt: kind === 'pdd' ? 0.0085 : 1, room: ROOM })
+  }).then(function () {
+    toast(kind === 'pdd' ? '帮他砍了 ¥0.0085，等 TA 那边刷新' : '帮他加了一次转盘，等 TA 那边刷新');
+    chatRender(false);
+  }).catch(function () { toast('网络不给力，这次助力没送到'); });
+}
+function chatRender(scroll) {
+  var box = $('feed');
+  var list = EV.slice().sort(function (a, b) {
+    if (a.t === b.t) return 0;
+    return a.t < b.t ? -1 : 1;
+  });
+  box.innerHTML = list.map(function (e) {
+    return '<div class="msg' + (e.mine ? ' mine' : '') + '">' +
+      '<span class="av ' + e.av.cls + '">' + e.av.ch + '</span>' +
+      '<div class="msgb"><div class="top"><b>' + e.who + '</b>' +
+      '<span class="atag ' + e.app + '">' + (APP_NAME[e.app] || '群聊') + '</span>' +
+      '<span>' + e.t + '</span></div>' +
+      '<div class="txt">' + e.text + '</div>' + helpBtn(e) + '</div></div>';
+  }).join('');
+  if (scroll !== false) box.parentElement.scrollTop = box.parentElement.scrollHeight;
+  var last = EV[EV.length - 1];
+  if (last) { $('homeChatMsg').textContent = last.text; $('homeChatAv').className = 'av ' + last.av.cls; $('homeChatAv').textContent = last.av.ch; $('homeChatT').textContent = last.t; }
+}
+const NPC_LINES = [
+  ['阿May','pdd','我又砍掉 0.3 元，离 0 元还差 97 块，这游戏真能骗人。'],
+  ['老陈','jd','凑到 300 了，满减 60 已用，这车结完了。'],
+  ['小周','tb','比价第三题我又选错，先涨后降是真看不出来。'],
+  ['阿May','live','主播说最后 3 件，我一激动抢了抬价链接……'],
+  ['老陈','wish','我给阿May 塞了一件「周一延期券」，等她结算。'],
+  ['阿May','quiz','我测出来是「起哄团长 · 当众晒单」，不服，重测。'],
+  ['小周','story','阿May 叫我还她 12 块，我假装没看见。'],
+  ['老陈','settle','开花了，4 瓣。差在预算没花光。']
+];
+function npcTick() {
+  if (document.hidden) return;
+  if (RT.on && RT.online >= 4) return;
+  var l = NPC_LINES[Math.floor(Math.random() * NPC_LINES.length)];
+  pushEvt(l[0], l[1], l[2]);
+}
+function sendChat() {
+  var inp = $('chatIn');
+  var v = (inp.value || '').trim();
+  if (!v) return;
+  inp.value = '';
+  pushEvt('你', 'chat', v.replace(/[<>]/g, ''));
+  setTimeout(function () { pushEvt('阿May', 'chat', '收到。你这句我截图了，结算的时候拿出来念。'); }, 1200);
+}
+
+/* ============ 页面切换 ============ */
+function go(id) {
+  document.querySelectorAll('.app').forEach(a => a.classList.remove('on'));
+  document.querySelectorAll('.sheet').forEach(s => s.classList.remove('on'));
+  if ($('scrim')) $('scrim').classList.remove('on');
+  const el = $('app-' + id);
+  if (el) el.classList.add('on');
+  if (id === 'jd') jdRender();
+  if (id === 'live' && typeof liveSpoilsRender === 'function') liveSpoilsRender();
+  if (id === 'tb') tbRender();
+  if (id === 'pdd') pddRender();
+  if (id === 'live') liveInit();
+  if (id === 'story') storyInit();
+  if (id === 'wish') wishRender();
+  if (id === 'settle') settleRender();
+  if (id === 'chat') { chatRender(); clearBadge(); }
+  if (id === 'quiz') qzRender();
+}
+function home() {
+  document.querySelectorAll('.app').forEach(a => a.classList.remove('on'));
+  document.querySelectorAll('.sheet').forEach(s => s.classList.remove('on'));
+  if ($('scrim')) $('scrim').classList.remove('on');
+}
+
+/* ============ 01 大额补贴 ============ */
+let jdCart = [];
+const JD_POOL = [5, 8, 12, 20, 38, 60];
+function jdDraw() {
+  if (S.drawLeft <= 0) { toast('今天的补贴券抽完了，明天 0 点再来'); return; }
+  S.drawLeft--;
+  const amt = JD_POOL[Math.floor(Math.random() * JD_POOL.length)];
+  S.granted += amt;
+  $('jdDraw').innerHTML = S.drawLeft > 0
+    ? '抽一次补贴券（还有 <span id="drawLeftTxt">' + S.drawLeft + '</span> 次）'
+    : '今天的券抽完了';
+  $('jdDraw').className = 'sbtn' + (S.drawLeft > 0 ? '' : ' dim');
+  toast('抽到 ¥' + amt + ' 补贴券 —— 但得凑到 300 才用得上');
+  pushEvt('你', 'jd', '抽到一张 ¥' + amt + ' 补贴券，得凑满 300 才生效。');
+  jdRender();
+}
+function jdDel(i) { jdCart.splice(i, 1); hud(); jdRender(); }
+function jdRender() {
+  const box = $('jdCart');
+  if (!box) return;
+  if (!jdCart.length) {
+    box.innerHTML = '<div class="empty">还空着。下面货架随便点，先凑到 300。</div>';
+  } else {
+    box.innerHTML = jdCart.map((o, i) =>
+      '<div class="ci">' +
+      (o.img ? '<img src="' + o.img + '" alt="">' : '') +
+      '<span class="nm">' + o.name + '</span>' +
+      '<span class="pr">¥' + yuan(o.price) + '</span>' +
+      '<button class="del" onclick="jdDel(' + i + ')">×</button></div>'
+    ).join('');
+  }
+  const total = jdCart.reduce((a, b) => a + b.price, 0);
+  const canUse = total >= 300;
+  const disc = S.granted + (canUse ? 60 : 0);
+  $('jdTotal').textContent = '¥' + yuan(total);
+  $('jdGapTxt').textContent = canUse ? '够 300 了，满减可用' : ('还差 ' + yuan(300 - total) + ' 块到满减');
+  $('jdSaveTxt').textContent = '可省 ¥' + yuan(disc);
+  $('jdBar').style.width = Math.min(100, total / 300 * 100) + '%';
+  const list = S.granted ? '<div class="cpk"><span class="amt">¥' + S.granted + '</span><span class="txt">补贴券合计 · ' +
+    (canUse ? '<b>已可叠加使用</b>' : '凑满 300 才生效') + '</span></div>' : '';
+  $('jdCoupons').innerHTML = list;
+  jdShelfRender();
+  spinLeftTxt();
+}
+function jdPay() {
+  const total = jdCart.reduce((a, b) => a + b.price, 0);
+  if (!jdCart.length) { toast('购物车是空的'); return; }
+  if (total < 300) { toast('还差 ' + yuan(300 - total) + ' 块，满减用不上 —— 这就是凑单的痛'); return; }
+  const disc = S.granted + 60;
+  const pay = Math.max(0, total - disc);
+  if (!spend(pay)) return;
+  S.items = S.items.concat(jdCart.map(o => o.name));
+  (jdCart).forEach(function (o) {
+    S.bought = (S.bought || []).filter(function (b) { return b.i !== o.i; });
+    S.bought.push({ i: o.i, name: o.name, price: o.price, orig: o.orig || o.price, save: o.price });
+  });
+  S.usedCoupon = true;
+  S.joy += 1;
+  pushEvt('你', 'jd', '结算了一车：原价 ¥' + yuan(total) + '，用券省 ¥' + yuan(disc) + '，实付 ¥' + yuan(pay) + '。');
+  toast('这一车结算了：省 ¥' + yuan(disc) + '，实付 ¥' + yuan(pay));
+  jdCart = [];
+  hud(); jdRender(true); jdShelfRender(true);
+  setTimeout(function () { pushEvt('老陈', 'jd', '你这车比我便宜 8 块，券是哪来的？'); }, 2200);
+}
+
+/* ---- 补贴转盘：转一次少一次，群友点一次多一次 ---- */
+const WSEG = [
+  { t: '¥5', v: 5 }, { t: '¥8', v: 8 }, { t: '再来', v: 0, again: true },
+  { t: '¥12', v: 12 }, { t: '¥20', v: 20 }, { t: '¥38', v: 38 },
+  { t: '¥0.01', v: 0.01 }, { t: '¥60', v: 60 }
+];
+let wheelAngle = 0, wheeling = false;
+function wheelInit() {
+  const w = $('wheel');
+  if (!w || w.dataset.ready) return;
+  w.dataset.ready = '1';
+  w.innerHTML = WSEG.map(function (s, i) {
+    return '<div class="wl" style="position:absolute;left:50%;top:50%;width:66px;margin:0;text-align:center;' +
+      'transform:translate(-50%,-50%) rotate(' + (i * 45) + 'deg) translateY(-72px) rotate(-' + (i * 45) + 'deg)">' + s.t + '</div>';
+  }).join('');
+}
+function spinLeftTxt() {
+  const el = $('spinLeft');
+  if (el) el.textContent = S.spin;
+  const d = $('spinBtn');
+  if (d) {
+    d.textContent = S.spin > 0 ? '转一下' : '次数用完了';
+    d.className = 'btn' + (S.spin > 0 ? '' : ' dim');
+  }
+}
+function spin() {
+  if (wheeling) return;
+  wheelInit();
+  if (S.spin <= 0) { toast('转盘次数用完了 —— 把助力链接丢进群，别人点一次你就多转一次'); return; }
+  S.spin -= 1;
+  spinLeftTxt();
+  wheeling = true;
+  const i = Math.floor(Math.random() * WSEG.length);
+  let base = wheelAngle + 360 * 5;
+  const want = (360 - i * 45) % 360;
+  const cur = ((base % 360) + 360) % 360;
+  base += (((want - cur) % 360) + 360) % 360;
+  wheelAngle = base;
+  $('wheel').style.transform = 'rotate(' + wheelAngle + 'deg)';
+  const seg = WSEG[i];
+  setTimeout(function () {
+    wheeling = false;
+    if (seg.again) {
+      S.spin += 1;
+      spinLeftTxt();
+      toast('指针停在「再来」—— 这次不亏次数');
+      pushEvt('你', 'jd', '转盘转到「再来一次」，白赚一次机会。');
+    } else {
+      S.granted += seg.v;
+      toast('转盘停在 ¥' + seg.v + ' —— 补贴券到手，凑满 300 才生效');
+      pushEvt('你', 'jd', '转盘转到 ¥' + seg.v + ' 补贴券，叠进购物车了。');
+    }
+    hud(); jdRender();
+  }, 2750);
+}
+function askSpin() {
+  const link = baseUrl() + '?room=' + ROOM + '&u=' + encodeURIComponent(S.nick) + '&invite=' + RT.cuid + '&g=wheel';
+  copyText(link, '助力链接已复制：发到群里，谁点开你就多转一次');
+  pushEvt('你', 'jd', '转盘次数用完了，谁帮我点一下？点开这条就行。', false, { target: RT.cuid, kind: 'spin' });
+  toast('已经丢进 1111 群，等人点');
+}
+
+/* ---- 今日货架：28 件，便宜到荒诞都有 ---- */
+const JD_SHELF = [
+  { n: '羊毛毯', p: 89, o: 129, img: 'assets/blanket.jpg', bg: '#E9F3FF' },
+  { n: '空气炸锅', p: 199, o: 269, img: 'assets/airfryer.jpg', bg: '#FFE7E0' },
+  { n: '电饭煲', p: 54.9, o: 79, img: 'assets/rice.jpg', bg: '#FFF2D6' },
+  { n: '一斤勇气', p: 6.6, o: 19.9, chit: '勇', bg: '#FFE3EC' },
+  { n: '周一延期券', p: 12.9, o: 99, chit: '券', bg: '#E4F7EF' },
+  { n: '前任道歉录音', p: 48, o: 88, chit: '录', bg: '#EFE8FF' },
+  { n: '老板不打扰符', p: 29, o: 66, chit: '符', bg: '#FFF0CC' },
+  { n: '加班豁免卡', p: 66, o: 128, chit: '卡', bg: '#E3F0FF' },
+  { n: '早八闹钟（静音版）', p: 19.9, o: 39, img: 'assets/clock.jpg', bg: '#FFE6D9' },
+  { n: '快递盒拆箱刀', p: 9.9, o: 19.9, img: 'assets/knife.jpg', bg: '#E8F5E3' },
+  { n: '保温杯', p: 79, o: 129, img: 'assets/cup.jpg', bg: '#E6EEFF' },
+  { n: '懒人沙发', p: 259, o: 399, img: 'assets/beanbag.jpg', bg: '#FFE9ED' },
+  { n: '记忆棉枕头', p: 129, o: 199, img: 'assets/pillow.jpg', bg: '#F0ECFF' },
+  { n: '扫地机器人', p: 399, o: 599, img: 'assets/robot.jpg', bg: '#E4F0F7' },
+  { n: '加湿器', p: 119, o: 169, img: 'assets/humid.jpg', bg: '#E7F6F2' },
+  { n: '猫抓板', p: 39.9, o: 69, img: 'assets/cat.jpg', bg: '#FFF3DE' },
+  { n: '泡面一箱', p: 45.9, o: 59.9, img: 'assets/noodle.jpg', bg: '#FFE8CF' },
+  { n: '螺蛳粉十连包', p: 68, o: 99, img: 'assets/luosifen.jpg', bg: '#F6EFD9' },
+  { n: '小夜灯', p: 29.9, o: 59, img: 'assets/lamp.jpg', bg: '#FFF6E0' },
+  { n: '洗碗手套', p: 8.8, o: 15.9, img: 'assets/gloves.jpg', bg: '#EAF7EC' },
+  { n: '面膜一盒', p: 99, o: 159, img: 'assets/mask.jpg', bg: '#FFE8F3' },
+  { n: '手机支架', p: 15.9, o: 29.9, img: 'assets/stand.jpg', bg: '#E8EEF6' },
+  { n: '充电宝', p: 109, o: 159, img: 'assets/powerbank.jpg', bg: '#E4EFFB' },
+  { n: '蓝牙耳机', p: 169, o: 259, img: 'assets/earbuds.jpg', bg: '#EDEAFB' },
+  { n: '小烤箱', p: 299, o: 429, img: 'assets/oven.jpg', bg: '#FFEEDC' },
+  { n: '瑜伽垫', p: 59, o: 99, img: 'assets/yoga.jpg', bg: '#E6F6EC' },
+  { n: '香薰蜡烛', p: 39, o: 79, img: 'assets/candle.jpg', bg: '#FFF0E4' },
+  { n: '挂耳咖啡', p: 59.9, o: 89, img: 'assets/coffee.jpg', bg: '#EFE7DC' }
+];
+let jdOrder = JD_SHELF.map(function (_, i) { return i; });
+function jdSortBy(m) {
+  if (m === 'price') jdOrder = JD_SHELF.map(function (_, i) { return i; }).sort(function (a, b) { return JD_SHELF[a].p - JD_SHELF[b].p; });
+  else if (m === 'off') jdOrder = JD_SHELF.map(function (_, i) { return i; }).sort(function (a, b) { return (JD_SHELF[b].o - JD_SHELF[b].p) - (JD_SHELF[a].o - JD_SHELF[a].p); });
+  else jdOrder = JD_SHELF.map(function (_, i) { return i; });
+  document.querySelectorAll('#jdSort .schip').forEach(function (x, i) {
+    x.classList.toggle('on', ['hot', 'price', 'off'][i] === m);
+  });
+  jdShelfRender(true);
+}
+function jdShelfRender(force) {
+  const box = $('jdShelf');
+  if (!box) return;
+  if (box.dataset.ready && !force) { jdMark(); return; }
+  box.dataset.ready = '1';
+  box.innerHTML = jdOrder.map(function (i) {
+    const g = JD_SHELF[i];
+    const inCart = jdCart.some(function (c) { return c.i === i; });
+    const bought = (S.bought || []).some(function (b) { return b.i === i; });
+    const tag = bought ? '<span class="tk bought">已买</span>' : (inCart ? '<span class="tk incart">已加入</span>' : '');
+    const pic = g.img
+      ? '<span class="pic" style="background:' + g.bg + '"><img src="' + g.img + '" alt="' + g.n + '" loading="lazy"></span>'
+      : '<span class="pic" style="background:' + g.bg + '"><span class="chit">' + (g.chit || g.n.slice(0, 1)) + '</span></span>';
+    return '<button class="scard' + (inCart ? ' on' : '') + '" onclick="jdAdd(' + i + ')">' + tag +
+      pic + '<span class="nm">' + g.n + '</span>' +
+      '<span class="pr">¥' + (g.p % 1 ? g.p.toFixed(1) : g.p) + '<i>补贴</i><s>¥' + g.o + '</s></span></button>';
+  }).join('');
+  const tip = $('jdShelfTip');
+  if (tip) tip.textContent = JD_SHELF.length + ' 件 · ' + (jdCart.length ? '已加 ' + jdCart.length + ' 件' : '点一下进凑单区');
+}
+function jdMark() {
+  document.querySelectorAll('#jdShelf .scard').forEach(function (el, k) {
+    const i = jdOrder[k];
+    const inCart = jdCart.some(function (c) { return c.i === i; });
+    const bought = (S.bought || []).some(function (b) { return b.i === i; });
+    el.classList.toggle('on', inCart);
+    let tk = el.querySelector('.tk');
+    if (bought || inCart) {
+      if (!tk) { tk = document.createElement('span'); tk.className = 'tk'; el.prepend(tk); }
+      tk.className = 'tk ' + (bought ? 'bought' : 'incart');
+      tk.textContent = bought ? '已买' : '已加入';
+    } else if (tk) tk.remove();
+  });
+}
+function jdAdd(i) {
+  const g = JD_SHELF[i];
+  if (!g) return;
+  const k = jdCart.findIndex(function (c) { return c.i === i; });
+  if (k >= 0) { jdCart.splice(k, 1); toast('把「' + g.n + '」拿出来了'); }
+  else { jdCart.push({ i: i, name: g.n, price: g.p, orig: g.o, img: g.img || '' }); toast(g.n + ' 进了凑单区'); }
+  hud(); jdRender();
+}
+/* ============ 02 比价神器 ============ */
+const TB = [
+  { name: '羊毛毯', img: 'assets/blanket.jpg', desc: '四家店都卖同一条毯子，到手价不一样。谁最低？',
+    shops: [
+      { n: '甲店 · 官方旗舰', p: 99, c: 10, f: 0, note: '标价 99 / 券 10 / 运费 0' },
+      { n: '乙店 · 工厂直供', p: 89, c: 0, f: 6, note: '标价 89 / 无券 / 运费 6' },
+      { n: '丙店 · 百亿补贴', p: 109, c: 25, f: 0, note: '标价 109 / 券 25 / 运费 0' },
+      { n: '丁店 · 一件代发', p: 95, c: 8, f: 5, note: '标价 95 / 券 8 / 运费 5' }
+    ], right: 2,
+    explain: '丙店 109 − 25 = 84，最低。甲店看着便宜（99），券后才 89；乙店标价最低却要付运费。到手价才有意义。' },
+  { name: '空气炸锅', img: 'assets/airfryer.jpg', desc: '其中一家昨晚悄悄把标价从 179 抬到 205 再发券。别被骗。',
+    shops: [
+      { n: '甲店 · 品牌自营', p: 199, c: 20, f: 0, note: '标价 199 / 券 20 / 运费 0' },
+      { n: '乙店 · 家电专营', p: 189, c: 0, f: 12, note: '标价 189 / 无券 / 运费 12' },
+      { n: '丙店 · 尾货清仓', p: 175, c: 0, f: 8, note: '标价 175 / 无券 / 运费 8' },
+      { n: '丁店 · 限时补贴', p: 205, c: 30, f: 0, note: '标价 205（昨 179）/ 券 30 / 运费 0' }
+    ], right: 0,
+    explain: '丁店 205 − 30 = 175 看着最便宜，但它的标价昨天是 179 —— 先涨后降。甲店 199 − 20 = 179 才是真低价。' },
+  { name: '电饭煲', img: 'assets/rice.jpg', desc: '凑单用的。四家都在喊「全网最低」，只有一家真的低。',
+    shops: [
+      { n: '甲店 · 官方直营', p: 54.9, c: 5, f: 0, note: '标价 54.9 / 券 5 / 包邮' },
+      { n: '乙店 · 数码百货', p: 49.9, c: 0, f: 6, note: '标价 49.9 / 无券 / 运费 6' },
+      { n: '丙店 · 直播同款', p: 62, c: 12, f: 0, note: '标价 62 / 券 12 / 包邮' },
+      { n: '丁店 · 拼单直降', p: 56, c: 8, f: 5, note: '标价 56 / 券 8 / 运费 5' }
+    ], right: 0,
+    explain: '甲店 54.9 − 5 = 49.9，和乙店「49.9 + 6 运费」差 6 块 —— 包邮这件事只在算到手价时才值钱。' },
+  { name: '保温杯', img: 'assets/cup.jpg', desc: '四家都标 79 上下，券和运费各不同。到手价最低的是哪家？',
+    shops: [
+      { n: '甲店 · 品牌自营', p: 79, c: 5, f: 0, note: '标价 79 / 券 5 / 包邮' },
+      { n: '乙店 · 日杂批发', p: 72, c: 0, f: 6, note: '标价 72 / 无券 / 运费 6' },
+      { n: '丙店 · 直播同款', p: 88, c: 12, f: 0, note: '标价 88 / 券 12 / 包邮' },
+      { n: '丁店 · 限时秒杀', p: 79, c: 0, f: 0, note: '标价 79 / 无券 / 包邮' }
+    ], right: 0,
+    explain: '甲 79 − 5 = 74；乙 72 + 6 = 78；丙 88 − 12 = 76；丁 79。标价最低的乙，加上运费反而更贵。' },
+  { name: '扫地机器人', img: 'assets/robot.jpg', desc: '这家把「上门安装」拆成运费，那家把安装费藏进券里。算到手。',
+    shops: [
+      { n: '甲店 · 官方旗舰', p: 399, c: 40, f: 0, note: '标价 399 / 券 40 / 包邮' },
+      { n: '乙店 · 家电仓', p: 369, c: 0, f: 25, note: '标价 369 / 无券 / 运费 25' },
+      { n: '丙店 · 以旧换新', p: 429, c: 60, f: 0, note: '标价 429 / 券 60 / 包邮' },
+      { n: '丁店 · 企业采购', p: 419, c: 80, f: 10, note: '标价 419 / 券 80 / 运费 10' }
+    ], right: 3,
+    explain: '甲 359、乙 394、丙 369、丁 419 − 80 + 10 = 349。券面最大那家，到手反而最便宜。' },
+  { name: '面膜一盒', img: 'assets/mask.jpg', desc: '买二送一和直接打折，哪个更划算？先看一盒的到手价。',
+    shops: [
+      { n: '甲店 · 品牌店', p: 99, c: 20, f: 0, note: '标价 99 / 券 20 / 包邮' },
+      { n: '乙店 · 跨境购', p: 89, c: 5, f: 8, note: '标价 89 / 券 5 / 运费 8' },
+      { n: '丙店 · 百亿补贴', p: 109, c: 35, f: 0, note: '标价 109 / 券 35 / 包邮' },
+      { n: '丁店 · 组合装', p: 95, c: 15, f: 0, note: '标价 95 / 券 15 / 包邮' }
+    ], right: 2,
+    explain: '甲 79、乙 92、丙 74、丁 80。丙店标价最高，扣完券最便宜 —— 标价高不代表贵。' },
+  { name: '蓝牙耳机', img: 'assets/earbuds.jpg', desc: '两家都标 149，一家有券一家包邮。别被同一个数字骗了。',
+    shops: [
+      { n: '甲店 · 品牌自营', p: 169, c: 30, f: 0, note: '标价 169 / 券 30 / 包邮' },
+      { n: '乙店 · 数码专营', p: 159, c: 10, f: 0, note: '标价 159 / 券 10 / 包邮' },
+      { n: '丙店 · 海外旗舰', p: 179, c: 40, f: 12, note: '标价 179 / 券 40 / 运费 12' },
+      { n: '丁店 · 秒杀专区', p: 149, c: 0, f: 0, note: '标价 149 / 无券 / 包邮' }
+    ], right: 0,
+    explain: '甲 139、乙 149、丙 151、丁 149。标价 149 的两家，都不如 169 扣 30 券的那家。' },
+  { name: '香薰蜡烛', img: 'assets/candle.jpg', desc: '小东西最容易懒得比价，也最容易多付那几块。',
+    shops: [
+      { n: '甲店 · 品牌直营', p: 39, c: 0, f: 0, note: '标价 39 / 无券 / 包邮' },
+      { n: '乙店 · 香氛集合', p: 45, c: 8, f: 0, note: '标价 45 / 券 8 / 包邮' },
+      { n: '丙店 · 手作小店', p: 42, c: 0, f: 6, note: '标价 42 / 无券 / 运费 6' },
+      { n: '丁店 · 清仓专区', p: 36, c: 0, f: 5, note: '标价 36 / 无券 / 运费 5' }
+    ], right: 1,
+    explain: '甲 39、乙 37、丙 48、丁 41。标价最低的丁，加上 5 块运费就成了最贵之一。' },
+  { name: '挂耳咖啡', img: 'assets/coffee.jpg', desc: '「买五送一」听着赚，实际可能不如直接减 8 块。',
+    shops: [
+      { n: '甲店 · 烘焙工坊', p: 59.9, c: 0, f: 0, note: '标价 59.9 / 无券 / 包邮' },
+      { n: '乙店 · 进口食品', p: 55, c: 3, f: 5, note: '标价 55 / 券 3 / 运费 5' },
+      { n: '丙店 · 咖啡集合', p: 62, c: 8, f: 0, note: '标价 62 / 券 8 / 包邮' },
+      { n: '丁店 · 拼单直降', p: 58, c: 0, f: 0, note: '标价 58 / 无券 / 包邮' }
+    ], right: 2,
+    explain: '甲 59.9、乙 57、丙 54、丁 58。丙店标价最高，扣完券反而最低。' },
+  { name: '螺蛳粉十连包', img: 'assets/luosifen.jpg', desc: '整箱卖的和单包卖的，谁到手价更低？',
+    shops: [
+      { n: '甲店 · 产地直发', p: 68, c: 10, f: 0, note: '标价 68 / 券 10 / 包邮' },
+      { n: '乙店 · 超市到家', p: 62, c: 0, f: 6, note: '标价 62 / 无券 / 运费 6' },
+      { n: '丙店 · 旗舰店', p: 75, c: 15, f: 0, note: '标价 75 / 券 15 / 包邮' },
+      { n: '丁店 · 会员价', p: 66, c: 5, f: 5, note: '标价 66 / 券 5 / 运费 5' }
+    ], right: 0,
+    explain: '甲 58、乙 68、丙 60、丁 66。产地直发扣完券最低，剩下三家都在 60 以上。' },
+  { name: '手机支架', img: 'assets/stand.jpg', desc: '四家都卖同款铝合金支架，运费和券各不同。到手价谁最低？',
+    shops: [
+      { n: '甲店 · 数码配件', p: 19.9, c: 3, f: 0, note: '标价 19.9 / 券 3 / 包邮' },
+      { n: '乙店 · 百货仓', p: 17.9, c: 0, f: 3, note: '标价 17.9 / 无券 / 运费 3' },
+      { n: '丙店 · 直播同款', p: 22, c: 5, f: 0, note: '标价 22 / 券 5 / 包邮' },
+      { n: '丁店 · 拼单直降', p: 18.9, c: 1, f: 2, note: '标价 18.9 / 券 1 / 运费 2' }
+    ], right: 0,
+    explain: '甲 16.9、乙 20.9、丙 17、丁 19.9。标价最低的乙，加 3 块运费直接垫底。' },
+  { name: '充电宝', img: 'assets/powerbank.jpg', desc: '同样的 10000mAh，一家把运费藏进「配送服务费」。算到手。',
+    shops: [
+      { n: '甲店 · 官方自营', p: 89, c: 5, f: 0, note: '标价 89 / 券 5 / 包邮' },
+      { n: '乙店 · 数码专营', p: 82, c: 0, f: 6, note: '标价 82 / 无券 / 运费 6' },
+      { n: '丙店 · 补贴专区', p: 95, c: 12, f: 0, note: '标价 95 / 券 12 / 包邮' },
+      { n: '丁店 · 学生特惠', p: 86, c: 0, f: 0, note: '标价 86 / 无券 / 包邮' }
+    ], right: 2,
+    explain: '甲 84、乙 88、丙 83、丁 86。丙店标价最高，扣完券最便宜 —— 券面大不等于虚高。' },
+  { name: '瑜伽垫', img: 'assets/yoga.jpg', desc: '四家都在卖 6mm 加厚款，看谁到手低。',
+    shops: [
+      { n: '甲店 · 运动旗舰', p: 49.9, c: 3, f: 0, note: '标价 49.9 / 券 3 / 包邮' },
+      { n: '乙店 · 工厂店', p: 45.9, c: 0, f: 5, note: '标价 45.9 / 无券 / 运费 5' },
+      { n: '丙店 · 直播爆款', p: 52, c: 8, f: 0, note: '标价 52 / 券 8 / 包邮' },
+      { n: '丁店 · 拼单', p: 47.9, c: 2, f: 3, note: '标价 47.9 / 券 2 / 运费 3' }
+    ], right: 2,
+    explain: '甲 46.9、乙 50.9、丙 44、丁 48.9。丙店贵在标价、赢在券，到手最低。' },
+  { name: '猫抓板', img: 'assets/cat.jpg', desc: '猫用的东西最容易闭眼买，四家差出 20 多块。',
+    shops: [
+      { n: '甲店 · 宠物旗舰', p: 129, c: 15, f: 0, note: '标价 129 / 券 15 / 包邮' },
+      { n: '乙店 · 宠物百货', p: 119, c: 5, f: 8, note: '标价 119 / 券 5 / 运费 8' },
+      { n: '丙店 · 工厂直供', p: 139, c: 24, f: 0, note: '标价 139 / 券 24 / 包邮' },
+      { n: '丁店 · 会员店', p: 125, c: 10, f: 4, note: '标价 125 / 券 10 / 运费 4' }
+    ], right: 0,
+    explain: '甲 114、乙 122、丙 115、丁 119。甲店和丙店只差 1 块，标价更高的丙反而咬得很紧。' },
+  { name: '泡面一箱', img: 'assets/noodle.jpg', desc: '囤货型商品，运费和整箱券差一点点就翻盘。',
+    shops: [
+      { n: '甲店 · 官方直营', p: 69, c: 5, f: 0, note: '标价 69 / 券 5 / 包邮' },
+      { n: '乙店 · 超市到家', p: 62, c: 0, f: 6, note: '标价 62 / 无券 / 运费 6' },
+      { n: '丙店 · 整箱特惠', p: 75, c: 12, f: 0, note: '标价 75 / 券 12 / 包邮' },
+      { n: '丁店 · 拼单直降', p: 66, c: 3, f: 2, note: '标价 66 / 券 3 / 运费 2' }
+    ], right: 2,
+    explain: '甲 64、乙 68、丙 63、丁 65。四家差距只有 5 块，但丙店确实最低。' },
+  { name: '小夜灯', img: 'assets/lamp.jpg', desc: '标价最低那家不包邮 —— 这类小件最容易被运费吃回去。',
+    shops: [
+      { n: '甲店 · 家居自营', p: 45, c: 0, f: 0, note: '标价 45 / 无券 / 包邮' },
+      { n: '乙店 · 灯具仓', p: 38, c: 0, f: 6, note: '标价 38 / 无券 / 运费 6' },
+      { n: '丙店 · 直播同款', p: 49, c: 8, f: 0, note: '标价 49 / 券 8 / 包邮' },
+      { n: '丁店 · 清仓', p: 42, c: 2, f: 2, note: '标价 42 / 券 2 / 运费 2' }
+    ], right: 2,
+    explain: '甲 45、乙 44、丙 41、丁 42。标价 38 的乙加运费变 44，反倒不如 49 扣券的丙。' },
+  { name: '洗碗手套', img: 'assets/gloves.jpg', desc: '五双装，四家都在卖。小额商品也别懒得算。',
+    shops: [
+      { n: '甲店 · 家居日用', p: 179, c: 20, f: 0, note: '标价 179 / 券 20 / 包邮' },
+      { n: '乙店 · 批发仓', p: 165, c: 10, f: 10, note: '标价 165 / 券 10 / 运费 10' },
+      { n: '丙店 · 工厂直供', p: 189, c: 35, f: 0, note: '标价 189 / 券 35 / 包邮' },
+      { n: '丁店 · 会员价', p: 172, c: 0, f: 8, note: '标价 172 / 无券 / 运费 8' }
+    ], right: 2,
+    explain: '甲 159、乙 165、丙 154、丁 180。丙店靠 35 块券压下来，标价最高反而最便宜。' },
+  { name: '早八闹钟', img: 'assets/clock.jpg', desc: '这家昨晚把标价从 289 抬到 319 再发券 —— 老套路了。',
+    shops: [
+      { n: '甲店 · 品牌自营', p: 329, c: 40, f: 0, note: '标价 329 / 券 40 / 包邮' },
+      { n: '乙店 · 家居百货', p: 309, c: 25, f: 12, note: '标价 309 / 券 25 / 运费 12' },
+      { n: '丙店 · 限时补贴', p: 349, c: 62, f: 0, note: '标价 349（昨 329）/ 券 62 / 包邮' },
+      { n: '丁店 · 秒杀', p: 319, c: 30, f: 8, note: '标价 319 / 券 30 / 运费 8' }
+    ], right: 2,
+    explain: '甲 289、乙 296、丙 287、丁 297。丙店先涨价再发大券，到手仍然低 2 块 —— 先涨后降也不总是坑，得算。' },
+  { name: '快递拆箱刀', img: 'assets/knife.jpg', desc: '9.9 的小东西，运费 5 块就翻倍。',
+    shops: [
+      { n: '甲店 · 日用旗舰', p: 29.9, c: 0, f: 0, note: '标价 29.9 / 无券 / 包邮' },
+      { n: '乙店 · 文具仓', p: 26.9, c: 0, f: 5, note: '标价 26.9 / 无券 / 运费 5' },
+      { n: '丙店 · 直播同款', p: 32, c: 4, f: 0, note: '标价 32 / 券 4 / 包邮' },
+      { n: '丁店 · 拼单', p: 27.9, c: 2, f: 2, note: '标价 27.9 / 券 2 / 运费 2' }
+    ], right: 3,
+    explain: '甲 29.9、乙 31.9、丙 28、丁 27.9。丁店券加运费算完最低，只比丙便宜 1 毛。' },
+  { name: '懒人沙发', img: 'assets/beanbag.jpg', desc: '大件商品的运费最贵，别只看标价。',
+    shops: [
+      { n: '甲店 · 家居旗舰', p: 99, c: 10, f: 0, note: '标价 99 / 券 10 / 包邮' },
+      { n: '乙店 · 家具仓', p: 89, c: 0, f: 8, note: '标价 89 / 无券 / 运费 8' },
+      { n: '丙店 · 工厂直供', p: 105, c: 18, f: 0, note: '标价 105 / 券 18 / 包邮' },
+      { n: '丁店 · 会员价', p: 95, c: 5, f: 3, note: '标价 95 / 券 5 / 运费 3' }
+    ], right: 2,
+    explain: '甲 89、乙 97、丙 87、丁 93。乙标价最低却因运费最贵，丙店到手 87 最低。' }
+
+];
+let tbIdx = 0, tbScore = 0, tbDone = false;
+function tbRender() {
+  const q = TB[tbIdx];
+  if (!q) return;
+  $('tbIdx').textContent = tbIdx + 1;
+  if ($('tbTotalNum')) $('tbTotalNum').textContent = TB.length;
+  $('tbScore').textContent = tbScore;
+  $('tbName').textContent = q.name;
+  $('tbDesc').textContent = q.desc;
+  $('tbImg').src = q.img;
+  $('tbNext').disabled = true;
+  $('tbNext').textContent = '下一件';
+  $('tbExplain').textContent = '到手价 = 标价 − 店铺券 + 运费。别只看那个划了线的数字。';
+  $('tbShops').innerHTML = q.shops.map((s, i) =>
+    '<button class="shop" onclick="tbPick(' + i + ')"><span class="nm"><b>' + s.n + '</b><i>' + s.note + '</i></span>' +
+    '<span class="tot">¥' + yuan(s.p) + '<small>标价</small></span></button>'
+  ).join('');
+  tbDone = false;
+}
+function tbPick(i) {
+  if (tbDone) return;
+  tbDone = true;
+  const q = TB[tbIdx];
+  const nodes = $('tbShops').querySelectorAll('.shop');
+  nodes.forEach(function (n, k) {
+    var sp = q.shops[k];
+    n.querySelector('.tot').innerHTML = '¥' + yuan(sp.p - sp.c + sp.f) + '<small>到手</small>';
+    var calc = document.createElement('span');
+    calc.className = 'calc';
+    calc.textContent = yuan(sp.p) + (sp.c ? ' − ' + yuan(sp.c) : '') + (sp.f ? ' + ' + yuan(sp.f) + ' 运费' : '') + ' = ' + yuan(sp.p - sp.c + sp.f);
+    n.appendChild(calc);
+    if (k === q.right) n.classList.add('ok'); else if (k === i) n.classList.add('bad');
+  });
+  $('tbExplain').textContent = q.explain;
+  if (i === q.right) {
+    tbScore++; S.tbRight++; S.joy++;
+    toast('对了。这家到手价最低');
+    pushEvt('你', 'tb', '比价「' + q.name + '」选对了：' + q.shops[q.right].n + '到手 ¥' + yuan(q.shops[q.right].p - q.shops[q.right].c + q.shops[q.right].f) + '。');
+  } else {
+    toast('这家不是最低 —— 看解析');
+    pushEvt('你', 'tb', '比价「' + q.name + '」看走眼了，到手价最低的是' + q.shops[q.right].n + '。');
+  }
+  $('tbScore').textContent = tbScore;
+  $('tbNext').disabled = false;
+  $('tbNext').textContent = tbIdx === TB.length - 1 ? '看结果' : '下一件';
+  hud();
+}
+function tbNext() {
+  if (tbIdx === TB.length - 1) {
+    S.granted += 15;
+    toast('比价 ' + TB.length + ' 件完成，拿到「比价达人」¥15 券，已进补贴券包');
+    pushEvt('你', 'tb', '比价 ' + TB.length + ' 件答对 ' + tbScore + ' 件，拿到 ¥15 比价券。');
+    tbIdx = 0; tbScore = 0; tbRender();
+    return;
+  }
+  tbIdx++; tbRender();
+}
+
+/* ============ 03 砍一刀 ============ */
+const PDD_FRIENDS = [
+  { k: 'z', av: 'z', ch: '周', name: '小周', drop: 0.1, note: '砍完还惦记着让你砍回来' },
+  { k: 'm', av: 'm', ch: 'M', name: '阿May', drop: 0.098, note: '砍完顺手截你一点进度' },
+  { k: 'c', av: 'c', ch: '陈', name: '老陈', drop: 0.085, note: '砍之前先问你要不要那件' },
+  { k: 'x', av: 'x', ch: '+3', name: '房间外的人', drop: 0.0001, note: '从群里点进来，砍完就走' }
+];
+const PDD_GOAL = 199;
+const pddUsed = { z: false, m: false, c: false, x: false };
+function fmtDrop(x) {
+  let t = (+x).toFixed(4).replace(/0+$/, '');
+  if (t.slice(-1) === '.') t += '0';
+  return t;
+}
+function pddLeft() { return Math.max(0, Math.round((PDD_GOAL - S.pddCut) * 10000) / 10000); }
+function pddRender() {
+  const left = pddLeft();
+  const big = function (v) { return v < 1 ? v.toFixed(4) : v.toFixed(2); };
+  if (!$('pddPrice')) return;
+  $('pddPrice').textContent = big(left);
+  $('pddCut').textContent = left <= 0.0001 ? (PDD_GOAL - 0.0001).toFixed(4)
+    : (S.pddCut >= 1 ? S.pddCut.toFixed(2) : fmtDrop(S.pddCut));
+  $('pddLeft').textContent = big(left);
+  $('pddBar').style.width = Math.min(99.99, S.pddCut / PDD_GOAL * 100).toFixed(2) + '%';
+  const pct = Math.min(99.99, S.pddCut / PDD_GOAL * 100);
+  if ($('pddTip')) {
+    $('pddTip').textContent = S.pddDone ? '已经 0 元到手，这一单归你了'
+      : '还差 ¥' + big(left) + ' · 已经砍了 ' + (pct < 1 ? pct.toFixed(2) : pct.toFixed(1)) + '% · 房间里有 ' + (RT.online || 1) + ' 人可喊';
+  }
+  if ($('pddWall')) {
+    const wall = PDD_FRIENDS.map(function (f) {
+      const used = pddUsed[f.k];
+      return '<span class="kv ' + (used ? 'used' : '') + '" title="' + f.name + (used ? ' 已砍 ' + fmtDrop(f.drop) : ' 还没砍') + '">' + f.ch + '</span>';
+    });
+    wall.push('<span class="kv you" title="你自己">你</span>');
+    if (!S.pddDone) wall.push('<span class="kv slot">待砍</span><span class="kv slot">待砍</span>');
+    $('pddWall').innerHTML = wall.join('');
+  }
+  $('pddList').innerHTML = PDD_FRIENDS.map(function (f) {
+    const used = pddUsed[f.k];
+    return '<button class="krow" onclick="pddAsk(\'' + f.k + '\')"><span class="av ' + f.av + '">' + f.ch + '</span>' +
+      '<span style="text-align:left"><div class="nm">' + f.name + '</div><div class="st">' +
+      (used ? '已砍 ' + fmtDrop(f.drop) + ' 元 · ' + f.note : '点一下，让他砍 · ' + f.note) + '</div></span>' +
+      '<span class="v' + (used ? '' : ' grey') + '">' + (used ? '−' + fmtDrop(f.drop) : '让他砍') + '</span></button>';
+  }).join('');
+}
+function pddAddDrop(x) {
+  x = +x;
+  if (!isFinite(x) || x <= 0 || S.pddDone) return;
+  const room = PDD_GOAL - 0.0001 - S.pddCut;
+  S.pddCut = Math.round((S.pddCut + Math.min(x, Math.max(0, room))) * 10000) / 10000;
+  pddRender();
+}
+function pddLucky(why) {
+  S.pddCut = PDD_GOAL;
+  S.pddDone = true;
+  S.joy += 2;
+  S.items.push('空气炸锅（0 元）');
+  pddRender(); hud();
+  toast(why || '天选之人：空气炸锅 0 元到手，一刀都没请');
+  pushEvt('你', 'pdd', (why || '运气爆了') + '：空气炸锅直接 0 元到手。');
+}
+function pddSelf() {
+  if (S.pddDone) { toast('已经 0 元到手了，别砍了'); return; }
+  if (pddLeft() <= 0.0001) { toast('就差 ¥0.0001 —— 怎么砍都不动了，这很拼夕夕'); return; }
+  if (!S.pddFirst) {
+    S.pddFirst = true;
+    pddAddDrop(180.2);
+    toast('第一刀砍掉 ¥180.20，还剩 ¥18.80 —— 你会以为马上就成了');
+    return;
+  }
+  if (!S.pddSecond) {
+    S.pddSecond = true;
+    pddAddDrop(18.6);
+    toast('第二刀砍掉 ¥18.60，只剩 ¥0.20 —— 只差两毛，再叫两个人就成');
+    return;
+  }
+  const pool = [0.1, 0.098, 0.085, 0.0426, 0.0085, 0.0001];
+  const x = pool[Math.floor(Math.random() * pool.length)];
+  pddAddDrop(x);
+  toast('你自己又砍了 ¥' + fmtDrop(x) + '，还差 ¥' + (pddLeft() < 1 ? pddLeft().toFixed(4) : pddLeft().toFixed(2)));
+}
+function pddAsk(k) {
+  if (S.pddDone) { toast('已经 0 元到手了'); return; }
+  const f = PDD_FRIENDS.find(function (x) { return x.k === k; });
+  if (pddUsed[k]) { toast(f.name + ' 已经帮你砍过了，再叫他要还人情'); return; }
+  pddUsed[k] = true;
+  pddAddDrop(f.drop);
+  if (Math.random() < 0.08) { pddLucky('抽到天选一刀'); return; }
+  if (k === 'm' && !S.pddStolen) {
+    S.pddStolen = true;
+    S.pddCut = Math.max(0, Math.round((S.pddCut - 0.0012) * 10000) / 10000);
+    pddRender();
+    toast('阿May 砍了 ¥0.098，然后从你进度里截走 ¥0.0012 —— 她那边的价更低');
+    pushEvt('阿May', 'pdd', '帮你砍了 ¥0.098，顺手截了 ¥0.0012。别介意，规则就这样。');
+  } else {
+    toast(f.name + ' 砍掉 ¥' + fmtDrop(f.drop) + ' 元，还差 ¥' + (pddLeft() < 1 ? pddLeft().toFixed(4) : pddLeft().toFixed(2)));
+    pushEvt(f.name, 'pdd', '给你砍了 ¥' + fmtDrop(f.drop) + '，还差 ¥' + pddLeft().toFixed(4) + '。');
+  }
+}
+function pddShare() {
+  if (S.pddDone) { toast('已经到手了'); return; }
+  const left = pddLeft();
+  pushEvt('你', 'pdd', '把砍价链接甩进群了：还差 ¥' + (left < 1 ? left.toFixed(4) : left.toFixed(2)) + '，谁帮我砍一刀。',
+    false, { target: RT.cuid, kind: 'pdd' });
+  const link = baseUrl() + '?room=' + ROOM + '&u=' + encodeURIComponent(S.nick) + '&invite=' + RT.cuid + '&g=pdd';
+  copyText(link, '砍价链接已复制，发群里；谁点开你就多砍一刀');
+  S.pddShareN = (S.pddShareN || 0) + 1;
+  if (S.pddShareN >= 3 && Math.random() < 0.08) { setTimeout(function () { pddLucky('你被抽中天选一刀'); }, 1600); return; }
+  const next = PDD_FRIENDS.filter(function (f) { return !pddUsed[f.k]; })[0];
+  setTimeout(function () {
+    if (next) {
+      pddUsed[next.k] = true;
+      pddAddDrop(next.drop);
+      pushEvt(next.name, 'pdd', '从群里点进来，给你砍了 ¥' + fmtDrop(next.drop) + '。');
+    }
+    if (Math.random() < 0.35 && !S.pddStolen) {
+      S.pddStolen = true;
+      S.pddCut = Math.max(0, Math.round((S.pddCut - 0.0012) * 10000) / 10000);
+      pddRender();
+      pushEvt('阿May', 'pdd', '进来砍了一刀，顺便截了你 ¥0.0012 的进度。');
+    }
+  }, 1500);
+  toast('已发到 1111 群，链接也复制好了');
+}
+
+/* ============ 04 直播间 ============ */
+const LIVE_GOODS = [
+  { name: '羊毛毯 · 福利款', real: 89, was: 89, price: 45, item: '羊毛毯（直播间）' },
+  { name: '电饭煲 · 秒杀款', real: 54.9, was: 59, price: 39, item: '电饭煲（直播间）' },
+  { name: '空气炸锅 · 压轴', real: 199, was: 219, price: 129, item: '空气炸锅（直播间）' },
+  { name: '保温杯 · 福利款', real: 79, was: 99, price: 49, item: '保温杯（直播间）' },
+  { name: '蓝牙耳机 · 秒杀款', real: 169, was: 199, price: 118, item: '蓝牙耳机（直播间）' },
+  { name: '懒人沙发 · 压轴', real: 259, was: 299, price: 199, item: '懒人沙发（直播间）' },
+  { name: '猫抓板 · 福利款', real: 39, was: 49, price: 19.9, item: '猫抓板（直播间）' },
+  { name: '面膜 · 囤货款', real: 99, was: 129, price: 59, item: '面膜（直播间）' },
+  { name: '扫地机器人 · 压轴', real: 399, was: 499, price: 299, item: '扫地机器人（直播间）' },
+  { name: '挂耳咖啡 · 福利款', real: 59.9, was: 69, price: 39.9, item: '挂耳咖啡（直播间）' },
+  { name: '小烤箱 · 秒杀款', real: 299, was: 349, price: 229, item: '小烤箱（直播间）' },
+  { name: '充电宝 · 福利款', real: 109, was: 129, price: 79, item: '充电宝（直播间）' },
+  { name: '记忆棉枕头 · 秒杀款', real: 129, was: 159, price: 89, item: '记忆棉枕头（直播间）' },
+  { name: '加湿器 · 福利款', real: 119, was: 149, price: 69, item: '加湿器（直播间）' },
+  { name: '小夜灯 · 凑单款', real: 29.9, was: 39, price: 15.9, item: '小夜灯（直播间）' },
+  { name: '瑜伽垫 · 福利款', real: 59, was: 79, price: 29.9, item: '瑜伽垫（直播间）' },
+  { name: '香薰蜡烛 · 凑单款', real: 39, was: 59, price: 19.9, item: '香薰蜡烛（直播间）' },
+  { name: '泡面一箱 · 囤货款', real: 45.9, was: 59.9, price: 32.9, item: '泡面一箱（直播间）' },
+  { name: '螺蛳粉十连包 · 秒杀款', real: 68, was: 99, price: 45, item: '螺蛳粉十连包（直播间）' },
+  { name: '洗碗手套 · 凑单款', real: 8.8, was: 15.9, price: 5.9, item: '洗碗手套（直播间）' },
+  { name: '手机支架 · 凑单款', real: 15.9, was: 29.9, price: 9.9, item: '手机支架（直播间）' },
+  { name: '快递拆箱刀 · 凑单款', real: 9.9, was: 19.9, price: 6.6, item: '快递拆箱刀（直播间）' },
+  { name: '周一延期券 · 虚拟款', real: 12.9, was: 99, price: 8.8, item: '周一延期券（直播间）' },
+  { name: '老板不打扰符 · 虚拟款', real: 29, was: 66, price: 16.9, item: '老板不打扰符（直播间）' },
+  { name: '前任道歉录音 · 虚拟款', real: 48, was: 88, price: 28, item: '前任道歉录音（直播间）' },
+  { name: '加班豁免卡 · 虚拟款', real: 66, was: 128, price: 39, item: '加班豁免卡（直播间）' },
+  { name: '一斤勇气 · 虚拟款', real: 6.6, was: 19.9, price: 3.3, item: '一斤勇气（直播间）' },
+  { name: '早八闹钟静音版 · 整活', real: 19.9, was: 39, price: 9.9, item: '早八闹钟（直播间）' },
+  { name: '冰箱贴三件套 · 凑单款', real: 22, was: 39, price: 12.9, item: '冰箱贴（直播间）' },
+  { name: '毛绒拖孩 · 秒杀款', real: 49, was: 69, price: 25.9, item: '毛绒拖鞋（直播间）' }
+];
+const LIVE_LINES = [
+  '家人们，这个价我不敢挂太久，你们自己看。',
+  '这个牌子不陌生吧？昨天还 129，今天我不说了。',
+  '评论区那个「先涨后降」的，我记住你了。',
+  '最后 3 件，抢完下架，我不管了。',
+  '手快的已经下单了，手慢的现在还在打字。'
+];
+const DM_POOL = ['还有货吗', '这个价真的假的', '昨天才 89 吧', '已下单', '先涨后降懂不懂', '主播别演了',
+  '我妈让我买两件', '刚抢到', '运费呢', '隔壁直播 39'];
+let liveIdx = 0, liveCd = 3, liveTimer = null, liveReady = false, liveTrapNow = false, dmTimer = null, liveReal = 0, liveCur = null;
+function liveShelfRender() {
+  const box = $('liveShelf');
+  if (!box) return;
+  box.innerHTML = LIVE_GOODS.map(function (g, i) {
+    return '<button class="lsitem' + (i === liveIdx ? ' on' : '') + '" onclick="livePick(' + i + ')">' +
+      '<b>' + g.name.split(' · ')[0] + '</b><span>¥' + g.price + '</span><em>日常 ¥' + g.real + '</em></button>';
+  }).join('');
+  const c = $('liveCount');
+  if (c) c.textContent = '整场 ' + LIVE_GOODS.length + ' 件，换着抢';
+}
+function livePick(i) {
+  liveIdx = Math.max(0, Math.min(LIVE_GOODS.length - 1, i));
+  liveLoad(LIVE_GOODS[liveIdx]);
+  $('anchorSay').textContent = LIVE_LINES[Math.floor(Math.random() * LIVE_LINES.length)];
+  toast('换到「' + LIVE_GOODS[liveIdx].name + '」，重新倒计时');
+}
+function liveInit() {
+  if (!dmTimer) dmTimer = setInterval(spawnDm, 1100);
+  liveLoad(LIVE_GOODS[liveIdx]);
+  $('anchorSay').textContent = LIVE_LINES[Math.floor(Math.random() * LIVE_LINES.length)];
+  hud();
+}
+function liveLoad(g) {
+  liveCur = g;
+  liveShelfRender();
+  liveTrapNow = Math.random() < 0.35;
+  liveReal = g.real;
+  const price = liveTrapNow ? Math.round(g.real * 1.35) : g.price;
+  const was = Math.round(g.real);
+  $('liveName').textContent = g.name;
+  $('livePrice').textContent = '¥' + price;
+  $('liveWas').textContent = '日常 ¥' + was;
+  $('liveGrab').disabled = true;
+  $('liveGrab').className = 'btn dim';
+  $('liveGrab').textContent = '等倒计时';
+  liveReady = false;
+  clearInterval(liveTimer);
+  liveCd = 3;
+  $('liveCd').textContent = '3'; $('liveCd').style.fontSize = '32px';
+  $('liveCdTxt').textContent = '倒计时结束才上链接，抢慢一步就没了';
+  liveTimer = setInterval(() => {
+    liveCd--;
+    if (liveCd > 0) { $('liveCd').textContent = liveCd; }
+    else {
+      clearInterval(liveTimer);
+      $('liveCd').textContent = '上链接'; $('liveCd').style.fontSize = '19px';
+      $('liveCdTxt').textContent = '现在点「抢」—— 8 秒后下架';
+      $('liveGrab').disabled = false;
+      $('liveGrab').className = 'btn';
+      $('liveGrab').textContent = '抢';
+      liveReady = true;
+      setTimeout(() => {
+        if (liveReady) {
+          $('liveGrab').disabled = true; $('liveGrab').className = 'btn dim'; $('liveGrab').textContent = '下架了';
+          liveReady = false;
+          toast('链接下架了。手速废物称号先记你头上');
+          pushEvt('阿May', 'live', '那个链接我抢到了，你手慢了。');
+        }
+      }, 8000);
+    }
+  }, 900);
+  $('livePrice').dataset.price = price;
+}
+function liveGrab() {
+  if (!liveReady) { toast('还没上链接'); return; }
+  const price = +$('livePrice').dataset.price;
+  liveReady = false;
+  $('liveGrab').disabled = true;
+  $('liveGrab').className = 'btn dim';
+  $('liveGrab').textContent = '已抢';
+  if (liveTrapNow) {
+    S.liveTrap = true;
+    if (spend(price)) {
+      S.items.push(liveCur.item);
+      S.liveSaved -= Math.max(0, price - liveReal);
+      S.joy -= 1;
+      toast('抢到了，但昨天它才 ¥' + yuan(liveReal) + ' —— 你被「先涨后降」收了一笔');
+      pushEvt('你', 'live', '抢了「' + liveCur.name + '」¥' + price + '，昨天它才 ¥' + yuan(liveReal) + '。');
+    }
+  } else {
+    if (spend(price)) {
+      S.items.push(liveCur.item);
+      S.joy += 1; S.liveCatch++;
+      S.liveSaved += Math.max(0, liveReal - price);
+      toast('抢到了：¥' + price + '，真低价。手速这支烟抽得值');
+      pushEvt('你', 'live', '抢到「' + liveCur.name + '」¥' + price + '，真低价。');
+    }
+  }
+  hud();
+  liveSpoilsRender();
+}
+function liveSpoilsRender() {
+  const box = $('liveSpoils');
+  if (!box) return;
+  if (!S.liveCatch && !S.liveTrap) {
+    box.innerHTML = '<span class="empty">还没抢到货。倒计时结束后点「抢」，手慢一步就没了。</span>';
+    return;
+  }
+  const saved = Math.round(S.liveSaved * 100) / 100;
+  box.innerHTML = '今晚抢到 <b>' + S.liveCatch + ' 件</b> · 比日常价省 <b>¥' + yuan(saved) + '</b>' +
+    (S.liveTrap ? '<br>其中 1 件是「先涨后降」，被多收了钱。' : '<br>全抢在真低价上，手速没白练。');
+}
+function liveNext() {
+  liveIdx = (liveIdx + 1) % LIVE_GOODS.length;
+  liveLoad(LIVE_GOODS[liveIdx]);
+  liveShelfRender();
+  $('anchorSay').textContent = LIVE_LINES[Math.floor(Math.random() * LIVE_LINES.length)];
+  toast('换了个场次，重新倒计时');
+}
+function spawnDm() {
+  const box = $('danmu');
+  if (!box || !$('app-live').classList.contains('on')) return;
+  const d = document.createElement('div');
+  d.className = 'dm';
+  var txt = DM_POOL[Math.floor(Math.random() * DM_POOL.length)];
+  if (liveTrapNow && Math.random() < .5) txt = '昨天才 ¥' + liveReal + ' 吧，今天怎么涨了';
+  d.textContent = txt;
+  d.style.top = (16 + Math.random() * 52) + '%';
+  d.style.left = '100%';
+  d.style.animationDuration = (4 + Math.random() * 2.4).toFixed(1) + 's';
+  box.appendChild(d);
+  setTimeout(() => d.remove(), 7000);
+}
+</script>
+<script>
+/* ============ 05 真情买买买 ============ */
+const SCENES = [
+  { who:'阿May', av:'m', ch:'序章 · 21:07',
+    text:'在吗？我购物车还差 12 块凑满减……\n你随便帮我拍一件行不行？回头我转你 12，真的。',
+    choices:[
+      { t:'拍。12 块的事', h:'先把人情做了再说', fx:{ coin:-12, joy:1, debt:-1 } },
+      { t:'我看看你购物车里有什么', h:'先查账，再决定', fx:{} },
+      { t:'不拍。我今天只买自己的', h:'这句话发出去，群里会记三天', fx:{ joy:-1, debt:1 } }
+    ]},
+  { who:'老陈', av:'c', ch:'第一章 · 21:26',
+    text:'群里 @你：你那件空气炸锅我这有现货。\n帮我砍一刀，砍完我直接送你。\n\n（他发了个砍价链接，进度 0%）',
+    choices:[
+      { t:'砍。反正动动手指', h:'你的进度 +8，但欠他一笔', fx:{ pdd:8, debt:1, joy:1 } },
+      { t:'先问他要砍到多少', h:'他要 100，你只砍 8 —— 这笔债不划算', fx:{ debt:1 } },
+      { t:'我自己有别的路子', h:'省一次人情，也断一条路', fx:{} }
+    ]},
+  { who:'阿May', av:'m', ch:'第二章 · 21:58',
+    text:'刚有人在我购物车里埋了个雷。\n「前任的道歉录音 ¥0.01」，收货人是我。\n是不是你？',
+    choices:[
+      { t:'是我。逗你玩的', h:'承认比装傻便宜', fx:{ joy:2, debt:1 } },
+      { t:'不是我，可能是小周', h:'甩锅，但群里有人记得操作时间', fx:{ joy:1 } },
+      { t:'删了吧，别闹', h:'把事情按下去', fx:{ debt:-1 } }
+    ]},
+  { who:'小周', av:'z', ch:'第二章 · 22:04',
+    text:'我做了一张比价表，四家店、八件货，到手价都算好了。\n发你一份？抄作业要还的，下次你得替我去砍人。',
+    choices:[
+      { t:'抄，现在就要', h:'省 15 块，欠一次人情', fx:{ coin:-24, joy:1, debt:1 } },
+      { t:'不用，我自己比', h:'多花点时间，少欠一笔', fx:{ joy:1 } },
+      { t:'表发我，人情我认', h:'钱照花，债照欠', fx:{ coin:-15, debt:1 } }
+    ]},
+  { who:'主播', av:'w', ch:'第三章 · 22:30',
+    text:'家人们最后 30 秒！这个价我不敢挂太久！\n（弹幕有人刷：昨天才 89，今天标 129）',
+    choices:[
+      { t:'冲，手慢就没了', h:'预算 −59，开心 +2，可能买到抬价的', fx:{ coin:-59, joy:2 } },
+      { t:'先看弹幕，等下一波', h:'省下 59，但可能真没了', fx:{ joy:-1 } },
+      { t:'抢完再问能不能退', h:'先把链接锁住，退不退另说', fx:{ coin:-59, joy:1, debt:1 } }
+    ]},
+  { who:'老板', av:'x', ch:'第三章 · 23:10',
+    text:'老板在群里 @ 你：明天早上九点，方案再过一遍。\n你的购物车还开着，倒计时没停。',
+    choices:[
+      { t:'先把该买的买完，明天再说', h:'钱花掉，班照上', fx:{ coin:-66, joy:2 } },
+      { t:'关掉购物车，认了', h:'省下预算，心情 −2', fx:{ joy:-2 } },
+      { t:'买个「不打扰符」压压惊', h:'29 块买一点心理安慰', fx:{ coin:-29, joy:1, item:'老板不打扰符' } }
+    ]},
+  { who:'陌生人', av:'x', ch:'第四章 · 23:40',
+    text:'一个不认识的号加你：互助吗？你点我的，我点你的。\n点完他就把你删了 —— 这在双十一叫「助力刺客」。',
+    choices:[
+      { t:'点，也许他真会回点', h:'被骗一次，转盘 +1', fx:{ joy:1 } },
+      { t:'不点，陌生人不可信', h:'少一次机会，少一次上当', fx:{} },
+      { t:'点完顺手举报', h:'该拿的拿了，该报的报了', fx:{ joy:1, debt:-1 } }
+    ]},
+  { who:'系统', av:'x', ch:'第四章 · 23:52',
+    text:'购物车里多了一件你没加过的东西：\n「一斤勇气 ¥6.6」，收货人写着你的名字。\n备注：送你，别问是谁。',
+    choices:[
+      { t:'留下，6.6 也不贵', h:'多一件，多一瓣', fx:{ coin:-6.6, joy:1, item:'一斤勇气' } },
+      { t:'删掉，不想被人安排', h:'把钱留住，把好奇留住', fx:{ joy:1 } },
+      { t:'在群里问是谁干的', h:'没人承认，但气氛起来了', fx:{ joy:1, debt:1 } }
+    ]},
+  { who:'系统', av:'x', ch:'第五章 · 23:58',
+    text:'你翻到一张券：满 300 减 60，还有 2 分钟过期。\n购物车里现在 ¥238。差 62。',
+    choices:[
+      { t:'再凑 62，把券用掉', h:'券是省钱的借口', fx:{ coin:-62, joy:2 } },
+      { t:'不凑了，让它过期', h:'省 62，少一瓣', fx:{ joy:-1 } },
+      { t:'拉群里的人拼一单', h:'凑到了，但也欠了人', fx:{ coin:-40, joy:2, debt:1 } }
+    ]},
+  { who:'阿May', av:'m', ch:'第五章 · 00:03',
+    text:'她发来一张截图：她的花开了五瓣。\n配文：你几分？\n（你的购物车还差最后一单）',
+    choices:[
+      { t:'把最后一单也下了', h:'钱花光，花也开满', fx:{ coin:-45, joy:2 } },
+      { t:'不追了，我这局就这样', h:'留住钱，也留住体面', fx:{ joy:-1 } },
+      { t:'问她借 20 块补最后一单', h:'借钱买假货，人情债 +2', fx:{ coin:-20, joy:1, debt:2 } }
+    ]}
+];
+const ST_SEEN = 'hx_story_seen';
+let stChain = [], stIdx = 0, stTyping = false;
+function storyInit() {
+  var seen = [];
+  try { seen = JSON.parse(localStorage.getItem(ST_SEEN) || '[]') || []; } catch (e) { seen = []; }
+  var all = SCENES.map(function (x, i) { return i; });
+  var fresh = all.filter(function (i) { return seen.indexOf(i) < 0; });
+  if (fresh.length < 5) fresh = all;
+  var pick = [];
+  while (pick.length < 5 && fresh.length) {
+    var k = fresh[Math.floor(Math.random() * fresh.length)];
+    if (pick.indexOf(k) < 0) pick.push(k);
+  }
+  try { localStorage.setItem(ST_SEEN, JSON.stringify(pick)); } catch (e) {}
+  stChain = pick.map(function (i) { return SCENES[i]; });
+  stChain.push({ who:'系统', av:'x', ch:'终章 · 00:07', dyn:true, text:'', choices:[{ t:'去结算，开花', h:'看看这一局开成什么样', fx:{} }] });
+  stIdx = 0;
+  storyShow(0);
+}
+function storyShow(i) {
+  var nd = stChain[i];
+  if (!nd) return;
+  var chTxt = nd.ch || '';
+  var chTime = chTxt.indexOf('·') >= 0 ? chTxt.split('·').pop().trim() : '';
+  $('stCh').textContent = '第 ' + (i + 1) + ' 章' + (chTime ? ' · ' + chTime : '');
+  $('stNo').textContent = (i + 1) + '/' + stChain.length;
+  $('stProg').style.width = Math.min(100, ((i + 1) / stChain.length) * 100) + '%';
+  $('stWho').textContent = nd.who;
+  $('stAv').className = 'av ' + (nd.av || 'x');
+  $('stAv').textContent = nd.av === 'm' ? 'M' : nd.av === 'c' ? '陈' : nd.av === 'z' ? '周' : nd.av === 'w' ? '播' : '+';
+  var body = nd.dyn ? endingText() : nd.text;
+  $('stChoices').innerHTML = '';
+  typewrite(body, function () {
+    $('stChoices').innerHTML = nd.choices.map(function (c, ci) {
+      return '<button class="choice" onclick="stPick(' + ci + ')"><span class="k">' + (ci + 1) + '</span>' +
+        '<span>' + c.t + '<span class="hintx">' + (c.h || '') + '</span></span></button>';
+    }).join('');
+  });
+  hud();
+}
+function typewrite(txt, done) {
+  const el = $('stText'); el.textContent = ''; stTyping = true;
+  let i = 0;
+  const step = () => {
+    if (i >= txt.length) {
+      el.textContent = txt; stTyping = false;
+      el.innerHTML = txt.replace(/\n/g, '<br>') + '<span class="caret"></span>';
+      if (done) done(); return;
+    }
+    i += 2;
+    el.textContent = txt.slice(0, i);
+    setTimeout(step, 26);
+  };
+  step();
+}
+function stPick(i) {
+  var nd = stChain[stIdx];
+  var c = nd && nd.choices[i];
+  if (!c) return;
+  if (c.fx) applyFx(c.fx);
+  pushEvt('你', 'story', c.t + (c.h ? '（' + c.h + '）' : ''));
+  if (stIdx >= stChain.length - 1) { go('settle'); return; }
+  stIdx++;
+  storyShow(stIdx);
+}
+function applyFx(fx) {
+  if (fx.coin) {
+    var d = fx.coin < 0 ? Math.min(-fx.coin, S.coin) : 0;
+    S.coin = Math.max(0, S.coin + fx.coin);
+    S.spent += d;
+  }
+  if (fx.joy) S.joy += fx.joy;
+  if (fx.debt) S.debt = Math.max(0, S.debt + fx.debt);
+  if (fx.pdd) S.pddCut = Math.min(199 - 0.0001, Math.round((S.pddCut + fx.pdd) * 10000) / 10000);
+  if (fx.item) S.items.push(fx.item);
+  hud();
+}
+function endingText() {
+  const left = yuan(S.coin);
+  if (S.joy >= 4 && left <= 8) return '0 点到了。你的购物车清了，钱也清了。\n群里第一条消息是阿May 发的：『是他埋的雷，但他也真的帮我买了。』';
+  if (S.joy >= 4) return '0 点到了。你开心，但账上还剩 ' + left + ' 块。\n剩钱就是没花开心 —— 这句话在这一局里是真的。';
+  if (left <= 20) return '0 点到了。钱基本花完了，可没人记得你买了什么。\n购物这件事，爽的从来不是买。';
+  return '0 点到了。你账户里还躺着 ' + left + ' 块。\n阿May 那边已经开花了，五瓣。';
+}
+
+/* ============ 06 许愿池 ============ */
+const WISH_KEY = 'hx_wish';
+const WISH_NPC = [
+  { n: '阿May', t: '想让双十一赶紧结束，我的购物车在跳' },
+  { n: '老陈', t: '想抢到 0 点那一单，去年手慢了 0.4 秒' },
+  { n: '小周', t: '想有人帮我凑那 12 块，别让我一个人买' },
+  { n: '阿全', t: '想凑单的时候有人拉我一把' },
+  { n: '小满', t: '想在零点前抢到，别卡在付款页' },
+  { n: '大鹏', t: '想今年真抢到一次 60 块补贴' },
+  { n: '毛毛', t: '想买的东西刚好打折，不是先涨后降' },
+  { n: '老K', t: '想砍一刀真的砍到 0 元，不是砍到 0.01' },
+  { n: '七喜', t: '想被抽中一次幸运观众，哪怕一次' },
+  { n: '阿布', t: '想清空购物车还留得住预算' },
+  { n: '小鹿', t: '想有人替我挑礼物，我实在不会挑' },
+  { n: '花友小野', t: '想要一张真的能用的满减券' },
+  { n: '阿杰', t: '想少买一件其实不需要的东西' },
+  { n: '小北', t: '想在群里当一次锦鲤' },
+  { n: '阿哲', t: '想让购物车别再自己加东西' },
+  { n: '米粒', t: '想买完这单，下个月还能吃上饭' },
+  { n: '阿May', t: '想要一斤勇气，够我点「提交订单」就行' },
+  { n: '老陈', t: '想要一个不会被 @ 的周末' },
+  { n: '小周', t: '想把购物车清空，也想把钱留着' },
+  { n: '阿全', t: '想被砍价链接放过一次' },
+  { n: '小满', t: '想看一眼别人的清单，再决定买不买' },
+  { n: '大鹏', t: '想砍到最后一刀的时候有人接住' },
+  { n: '毛毛', t: '想收到快递，而不是收到道歉' },
+  { n: '老K', t: '想在群里被谁塞一件好东西' },
+  { n: '七喜', t: '想抽到不用的券也不心疼' },
+  { n: '阿布', t: '想在 23:59 分把单下了' },
+  { n: '小鹿', t: '想有人陪我一起凑这 300' },
+  { n: '花友小野', t: '想把预算花在真喜欢的东西上' }
+];
+let wishFeed = [], wishTimer = null;
+function wishRender() {
+  const gotN = S.wish.filter(w => w.got).length;
+  $('wishList').innerHTML = S.wish.map(function (w, i) {
+    var nameCell = w.mine
+      ? '<input class="winput" id="wn' + i + '" maxlength="12" value="' + w.name + '">'
+      : w.name;
+    var priceCell = w.mine
+      ? '¥<input class="winput wprice" id="wp' + i + '" type="number" min="0.1" max="999" step="0.1" value="' + w.price + '">'
+      : '¥' + yuan(w.price);
+    return '<div class="tk"><div class="top"><span class="nm">' + nameCell + '</span><span class="px">' + priceCell + '</span></div>' +
+      '<div class="from">' + (w.mine ? '你自己写的 · 名字和价都能改' : '<span class="av m">' + ((w.from || '阿May').slice(0, 1)) + '</span>' + (w.from || '阿May') + ' 从你清单里挑的，塞进了你的必买') +
+      (w.got ? ' · 已买到' : '') + '</div>' +
+      (w.got ? '' : '<div class="act"><button class="btn sm' + (S.coin >= w.price ? '' : ' dim') + '" onclick="wishBuy(' + i + ')">买下</button>' +
+        (w.mine ? '<button class="btn sm ghost" onclick="wishSave(' + i + ')">存这个愿望</button>' : '') + '</div>') +
+      (w.mine ? '' : '<span class="stamp">她选的</span>') + '</div>';
+  }).join('');
+  wishTG = (RT.players || []).filter(function (p) { return p && p.u !== RT.cuid; }).slice(0, 6);
+  wishTG.forEach(function (p) { if (!p.name || p.name === '你') p.name = '花友' + String(p.u || '').slice(-4).toUpperCase(); });
+  if (S.giveUsed) {
+    $('wishChips').innerHTML = '<button class="chip" onclick="toast(\'这一轮你只能塞一件，已经塞出去了\')">已经塞过一件了</button>';
+  } else if (wishTG.length) {
+    $('wishChips').innerHTML = wishTG.map(function (p, i) {
+      return '<button class="chip" onclick="wishGive(this,' + i + ')" data-u="' + p.u + '">给 ' + (p.name || '群友') + ' 塞「' + GIVE_POOL[i % GIVE_POOL.length] + '」</button>';
+    }).join('');
+  } else {
+    $('wishChips').innerHTML = '<button class="chip" onclick="copyInvite()">房间里还没有别人，喊个人进来</button>';
+  }
+  var gt = $('wishGiveTip');
+  if (gt) gt.textContent = S.giveUsed ? '本轮已塞过' : (wishTG.length ? '只能塞一件 · 房间里有 ' + wishTG.length + ' 人可塞' : '只能塞一件');
+  $('wishList').innerHTML += '<div class="rowline" style="margin-top:12px"><span>心愿进度</span><span style="color:#FF3D2E;font-weight:700">' + gotN + ' / 3 · 每件一瓣</span></div>';
+  wishTick();
+}
+function wishSave(i) {
+  var w = S.wish[i];
+  if (!w || !w.mine) { toast('这件是别人塞的，改不了'); return; }
+  var n = $('wn' + i), p = $('wp' + i);
+  var name = ((n && n.value) || '').trim().slice(0, 12) || w.name;
+  var price = +(p && p.value);
+  if (!isFinite(price) || price <= 0) price = w.price;
+  w.name = name;
+  w.price = Math.round(Math.min(999, Math.max(0.1, price)) * 10) / 10;
+  if (n) n.value = w.name;
+  if (p) p.value = w.price;
+  try { localStorage.setItem(WISH_KEY, JSON.stringify(S.wish)); } catch (e) {}
+  toast('愿望改好了：' + w.name + ' ¥' + yuan(w.price));
+  pushEvt('你', 'wish', '把心愿改成了「' + w.name + '」¥' + yuan(w.price) + '，群里都看得见。');
+  wishRender();
+  rtState(true);
+}
+function wishPoolCands() {
+  var real = [], fake = [];
+  if (RT.players && RT.players.length) {
+    RT.players.forEach(function (p) {
+      if (!p || p.u === RT.cuid) return;
+      (p.wishes || []).forEach(function (t) {
+        if (t) real.push({ n: (p.name && p.name !== '你') ? p.name : ('花友' + String(p.u || '').slice(-4).toUpperCase()), t: String(t).slice(0, 20), real: true });
+      });
+    });
+  }
+  WISH_NPC.forEach(function (x) { fake.push({ n: x.n, t: x.t, real: false }); });
+  return { real: real, fake: fake };
+}
+let wishSeen = {};
+function wishPick(pool) {
+  var real = pool.real.filter(function (c) { return !wishSeen['R|' + c.n + '|' + c.t]; });
+  var fake = pool.fake.filter(function (c) { return !wishSeen['N|' + c.n + '|' + c.t]; });
+  if (!fake.length) {                     // NPC 一轮讲完，开下一轮
+    Object.keys(wishSeen).forEach(function (k) { if (k.indexOf('N|') === 0) delete wishSeen[k]; });
+    fake = pool.fake.slice();
+  }
+  if (real.length && (!fake.length || Math.random() < 0.7)) {
+    var r = real[Math.floor(Math.random() * real.length)];
+    wishSeen['R|' + r.n + '|' + r.t] = 1;
+    return r;
+  }
+  if (!fake.length) return null;
+  var f = fake[Math.floor(Math.random() * fake.length)];
+  wishSeen['N|' + f.n + '|' + f.t] = 1;
+  return f;
+}
+function wishRow(c) {
+  var row = document.createElement('div');
+  row.className = 'wrow2';
+  row.innerHTML = '<b>' + c.n + '</b><span>' + c.t + '</span>';
+  return row;
+}
+function wishTick() {
+  var box = $('wishScroll');
+  if (!box) return;
+  var pool = wishPoolCands();
+  if (!pool.real.length && !RT.players) {     // 还没拿到房间数据，先拉一次
+    if (!wishTick.wait) { wishTick.wait = 1; rtPoll(); setTimeout(wishTick, 500); }
+    return;
+  }
+  var keep = 7;
+  var need = keep - box.children.length;
+  while (need > 0) {
+    need--;
+    var c = wishPick(pool);
+    if (!c) break;
+    box.appendChild(wishRow(c));
+    if (box.children.length > keep) box.removeChild(box.firstElementChild);
+  }
+  if (!box.children.length) {
+    pool.fake.slice(0, 3).forEach(function (c) { box.appendChild(wishRow(c)); });
+  }
+  box.scrollTop = box.scrollHeight;
+}
+function wishBuy(i) {
+  const w = S.wish[i];
+  if (w.got) return;
+  if (!spend(w.price)) return;
+  w.got = true; S.joy += 1; S.items.push(w.name);
+  toast('买下「' + w.name + '」¥' + yuan(w.price) + ' —— 心愿 +1');
+  pushEvt('你', 'wish', '买下了心愿「' + w.name + '」¥' + yuan(w.price) + '。');
+  wishRender(); hud();
+}
+const GIVE_POOL = ['一斤勇气', '周一延期券', '前任道歉录音', '老板不打扰符', '半张满减券'];
+let wishTG = [];
+function wishGive(el, i) {
+  var p = wishTG[i];
+  if (!p) { toast('这个人刚离开房间了'); wishRender(); return; }
+  if (S.giveUsed) { toast('这一轮只能塞一件'); return; }
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  if (el) el.classList.add('on');
+  var item = GIVE_POOL[i % GIVE_POOL.length];
+  S.giveUsed = true; S.debt += 1;
+  try { localStorage.setItem('hx_give', '1'); } catch (e) {}
+  toast('「' + item + '」已塞进 ' + (p.name || '群友') + ' 的清单，他打开许愿池就能看到');
+  pushEvt('你', 'wish', '往 ' + (p.name || '群友') + ' 的清单里塞了「' + item + '」，没署名。', false,
+    { target: p.u, kind: 'wish', item: item });
+  hud();
+  rtState(true);
+  wishRender();
+}
+function receiveWish(from, item) {
+  item = String(item || '').slice(0, 12);
+  if (!item) return;
+  var price = Math.round((Math.random() * 60 + 9) * 10) / 10;
+  if (S.wish[2] && S.wish[2].got) {
+    S.wish.push({ name: item, price: price, mine: false, got: false, from: from });
+  } else {
+    S.wish[2] = { name: item, price: price, mine: false, got: false, from: from };
+  }
+  try { localStorage.setItem(WISH_KEY, JSON.stringify(S.wish)); } catch (e) {}
+  toast('「' + from + '」往你的清单里塞了「' + item + '」');
+  if ($('app-wish') && $('app-wish').classList.contains('on')) wishRender();
+  else chatRender(false);
+  hud();
+  setTimeout(function () { rtState(true); }, 400);
+}
+
+/* ============ 07 结算 ============ */
+function petalsNow() {
+  var items = [
+    S.wish[0].got, S.wish[1].got, S.wish[2].got,
+    S.spent >= 296, S.usedCoupon, !S.pddStolen
+  ];
+  return items.filter(Boolean).length;
+}
+function settleRender() {
+  const gotWish = S.wish.filter(w => w.got).length;
+  const items = [
+    { t: '心愿「羊毛毯」' + (S.wish[0].got ? ' 到手' : ' 没买'), ok: S.wish[0].got },
+    { t: '心愿「一斤勇气」' + (S.wish[1].got ? ' 到手' : ' 没买'), ok: S.wish[1].got },
+    { t: (S.wish[2].mine ? '心愿' : '她塞的') + '「不打扰符」' + (S.wish[2].got ? ' 买了' : ' 没买'), ok: S.wish[2].got },
+    { t: '预算花光（≥296）', ok: S.spent >= 296 },
+    { t: '用上了满减', ok: S.usedCoupon },
+    { t: '没被截胡', ok: !S.pddStolen }
+  ];
+  const petals = items.filter(i => i.ok).length;
+  const fl = $('flower');
+  fl.innerHTML = '';
+  for (let i = 0; i < 6; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal' + (i < petals ? '' : ' dim');
+    p.style.transform = 'rotate(' + (i * 60) + 'deg) translateY(-40px)';
+    fl.appendChild(p);
+  }
+  const core = document.createElement('div');
+  core.className = 'core'; core.textContent = petals;
+  fl.appendChild(core);
+
+  $('settleH').textContent = petals + ' 瓣';
+  $('settleS').textContent = petals >= 6 ? '六瓣满 · 这一局花开心了' : ('六瓣满差 ' + (6 - petals) + ' 瓣');
+  $('petalList').innerHTML = items.map(i =>
+    '<div class="pl' + (i.ok ? '' : ' off') + '"><i></i>' + i.t + '<b>' + (i.ok ? '✓' : '—') + '</b></div>').join('');
+
+  let title = '开心就好';
+  if (petals >= 6) title = '锦鲤附体';
+  else if (petals >= 5) title = '凑单鬼才';
+  else if (S.liveTrap && S.pddStolen) title = '冤大头';
+  else if (S.liveTrap) title = '手速废物';
+  else if (S.spent < 150) title = '铁公鸡';
+  $('settleTitle').textContent = title;
+
+  $('setCoin').textContent = yuan(S.coin);
+  $('setSpent').textContent = yuan(S.spent);
+  $('setWish').textContent = gotWish + '/3';
+
+  const left = S.coin;
+  $('settleReport').textContent = [
+    '已花 ¥' + yuan(S.spent) + '，账上剩 ¥' + yuan(left) + (left <= 4 ? ' —— 刚好花光。' : ' —— 剩钱就是没花开心。'),
+    '成交 ' + S.items.length + ' 件' + (S.items.length ? '：' + S.items.slice(0, 3).join('、') + (S.items.length > 3 ? ' …' : '') : '。'),
+    '砍价进度 ' + (S.pddDone ? '100%（0 元到手）' : S.pddCut.toFixed(2) + ' / 100') + (S.pddStolen ? '，被阿May 截过一刀。' : '，没人截。'),
+    '比价答对 ' + S.tbRight + ' 次，直播间' + (S.liveCatch ? '抢到 ' + S.liveCatch + ' 件' : '没抢到') + (S.liveTrap ? '，其中一件是先涨后降。' : '。'),
+    '人情债 ' + S.debt + ' 笔' + (S.debt >= 4 ? '，下一局第一件事就是还账。' : '。')
+  ].join('\n');
+  const lootBox = $('settleLoot');
+  if (lootBox) {
+    if (!(S.bought || []).length) {
+      lootBox.innerHTML = '<div class="empty">这局没在货架上成交 —— 钱都花在别处了。</div>';
+    } else {
+      const savedAll = (S.bought || []).reduce(function (a, b) { return a + Math.max(0, (b.orig || b.price) - b.price); }, 0);
+      lootBox.innerHTML = (S.bought || []).slice(0, 6).map(function (b) {
+        return '<div class="row"><span class="nm">' + b.name + '</span><span class="pr">¥' + yuan(b.price) + '</span><span>省 ¥' + yuan((b.orig || b.price) - b.price) + '</span></div>';
+      }).join('') +
+        '<div class="row" style="margin-top:6px;border-top:1.5px solid rgba(36,24,17,.2);padding-top:6px"><span class="nm">货架合计省</span><span class="pr">¥' + yuan(savedAll + Math.max(0, S.liveSaved)) + '</span><span>' + (S.bought || []).length + ' 件</span></div>';
+    }
+  }
+  hud();
+  rtState(true);
+  if (!S.settled) {
+    S.settled = true;
+    pushEvt('你', 'settle', '这一局开花了：' + petals + ' 瓣，称号「' + title + '」，已花 ¥' + yuan(S.spent) + '，剩 ¥' + yuan(S.coin) + '。');
+  }
+}
+function restart() { if (confirm('重开这一局？当前进度会清空。')) location.reload(); }
+
+/* ============ 08 购格测试 ============ */
+const QZ_POOL = [
+  { q:'购物车还差 12 块到满减，你怎么办？', h:'这 12 块，是今晚第一道题。', o:[
+    { t:'再随手加一件 6.9 的奇货，先凑到再说', v:'G' },
+    { t:'删掉一件，让它刚好卡在 300', v:'S' },
+    { t:'不凑了。满减是给人算的，不是给人花的', v:'D' }]},
+  { q:'0 点开抢，你的手在哪？', h:'真双十一的人，都是从这个动作里认清自己的。', o:[
+    { t:'提前三分钟就点着屏幕，心跳比主播快', v:'C' },
+    { t:'闹钟设好了，但先算清楚哪件最值', v:'S' },
+    { t:'睡过去了，醒来看群里战绩', v:'D' }]},
+  { q:'买到的东西，你会告诉群里吗？', h:'', o:[
+    { t:'立刻截图发群，配一句「你们看这个价」', v:'Q' },
+    { t:'只说「我买了」，不报价', v:'W' }]},
+  { q:'两件同款：一件便宜 20，一件有你认的牌子。', h:'', o:[
+    { t:'买便宜的，差价够买半个', v:'L' },
+    { t:'买牌子的，不想在同一个东西上赌第二次', v:'P' }]},
+  { q:'主播喊「最后 3 件」，你会？', h:'', o:[
+    { t:'立刻点抢，抢完再说值不值', v:'C' },
+    { t:'瞟一眼弹幕，有没有人说这个价虚', v:'S' },
+    { t:'关掉直播，去比价页', v:'D' }]},
+  { q:'好友让你帮砍一刀，你？', h:'', o:[
+    { t:'砍，砍完顺手让他也砍回来', v:'Q' },
+    { t:'悄悄砍，砍完不说', v:'W' },
+    { t:'直接回「我在凑满减，没空」', v:'D' }]},
+  { q:'结算前还剩 4 块，你？', h:'剩钱就意味着少一瓣。', o:[
+    { t:'找件 4 块的东西凑光，账要平', v:'S' },
+    { t:'留就留着，又不是真钱', v:'D' },
+    { t:'全买零食，花爽为止', v:'C' }]},
+  { q:'你更愿意怎么认识一个新牌子？', h:'', o:[
+    { t:'翻详情页参数，一条条看', v:'S' },
+    { t:'听主播怎么说，看他敢不敢喊', v:'C' },
+    { t:'看朋友圈谁在用', v:'Q' }]},
+  { q:'同一个购物车，你更在意？', h:'', o:[
+    { t:'单价是不是全网最低', v:'L' },
+    { t:'有没有品牌保障、能不能退', v:'P' }]},
+  { q:'你会为了凑满减，买一件不需要的东西吗？', h:'诚实地选。', o:[
+    { t:'会，凑完到手再退货', v:'G' },
+    { t:'会，而且留着，说不定哪天用上', v:'G' },
+    { t:'不会。不需要的就是不需要', v:'D' }]},
+  { q:'双11 前一晚，你在干嘛？', h:'', o:[
+    { t:'列好清单、算好每件到手价、记在小本上', v:'S' },
+    { t:'刷直播、看谁家预告，越看越兴奋', v:'C' }]},
+  { q:'看到「原价 699，现价 199」，你第一反应？', h:'', o:[
+    { t:'去翻历史价，先看它涨没涨过', v:'S' },
+    { t:'699 谁信啊，直接点进去', v:'C' },
+    { t:'先看有没有人买过、评价怎么说', v:'P' }]},
+  { q:'快递到了，和图片差很多，你？', h:'', o:[
+    { t:'直接退，运费我认', v:'P' },
+    { t:'留着，反正便宜', v:'L' },
+    { t:'拍下来发群里，让大家笑一笑', v:'Q' }]},
+  { q:'群里有人晒「0 元单」，你？', h:'', o:[
+    { t:'立刻问链接，我也要', v:'Q' },
+    { t:'默默去搜同样的路子', v:'W' }]},
+  { q:'你会提前列购物清单吗？', h:'', o:[
+    { t:'列。而且分「必买 / 可买 / 想要」三档', v:'S' },
+    { t:'不列。看见什么买什么才有意思', v:'C' }]},
+  { q:'大额券和满减，你先算哪个？', h:'', o:[
+    { t:'先算满减门槛，再叠券', v:'S' },
+    { t:'先领券，领了再想怎么用', v:'C' }]},
+  { q:'页面开始 3 分钟倒计时，你？', h:'', o:[
+    { t:'先看清楚它是不是先涨后降', v:'S' },
+    { t:'不管了，先抢', v:'C' },
+    { t:'关掉，反正抢不到', v:'D' }]},
+  { q:'主播说「仅此一场，下播就没了」，你？', h:'', o:[
+    { t:'信，先下单', v:'C' },
+    { t:'不信，去别的平台查同款', v:'D' }]},
+  { q:'你买贵了，会主动告诉别人吗？', h:'', o:[
+    { t:'会，我要骂这个平台', v:'Q' },
+    { t:'不说，丢人', v:'W' }]},
+  { q:'退货这件事，你熟吗？', h:'', o:[
+    { t:'熟。不合适就退，别将就', v:'P' },
+    { t:'不熟，几十块的东西懒得退', v:'L' }]},
+  { q:'拼单还差一人，你会拉谁？', h:'', o:[
+    { t:'群里最活跃的那个，随口就喊', v:'Q' },
+    { t:'私下找一个真的需要的人', v:'W' }]},
+  { q:'品牌旗舰店 vs 白牌工厂店，同价。', h:'', o:[
+    { t:'旗舰店，售后省心', v:'P' },
+    { t:'工厂店，同价肯定用料更足', v:'L' }]},
+  { q:'结算时发现优惠券没生效，多算 20，你？', h:'', o:[
+    { t:'回去查规则，算清楚再付', v:'S' },
+    { t:'算了，20 块不值得折腾', v:'C' }]},
+  { q:'这一局，你更想赢下什么？', h:'最后一题。', o:[
+    { t:'六瓣全亮，账算得漂亮', v:'S' },
+    { t:'花到一分不剩，爽', v:'C' },
+    { t:'让所有人都知道我买到了什么', v:'Q' }]}
+];
+const QZ_PRE = { SG:'凑单鬼才', SD:'清单刺客', CG:'起哄团长', CD:'手感选手' };
+const QZ_SUF = { WL:'暗地里比价', WP:'闷声认牌子', QL:'群里直播砍价', QP:'当众晒单' };
+const QZ_TXT = {
+  S:'你先把到手价算清楚才下单。凑单在你手里不是玄学，是一道能解的题。',
+  C:'你先爽了再说。开心币不是真钱，这句话你是真信。',
+  G:'购物车差几块到门槛的时候，你比谁都难受 —— 补上那几块，比省下那几十块更让你舒服。',
+  D:'不需要的东西，白送你都嫌它占地方。',
+  W:'你买了什么，群里通常最后一个知道。',
+  Q:'你买东西至少一半的快乐，来自别人看见。',
+  L:'标价对你没用，你只认到手价。',
+  P:'认牌子不丢人，你只是不想在同一个东西上赌第二次。'
+};
+const QZ_TRAP = {
+  S:'你的坑：算得太细，为了 3 块钱多买了一件。',
+  C:'你的坑：抢到抬价链接，还嘴硬说值。',
+  G:'你的坑：为满减买了一堆用不上的东西。',
+  D:'你的坑：永远凑不满，总差那一瓣。',
+  W:'你的坑：没人知道你买了，也就没人陪你吵。',
+  Q:'你的坑：被群里当靶子，截图到处传。',
+  L:'你的坑：便宜买回来的，坏得比想象中快。',
+  P:'你的坑：为牌子多付的钱，够你再买一件。'
+};
+const QZ_FRIENDS = { '阿May':'CGQP', '老陈':'SDWP', '小周':'CDQL' };
+let qzSet = [], qzIds = [], qzIdx = 0, qzScore = { S:0,C:0,G:0,D:0,W:0,Q:0,L:0,P:0 }, qzDone = false, qzCode = '';
+
+/* ============ 本地存档：刷新 / 更新页面不丢这一局 ============ */
+const SAVE_KEY = 'hx_save';
+let saveTimer = null;
+function scheduleSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveGame, 300); }
+function saveGame() {
+  try {
+    const keys = ['coin','start','spent','items','bought','joy','debt','granted','drawLeft','usedCoupon','spin','spinMax',
+      'pddFirst','pddCut','pddDone','pddStolen','liveTrap','liveCatch','liveSaved','tbRight','qz','clock','settled','giveUsed'];
+    const o = { v: 2, t: Date.now(), S: {}, qz: null };
+    keys.forEach(function (k) { o.S[k] = S[k]; });
+    o.qz = { ids: qzIds, idx: qzIdx, score: qzScore, done: qzDone, code: qzCode };
+    o.cart = (typeof jdCart !== 'undefined' ? jdCart : []).map(function (c) { return { i: c.i, name: c.name, price: c.price, orig: c.orig, img: c.img }; });
+    localStorage.setItem(SAVE_KEY, JSON.stringify(o));
+  } catch (e) {}
+}
+function loadGame() {
+  try {
+    const o = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
+    if (!o || !o.S) return false;
+    Object.keys(o.S).forEach(function (k) { if (o.S[k] !== undefined && o.S[k] !== null) S[k] = o.S[k]; });
+    if (Array.isArray(S.items)) S.items = S.items.filter(function (x) { return x && x.n; });
+    if (Array.isArray(o.cart)) {
+      jdCart.length = 0;
+      o.cart.forEach(function (c) { if (c && c.name) jdCart.push(c); });
+    }
+    if (o.qz) {
+      qzIds = Array.isArray(o.qz.ids) ? o.qz.ids : [];
+      qzSet = qzIds.map(function (i) { return QZ_POOL[i]; }).filter(Boolean);
+      qzIdx = Math.max(0, Math.min(qzSet.length, +o.qz.idx || 0));
+      if (o.qz.score) Object.keys(qzScore).forEach(function (k) { if (+o.qz.score[k] >= 0) qzScore[k] = +o.qz.score[k]; });
+      qzDone = !!o.qz.done;
+      qzCode = String(o.qz.code || '');
+      if (qzCode) S.qz = qzCode;
+    }
+    return true;
+  } catch (e) { return false; }
+}
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function qzStart() {
+  qzSet = shuffle(QZ_POOL).slice(0, 15);
+  qzIds = qzSet.map(function (q) { return QZ_POOL.indexOf(q); });
+  qzIdx = 0; qzDone = false;
+  qzScore = { S:0,C:0,G:0,D:0,W:0,Q:0,L:0,P:0 };
+  if ($('qzBarSub')) $('qzBarSub').textContent = '随机 15 题 / 题库 24 题';
+  saveGame();
+  qzRender();
+}
+function qzRenderStart() {
+  if (!qzSet.length) qzSet = shuffle(QZ_POOL).slice(0, 15);
+  if (qzDone) { qzResult(true); return; }
+  if (qzSet[qzIdx]) { qzRender(); return; }
+  $('qzStage').innerHTML =
+    '<div class="qz-num" style="margin-top:6px">购买人格测试</div>' +
+    '<div class="qz-code" style="font-size:30px;letter-spacing:.02em;margin-top:8px">你会怎么花光 300 块？</div>' +
+    '<div class="qz-hint" style="margin-top:10px">15 道题，全部来自这一局的真实选择：凑单、砍价、秒杀、晒单。<br>答案没有对错，测出来的类型会直接给这一局加成。</div>' +
+    '<div class="qz-opts" style="margin-top:24px"><button class="btn" onclick="qzStart()">开始测（约 2 分钟）</button></div>' +
+    '';
+}
+function qzRender() {
+  const it = qzSet[qzIdx];
+  if (!it) { qzRenderStart(); return; }
+  const pct = Math.round(qzIdx / qzSet.length * 100);
+  $('qzStage').innerHTML =
+    '<div class="qz-prog"><span>' + (qzIdx + 1) + ' / ' + qzSet.length + '</span>' +
+    '<div class="qz-track"><i style="width:' + pct + '%"></i></div><span>购格</span></div>' +
+    '<div class="qz-num">第 ' + (qzIdx + 1) + ' 题</div>' +
+    '<div class="qz-q">' + it.q + '</div>' +
+    (it.h ? '<div class="qz-hint">' + it.h + '</div>' : '') +
+    '<div class="qz-opts">' + it.o.map(function (o, i) {
+      return '<button class="qz-opt" onclick="qzPick(' + i + ')"><span class="k">' + String.fromCharCode(65 + i) + '</span><span>' + o.t + '</span></button>';
+    }).join('') + '</div>' +
+    '<div class="qz-slip"><div class="slip-h"><span>NO.' + String(qzIdx + 1).padStart(2, '0') + '</span><span>双11 花开心 · 购格测试</span></div>' +
+    '<div class="barcode"></div></div>' +
+    '<div class="qz-fill"><div class="bloom"><i></i><i></i><i></i><i></i><i></i><i></i><b>花</b></div>' +
+    '<div class="qbubble">这题没有标准答案，只有你的答案。</div></div>' +
+    '<div class="qz-dots">' + qzSet.map(function (x, i) { return '<i class="' + (i < qzIdx ? 'on' : '') + '"></i>'; }).join('') + '</div>' +
+    '<div class="qz-foot">15 题 · 大约 2 分钟 · 测完直接给这一局加成</div>';
+}
+function qzPick(i) {
+  if (!qzSet[qzIdx] || !qzSet[qzIdx].o[i]) return;
+  qzScore[qzSet[qzIdx].o[i].v]++;
+  qzIdx++;
+  if (qzIdx >= qzSet.length) qzResult(); else { saveGame(); qzRender(); }
+}
+function qzAxes() {
+  var A = qzScore.S >= qzScore.C ? 'S' : 'C';
+  var B = qzScore.G >= qzScore.D ? 'G' : 'D';
+  var C = qzScore.W >= qzScore.Q ? 'W' : 'Q';
+  var D = qzScore.L >= qzScore.P ? 'L' : 'P';
+  return [
+    { l:'精算', r:'冲动', a:A === 'S', ls:qzScore.S, rs:qzScore.C },
+    { l:'凑单', r:'单买', a:B === 'G', ls:qzScore.G, rs:qzScore.D },
+    { l:'藏着', r:'爱晒', a:C === 'W', ls:qzScore.W, rs:qzScore.Q },
+    { l:'性价比', r:'认牌子', a:D === 'L', ls:qzScore.L, rs:qzScore.P }
+  ];
+}
+function qzName(code) { return QZ_PRE[code.slice(0, 2)] + ' · ' + QZ_SUF[code.slice(2)]; }
+function qzResult(again) {
+  var A = qzScore.S >= qzScore.C ? 'S' : 'C';
+  var B = qzScore.G >= qzScore.D ? 'G' : 'D';
+  var C = qzScore.W >= qzScore.Q ? 'W' : 'Q';
+  var D = qzScore.L >= qzScore.P ? 'L' : 'P';
+  var code = A + B + C + D;
+  qzCode = code; qzDone = true;
+  S.qz = code;
+  try { localStorage.setItem('hx_qz', code); } catch (e) {}
+  saveGame();
+  var name = QZ_PRE[A + B] + ' · ' + QZ_SUF[C + D];
+  var axes = qzAxes();
+  var pl = [];
+  function addPerk(cond, fn, txt) { if (cond) { fn(); pl.push(txt); } }
+  if (!again) {
+    addPerk(A === 'S', function(){ S.granted += 15; }, '补贴券 +15（去大额补贴里就能用）');
+    addPerk(A === 'C', function(){ S.coin += 10; }, '开心币 +10（爽快型额外预算）');
+    addPerk(B === 'G', function(){ S.granted += 20; }, '无门槛券 ¥20（凑单型补给）');
+    addPerk(B === 'D', function(){ S.pddCut = Math.min(100, S.pddCut + 5); }, '砍价进度 +5（只买要的，砍得更准）');
+    addPerk(C === 'W', function(){ S.joy += 1; }, '开心 +1（藏着买的人有自己的乐子）');
+    addPerk(C === 'Q', function(){ S.debt = Math.max(0, S.debt - 1); }, '人情债 −1（会来事的人不欠账）');
+    addPerk(D === 'L', function(){ S.pddCut = Math.min(100, S.pddCut + 3); }, '砍价进度 +3（性价比雷达）');
+    addPerk(D === 'P', function(){ S.granted += 10; }, '品牌券 ¥10（只抵你认的那几个牌子）');
+    pushEvt('你', 'quiz', '购格测出来了：' + code.split('').join('·') + '「' + name + '」。');
+    rtState(true);
+    setTimeout(function () { pushEvt('阿May', 'quiz', '你这型我一眼认出来了，群里好几个都是。'); }, 1800);
+  }
+  hud();
+  var same = [], diff = [];
+  Object.keys(QZ_FRIENDS).forEach(function (n) {
+    var f = QZ_FRIENDS[n], s = 0;
+    for (var k = 0; k < 4; k++) if (f[k] === code[k]) s++;
+    if (s >= 3) same.push(n + '（' + s + ' 轴一样）'); else if (s <= 1) diff.push(n);
+  });
+  $('qzStage').innerHTML =
+    '<div class="qz-num" style="margin-top:6px">你的购格</div>' +
+    '<div class="qz-code">' + code.split('').join('·') + '</div>' +
+    '<div class="qz-name">' + name + '</div>' +
+    '<div class="qz-sub">四维：精算/冲动 · 凑单/单买 · 藏着/爱晒 · 性价比/认牌子</div>' +
+    '<div style="margin-top:14px">' + axes.map(function (x) {
+      var p = Math.round(x.ls / Math.max(1, x.ls + x.rs) * 100);
+      var w = Math.max(6, x.a ? p : 100 - p);
+      return '<div class="qz-axis"><span class="' + (x.a ? 'win' : '') + '">' + x.l + '</span>' +
+        '<div class="bar"><i class="' + (x.a ? '' : 'r') + '" style="width:' + w + '%"></i></div>' +
+        '<span class="' + (!x.a ? 'win' : '') + '">' + x.r + '</span></div>';
+    }).join('') + '</div>' +
+    '<div class="qz-desc">' + QZ_TXT[A] + '<br>' + QZ_TXT[B] + '<br>' + QZ_TXT[C] + '<br>' + QZ_TXT[D] + '<br><br>' + QZ_TRAP[A] + '</div>' +
+    (pl.length ? '<div class="qz-perk">' + pl.map(function (t) { return '<div>' + t + '</div>'; }).join('') + '</div>' : '') +
+    '<div class="qz-friends">' + (same.length ? '和你像的：<b>' + same.join('、') + '</b><br>' : '') +
+    (diff.length ? '和你完全相反的：<b>' + diff.join('、') + '</b> —— 别一起拼单。' : '') + '</div>' +
+    '<div style="display:flex;gap:9px;margin-top:15px">' +
+    '<button class="btn" onclick="shareQuiz()">生成购格海报</button>' +
+    '<button class="btn ghost" onclick="qzStart()">重测</button></div>' +
+    '<div class="qz-hint" style="margin-top:12px">测完不影响这一局的账：加成已经进账了，回桌面接着凑单。</div>';
+}
+function shareQuiz() {
+  if (!qzCode) { toast('先测一遍'); return; }
+  makePoster('quiz', {
+    code: qzCode.split('').join('·'), name: qzName(qzCode),
+    lines: [QZ_TXT[qzCode[0]] + QZ_TXT[qzCode[1]], QZ_TXT[qzCode[2]] + QZ_TXT[qzCode[3]], QZ_TRAP[qzCode[0]]],
+    axes: qzAxes(), nick: S.nick
+  });
+}
+
+/* ============ 分享 / 海报 ============ */
+function baseUrl() {
+  if (location.protocol === 'file:') return 'https://1111maimaimai.zhuhongquan.com/';
+  var u = location.href.split('#')[0].split('?')[0];
+  return u;
+}
+function shareUrl(kind) {
+  var p = '?room=' + ROOM + '&u=' + encodeURIComponent(S.nick);
+  if (kind === 'quiz' && qzCode) p += '&qz=' + qzCode;
+  if (kind === 'settle') p += '&pt=' + petalsNow();
+  return baseUrl() + p;
+}
+function copyText(txt, okMsg) {
+  var done = function () { toast(okMsg || '已复制'); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done).catch(function () { fallbackCopy(txt, done); });
+  } else fallbackCopy(txt, done);
+}
+function fallbackCopy(txt, done) {
+  try {
+    var ta = document.createElement('textarea');
+    ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta); done();
+  } catch (e) { toast('复制失败，手动复制：' + txt); }
+}
+function copyInvite() { copyText(shareUrl('quiz'), '邀请链接已复制，发到群里就行'); }
+function nativeShare() {
+  var url = shareUrl('quiz');
+  var text = S.qz ? ('我的购格是 ' + S.qz.split('').join('·') + '，来 1111 房间比一比。') : '来 1111 房间里一起凑单。';
+  if (navigator.share) {
+    navigator.share({ title: '双11 花开心', text: text, url: url }).catch(function () {});
+  } else { copyText(text + ' ' + url, '链接已复制（这个环境不支持系统分享）'); }
+}
+function drawRound(ctx, x, y, w, h, r, fill, stroke) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.lineWidth = 3; ctx.strokeStyle = stroke; ctx.stroke(); }
+}
+function drawQR(ctx, text, x, y, size) {
+  ctx.fillStyle = '#FFF8EE';
+  drawRound(ctx, x - 10, y - 10, size + 20, size + 20, 12, '#FFF8EE', '#241811');
+  if (typeof qrcode !== 'function') {
+    ctx.fillStyle = '#241811';
+    ctx.font = '16px "PingFang SC",sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('打开链接看结果', x + size / 2, y + size / 2);
+    return;
+  }
+  var qr = qrcode(0, 'M');
+  qr.addData(text); qr.make();
+  var n = qr.getModuleCount(), cell = size / n;
+  for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (qr.isDark(r, c)) {
+    ctx.fillStyle = '#241811';
+    ctx.fillRect(x + c * cell, y + r * cell, Math.ceil(cell), Math.ceil(cell));
+  }
+}
+let lastPosterUrl = '';
+function makePoster(kind, data) {
+  var W = 750, H = 1180;
+  var cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  var ctx = cv.getContext('2d');
+  ctx.fillStyle = '#FFF8EE'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#FFD24A'; ctx.fillRect(0, 0, W, 150);
+  ctx.fillStyle = '#241811'; ctx.fillRect(0, 148, W, 4);
+  ctx.fillStyle = '#241811';
+  ctx.font = '30px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('双11 花开心', 56, 68);
+  ctx.font = '20px "PingFang SC",sans-serif';
+  ctx.fillText('花的是假钱，开心是真的 · 房间 ' + ROOM, 56, 108);
+
+  if (kind === 'quiz') {
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#7B5CFF';
+    ctx.font = '22px "PingFang SC",sans-serif';
+    ctx.fillText('我的购买人格', W / 2, 226);
+    ctx.fillStyle = '#241811';
+    ctx.font = '92px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+    ctx.fillText(data.code, W / 2, 330);
+    ctx.font = '42px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+    ctx.fillText(data.name, W / 2, 400);
+    ctx.font = '19px "PingFang SC",sans-serif';
+    ctx.fillStyle = '#8A7360';
+    ctx.fillText('精算 / 冲动 · 凑单 / 单买 · 藏着 / 爱晒 · 性价比 / 认牌子', W / 2, 440);
+    var axY = 492;
+    (data.axes || []).forEach(function (x) {
+      var total = Math.max(1, x.ls + x.rs);
+      var p = Math.round((x.a ? x.ls : x.rs) / total * 100);
+      ctx.fillStyle = '#8A7360'; ctx.font = '18px "PingFang SC",sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText(x.l, 60, axY + 4);
+      ctx.textAlign = 'left'; ctx.fillText(x.r, W - 132, axY + 4);
+      ctx.fillStyle = '#F1E4D2';
+      drawRound(ctx, 138, axY - 12, W - 276, 18, 9, '#F1E4D2', null);
+      ctx.fillStyle = x.a ? '#7B5CFF' : '#FFB31F';
+      var bw = Math.max(18, (W - 276) * Math.max(p, 8) / 100);
+      drawRound(ctx, x.a ? 138 : 614 - bw, axY - 12, bw, 18, 9, x.a ? '#7B5CFF' : '#FFB31F', null);
+      axY += 40;
+    });
+    ctx.textAlign = 'left';
+    var yy = axY + 44;
+    var limitY = 822;
+    var plan = null;
+    [21, 20, 19, 18, 17, 16].some(function (s) {
+      var rows = [], total = 0;
+      data.lines.forEach(function (t, i) {
+        var sz = (i === data.lines.length - 1) ? (s - 2) : s;
+        var ls = wrapText(ctx, t, W - 120, sz);
+        rows.push({ sz: sz, ls: ls });
+        total += ls.length * (sz + 12) + 8;
+      });
+      plan = { rows: rows };
+      return (yy + total) <= limitY;
+    });
+    plan.rows.forEach(function (r, i) {
+      ctx.font = r.sz + 'px "PingFang SC",sans-serif';
+      ctx.fillStyle = (i === plan.rows.length - 1) ? '#FF3D2E' : '#4A3527';
+      r.ls.forEach(function (l) { ctx.fillText(l, 60, yy); yy += r.sz + 12; });
+      yy += 8;
+    });
+  } else {
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#FF3D2E';
+    ctx.font = '22px "PingFang SC",sans-serif';
+    ctx.fillText('这一局开花了', W / 2, 224);
+    ctx.fillStyle = '#241811';
+    ctx.font = '110px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+    ctx.fillText(data.petals + ' 瓣', W / 2, 336);
+    ctx.font = '38px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+    ctx.fillText('称号：' + data.title, W / 2, 396);
+    ctx.textAlign = 'left'; ctx.font = '20px "PingFang SC",sans-serif'; ctx.fillStyle = '#4A3527';
+    var rows = [['已花', '¥' + data.spent], ['账上剩', '¥' + data.left], ['心愿', data.wish + '/3'], ['人情债', data.debt + ' 笔']];
+    rows.forEach(function (r, i) {
+      var x = 60 + (i % 2) * 330, y = 470 + Math.floor(i / 2) * 74;
+      drawRound(ctx, x, y - 34, 300, 62, 12, '#FFFFFF', '#241811');
+      ctx.fillStyle = '#8A7360'; ctx.font = '17px "PingFang SC",sans-serif';
+      ctx.fillText(r[0], x + 16, y + 4);
+      ctx.fillStyle = '#241811'; ctx.font = '26px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+      ctx.textAlign = 'right'; ctx.fillText(r[1], x + 284, y + 6); ctx.textAlign = 'left';
+    });
+    if (data.loot) {
+      ctx.fillStyle = '#FF3D2E'; ctx.font = '19px "PingFang SC",sans-serif';
+      ctx.fillText(data.loot, 60, 606);
+    }
+    ctx.fillStyle = '#4A3527'; ctx.font = '19px "PingFang SC",sans-serif';
+    if (data.qz) ctx.fillText('购格：' + data.qz.split('').join('·') + ' ' + data.qzName, 60, 640);
+    ctx.fillStyle = '#8A7360';
+    ctx.font = '17px "PingFang SC",sans-serif';
+    ctx.fillText('房间 ' + ROOM + ' · 三件心愿 · 六瓣开花', 60, 672);
+  }
+
+  if (kind === 'quiz') {
+    var chips = [['凑单', '#FFB31F'], ['砍价', '#12B8A6'], ['秒杀', '#FF7AA8']];
+    chips.forEach(function (c, i) {
+      var x = 60 + i * 156;
+      drawRound(ctx, x, 838, 140, 50, 12, c[1], '#241811');
+      ctx.fillStyle = '#241811'; ctx.font = '22px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+      ctx.textAlign = 'center'; ctx.fillText(c[0], x + 70, 871);
+    });
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#4A3527'; ctx.font = '20px "PingFang SC",sans-serif';
+    wrapText(ctx, '房间 ' + ROOM + ' · 4 个人正在里面凑单、砍价、等 0 点', 420, 18)
+      .forEach(function (l, i) { ctx.fillText(l, 60, 912 + i * 27); });
+  }
+  drawQR(ctx, shareUrl(kind), W - 246, H - 244, 176);
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#241811';
+  ctx.font = '24px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
+  ctx.fillText('扫码进 1111 房间看我的四维', 56, H - 150);
+  ctx.fillStyle = '#8A7360';
+  ctx.font = '17px "PingFang SC",sans-serif';
+  ctx.fillText('不接真钱 · 不接支付 · 纯模拟', 56, H - 116);
+  ctx.fillText('扫码/链接打开，就能看到我的结果', 56, H - 88);
+
+  lastPosterUrl = cv.toDataURL('image/png');
+  $('posterImg').src = lastPosterUrl;
+  $('posterWrap').classList.add('on');
+  var ph = $('posterHint');
+  if (ph) {
+    if (isMobile()) { ph.style.display = 'block'; ph.textContent = '手机上点「保存图片」会打开原图，长按图片选「存储到照片」才会进相册'; }
+    else ph.style.display = 'none';
+  }
+  pushEvt('你', kind === 'quiz' ? 'quiz' : 'settle', kind === 'quiz' ? '把购格海报发到了群里。' : '把战报发到了群里。');
+}
+function wrapText(ctx, text, maxW, size) {
+  ctx.font = size + 'px "PingFang SC",sans-serif';
+  var out = [], line = '';
+  for (var i = 0; i < text.length; i++) {
+    var ch = text[i];
+    if (ctx.measureText(line + ch).width > maxW) { out.push(line); line = ch; }
+    else line += ch;
+  }
+  if (line) out.push(line);
+  return out;
+}
+function isMobile() { return /iPhone|iPad|iPod|Android|HarmonyOS|Mobile/i.test(navigator.userAgent); }
+function posterBlob() {
+  var b64 = String(lastPosterUrl).split(',')[1] || '';
+  var bin = atob(b64), arr = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: 'image/png' });
+}
+function downloadPoster() {
+  if (!lastPosterUrl) return;
+  if (isMobile()) {
+    var blob = posterBlob();
+    var file = null;
+    try { file = new File([blob], '双11花开心-购格.png', { type: 'image/png' }); } catch (e) {}
+    if (file && window.isSecureContext && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: '双11 花开心 · 我的购格' })
+        .then(function () { toast('在系统面板里选「存储图像」就进相册了'); })
+        .catch(function () {});
+      return;
+    }
+    var u = URL.createObjectURL(blob);
+    var w = window.open(u, '_blank');
+    if (!w) { location.href = u; }
+    toast('已打开原图：长按图片 → 选「存储到照片」');
+    return;
+  }
+  var a = document.createElement('a');
+  a.href = lastPosterUrl;
+  a.download = '双11花开心-购格.png';
+  a.click();
+  toast('图片已保存到下载目录');
+}
+function closePoster() { $('posterWrap').classList.remove('on'); }
+function shareSettle() {
+  const savedPoster = (S.bought || []).reduce(function (a, b) { return a + Math.max(0, (b.orig || b.price) - b.price); }, 0);
+  makePoster('settle', {
+    petals: petalsNow(), title: $('settleTitle').textContent,
+    loot: (S.bought || []).length ? ('买了 ' + (S.bought || []).length + ' 件 · 省 ¥' + yuan(savedPoster + Math.max(0, S.liveSaved)) + ' · 直播抢 ' + S.liveCatch + ' 件') : '',
+    spent: yuan(S.spent), left: yuan(S.coin),
+    wish: S.wish.filter(function (w) { return w.got; }).length,
+    debt: S.debt, qz: qzCode, qzName: qzCode ? QZ_PRE[qzCode.slice(0, 2)] : ''
+  });
+}
+function shareMe() {
+  if (!qzCode) { toast('先测一下购格，名片才有内容'); go('quiz'); closeSheets(); return; }
+  makePoster('quiz', {
+    code: qzCode.split('').join('·'), name: qzName(qzCode),
+    lines: [QZ_TXT[qzCode[0]] + QZ_TXT[qzCode[1]], QZ_TXT[qzCode[2]] + QZ_TXT[qzCode[3]], QZ_TRAP[qzCode[0]]],
+    axes: qzAxes(), nick: S.nick
+  });
+}
+
+/* ============ 我 / 排行 / 设置 ============ */
+function myRank() {
+  var mine = petalsNow();
+  var others = [5, 4, 3];
+  var r = 1;
+  others.forEach(function (p) { if (p > mine) r++; });
+  return r;
+}
+function openMe() {
+  var p = petalsNow();
+  var qzTxt = qzCode ? (qzCode.split('').join('·') + ' ' + QZ_PRE[qzCode.slice(0, 2)] + ' · ' + QZ_SUF[qzCode.slice(2)]) : '还没测（去「购格测试」）';
+  $('meSub').textContent = '会话 ' + ROOM + ' · 第 3 波 · ' + nowTime();
+  $('meBody').innerHTML =
+    '<div class="me-line"><span>我的购格</span><b style="font-size:13px">' + qzTxt + '</b></div>' +
+    '<div class="me-grid">' +
+    '<div class="me-cell"><b>' + yuan(S.spent) + '</b><span>已花（预算 300）</span></div>' +
+    '<div class="me-cell"><b>' + yuan(S.coin) + '</b><span>账上还剩</span></div>' +
+    '<div class="me-cell"><b>' + S.wish.filter(function (w) { return w.got; }).length + '/3</b><span>心愿到手</span></div>' +
+    '</div>' +
+    '<div class="me-line"><span>花瓣（当前预估）</span><b>' + p + ' / 6</b></div>' +
+    '<div class="me-line"><span>砍价进度</span><b>' + (S.pddDone ? '0 元到手' : S.pddCut.toFixed(2) + ' / 100') + '</b></div>' +
+    '<div class="me-line"><span>比价答对</span><b>' + S.tbRight + ' 次</b></div>' +
+    '<div class="me-line"><span>直播间抢到</span><b>' + S.liveCatch + ' 件</b></div>' +
+    '<div class="me-line"><span>人情债</span><b>' + S.debt + ' 笔</b></div>' +
+    '<div class="me-line"><span>成交商品</span><b>' + S.items.length + ' 件</b></div>' +
+    '<div class="h3" style="font-size:17px">我在群里的动静</div>' +
+    EV.filter(function (e) { return e.mine; }).slice(-5).reverse().map(function (e) {
+      return '<div class="me-line"><span style="flex:1;padding-right:8px">' + e.text + '</span><b style="font-size:11px;color:#8A7360">' + e.t + '</b></div>';
+    }).join('');
+  openSheet('sheetMe');
+}
+function openRank() {
+  var mine = petalsNow();
+  var people = [{ n: S.nick, av: 'x', p: mine, tag: '你' }];
+  (RT.players || []).forEach(function (p) {
+    if (p.u === RT.cuid) return;
+    people.push({ n: p.name || ('花友' + String(p.u).slice(-4)), av: 'q', p: p.petals || 0, tag: p.qz ? ('购格 ' + p.qz.split('').join('·')) : '房间里' });
+  });
+  if (people.length < 4) {
+    people.push({ n: '阿May', av: 'm', p: 5, tag: '房间榜首' });
+    people.push({ n: '老陈', av: 'c', p: 4, tag: '稳' });
+    people.push({ n: '小周', av: 'z', p: 3, tag: '还在凑' });
+  }
+  people.sort(function (a, b) { return b.p - a.p; });
+  $('rankBody').innerHTML = people.map(function (x, i) {
+    return '<div class="rank-row' + (x.tag === '你' ? ' me' : '') + '">' +
+      '<span class="av ' + x.av + '">' + (x.tag.indexOf('你（') === 0 ? '你' : x.n.slice(0, 1)) + '</span>' +
+      '<span><b class="rn">第 ' + (i + 1) + ' 名 · ' + x.n + '</b><div style="font-size:10px;color:#8A7360">' + x.tag + '</div></span>' +
+      '<b>' + x.p + ' 瓣</b></div>';
+  }).join('');
+  openSheet('sheetRank');
+}
+function openSettings() {
+  $('setNick').textContent = S.nick;
+  $('setQz').textContent = qzCode ? qzCode.split('').join('·') : '未测';
+  openSheet('sheetSettings');
+}
+function openSheet(id) {
+  closeSheets();
+  $('scrim').classList.add('on');
+  $(id).classList.add('on');
+}
+function closeSheets() {
+  $('scrim').classList.remove('on');
+  document.querySelectorAll('.sheet').forEach(function (s) { s.classList.remove('on'); });
+}
+
+/* ============ 启动 ============ */
+(function boot() {
+  var hadSave = loadGame();
+  try {
+    var saved = localStorage.getItem('hx_qz');
+    if (!qzCode && saved && saved.length === 4) { qzCode = saved; S.qz = saved; qzDone = true; }
+  } catch (e) {}
+  var qs = new URLSearchParams(location.search);
+  var fromQz = qs.get('qz');
+  var fromU = qs.get('u');
+  if (fromQz && /^[SCGDWQLP]{4}$/.test(fromQz)) {
+    var nm = QZ_PRE[fromQz.slice(0, 2)] + ' · ' + QZ_SUF[fromQz.slice(2)];
+    pushEvt(fromU || '阿May', 'chat', '我把我的购格发群里了：' + fromQz.split('').join('·') + '「' + nm + '」。你也测一个，看谁更离谱。');
+    toast((fromU || '阿May') + ' 的购格是 ' + fromQz.split('').join('·') + '，去测你自己的');
+  }
+  try {
+    S.giveUsed = localStorage.getItem('hx_give') === '1';
+    var wj = localStorage.getItem(WISH_KEY);
+    if (wj) {
+      var arr = JSON.parse(wj);
+      if (arr && arr.length) arr.forEach(function (w, i) {
+        if (!w || !S.wish[i] || !w.name) return;
+        S.wish[i].name = String(w.name).slice(0, 14);
+        if (+w.price > 0) S.wish[i].price = +w.price;
+        if (typeof w.mine === 'boolean') S.wish[i].mine = w.mine;
+        S.wish[i].got = !!w.got;
+        if (w.from) S.wish[i].from = String(w.from).slice(0, 12);
+      });
+    }
+  } catch (e) {}
+  var invite = qs.get('invite');
+  var gk = qs.get('g');
+  if (invite && invite !== RT.cuid) {
+    setTimeout(function () {
+      apiFetch('api/help', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ target: invite, from: S.nick, kind: gk === 'pdd' ? 'pdd' : 'spin', amt: gk === 'pdd' ? 0.0085 : 1, room: ROOM })
+      }).then(function () {
+        toast('帮「' + (fromU || '群友') + '」' + (gk === 'pdd' ? '砍了一刀' : '加了一次转盘'));
+        pushEvt('你', 'chat', '我点开了 ' + (fromU || '群友') + ' 的助力链接，帮了一把。');
+      }).catch(function () { toast('助力没送到，网络抽风了'); });
+    }, 1400);
+  }
+  var seed = [
+    ['阿May', 'pdd', '空气炸锅还差 97 块，谁来砍一刀。'],
+    ['老陈', 'jd', '补贴券抽到 ¥38，凑到 300 就能用。'],
+    ['小周', 'tb', '羊毛毯四家店到手价差 15 块，我选错了。'],
+    ['阿May', 'live', '刚刚那个链接先涨后降，别冲，我替你们踩过了。'],
+    ['老陈', 'story', '谁在我购物车里埋了「道歉录音」？站出来。'],
+    ['小周', 'quiz', '我测出来是 手感选手 · 群里直播砍价，你们呢。']
+  ];
+  seed.forEach(function (x) { pushEvt(x[0], x[1], x[2], true); });
+  clearBadge();
+  renderClock();
+  setInterval(renderClock, 30000);
+  chatRender();
+  hud();
+  qzRenderStart();
+  wheelInit();
+  spinLeftTxt();
+  rtBoot();
+  setTimeout(rtState, 900);
+  setInterval(rtPoll, 3500);
+  setInterval(function () { if (RT.on) rtState(true); }, 25000);
+  setInterval(npcTick, 11000);
+  setInterval(function () { if ($('app-wish') && $('app-wish').classList.contains('on')) wishTick(); }, 2600);
+  setInterval(function () { if ($('app-chat').classList.contains('on')) chatRender(); }, 20000);
+})();
+</script>
+
+
+<script>setTimeout(function(){go('chat');},1400);</script></body>
+</html>

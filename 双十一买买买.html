@@ -951,7 +951,7 @@ function rtApply(d) {
   var cOn = $('chatOnline'); if (cOn) cOn.textContent = Math.max(1, RT.online) + ' 人在线';
   var cSub = $('chatSub'); if (cSub) cSub.textContent = (d.players ? d.players.length : 1) + ' 个真人玩家在逛';
   var tip = $('onlineTip');
-  if (tip) tip.textContent = '已连上房间 ' + ROOM + ' · 当前 ' + Math.max(1, RT.online) + ' 人在线（服务器实时同步）';
+  if (tip) tip.textContent = '房间里现在 ' + Math.max(1, RT.online) + ' 人';
 }
 function rtBoot() {
   apiFetch('api/room?room=' + ROOM + '&u=' + RT.cuid).then(rtApply).catch(function () { RT.on = false; });
@@ -2351,7 +2351,7 @@ const QZ_POOL = [
   { q:'大额券和满减，你先算哪个？', h:'', o:[
     { t:'先算满减门槛，再叠券', v:'S' },
     { t:'先领券，领了再想怎么用', v:'C' }]},
-  { q:'页面开始 3 分钟倒计时，你？', h:'', o:[
+  { q:'抢购倒计时 3 分钟，你？', h:'', o:[
     { t:'先看清楚它是不是先涨后降', v:'S' },
     { t:'不管了，先抢', v:'C' },
     { t:'关掉，反正抢不到', v:'D' }]},
@@ -2459,7 +2459,7 @@ function qzRenderStart() {
     '<div class="qz-code" style="font-size:30px;letter-spacing:.02em;margin-top:8px">你会怎么花光 300 块？</div>' +
     '<div class="qz-hint" style="margin-top:10px">15 道题，全部来自这一局的真实选择：凑单、砍价、秒杀、晒单。<br>答案没有对错，测出来的类型会直接给这一局加成。</div>' +
     '<div class="qz-opts" style="margin-top:24px"><button class="btn" onclick="qzStart()">开始测（约 2 分钟）</button></div>' +
-    '<div class="qz-note">题库 24 题，每次随机抽 15 题 —— 同一个类型不会只有一种描述。</div>';
+    '';
 }
 function qzRender() {
   const it = qzSet[qzIdx];
@@ -2597,7 +2597,7 @@ function nativeShare() {
   var text = S.qz ? ('我的购格是 ' + S.qz.split('').join('·') + '，来 1111 房间比一比。') : '来 1111 房间里一起凑单。';
   if (navigator.share) {
     navigator.share({ title: '双11 花开心', text: text, url: url }).catch(function () {});
-  } else { copyText(text + ' ' + url, '链接已复制（这个环境不支持系统分享）'); }
+  } else { copyText(text + ' ' + url, '链接已复制'); }
 }
 function drawRound(ctx, x, y, w, h, r, fill, stroke) {
   ctx.beginPath();
@@ -2851,10 +2851,10 @@ function openMe() {
 }
 function openRank() {
   var mine = petalsNow();
-  var people = [{ n: S.nick, av: 'x', p: mine, tag: '你（实时）' }];
+  var people = [{ n: S.nick, av: 'x', p: mine, tag: '你' }];
   (RT.players || []).forEach(function (p) {
     if (p.u === RT.cuid) return;
-    people.push({ n: p.name || ('花友' + String(p.u).slice(-4)), av: 'q', p: p.petals || 0, tag: p.qz ? ('购格 ' + p.qz.split('').join('·')) : '实时玩家' });
+    people.push({ n: p.name || ('花友' + String(p.u).slice(-4)), av: 'q', p: p.petals || 0, tag: p.qz ? ('购格 ' + p.qz.split('').join('·')) : '房间里' });
   });
   if (people.length < 4) {
     people.push({ n: '阿May', av: 'm', p: 5, tag: '房间榜首' });
