@@ -745,7 +745,7 @@ body{
   <!-- ===================== 08 购格测试 ===================== -->
   <section class="app" id="app-quiz">
     <div class="appbar">
-      <div class="who"><span class="mark i-quiz"><svg viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="currentColor" stroke-width="14" opacity=".55"/><path d="M128 32v192M32 128h192" stroke="currentColor" stroke-width="14" opacity=".55"/><circle cx="128" cy="128" r="24" fill="currentColor"/></svg></span><b>购格测试</b><i id="qzBarSub">随机 15 题 · 测你的购买属性</i></div>
+      <div class="who"><span class="mark i-quiz"><svg viewBox="0 0 256 256" fill="none"><circle cx="128" cy="128" r="96" stroke="currentColor" stroke-width="14" opacity=".55"/><path d="M128 32v192M32 128h192" stroke="currentColor" stroke-width="14" opacity=".55"/><circle cx="128" cy="128" r="24" fill="currentColor"/></svg></span><b>购格测试</b><i id="qzBarSub">15 题 · 测你的购买属性</i></div>
       <button class="homebtn" onclick="home()">桌面</button>
     </div>
     <div class="body">
@@ -2446,7 +2446,7 @@ function qzStart() {
   qzIds = qzSet.map(function (q) { return QZ_POOL.indexOf(q); });
   qzIdx = 0; qzDone = false;
   qzScore = { S:0,C:0,G:0,D:0,W:0,Q:0,L:0,P:0 };
-  if ($('qzBarSub')) $('qzBarSub').textContent = '随机 15 题 / 题库 24 题';
+  if ($('qzBarSub')) $('qzBarSub').textContent = '15 题 · 约 2 分钟';
   saveGame();
   qzRender();
 }
