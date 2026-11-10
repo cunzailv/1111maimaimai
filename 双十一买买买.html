@@ -789,9 +789,6 @@ body{
     <h2>房间排行</h2>
     <div class="sd">按「花瓣数」排：心愿到手 3 瓣，预算花光 1 瓣，用上满减 1 瓣，没被截胡 1 瓣。</div>
     <div id="rankBody"></div>
-    <div class="paper" style="margin-top:12px;font-size:11px;line-height:1.7">
-      排行每 30 秒刷新一次：同房间真实玩家（按花瓣数）+ 三个常驻好友。开着网页的人都会被算进在线数。
-    </div>
   </div>
 
   <div class="sheet" id="sheetSettings">
@@ -809,9 +806,6 @@ body{
       <button class="btn" style="height:44px;font-size:13px" onclick="copyInvite()">复制邀请链接</button>
       <button class="btn ghost" style="height:44px;font-size:13px" onclick="shareMe()">生成分享海报</button>
       <button class="btn ghost" style="height:44px;font-size:13px" onclick="restart()">重开这一局</button>
-    </div>
-    <div style="margin-top:16px;font-size:11px;color:#8A7360;text-align:center">
-      <span id="onlineTip">正在连接房间…</span>
     </div>
   </div>
 
@@ -951,7 +945,7 @@ function rtApply(d) {
   var cOn = $('chatOnline'); if (cOn) cOn.textContent = Math.max(1, RT.online) + ' 人在线';
   var cSub = $('chatSub'); if (cSub) cSub.textContent = (d.players ? d.players.length : 1) + ' 个真人玩家在逛';
   var tip = $('onlineTip');
-  if (tip) tip.textContent = '房间里现在 ' + Math.max(1, RT.online) + ' 人';
+  if (tip) tip.textContent = '';
 }
 function rtBoot() {
   apiFetch('api/room?room=' + ROOM + '&u=' + RT.cuid).then(rtApply).catch(function () { RT.on = false; });
