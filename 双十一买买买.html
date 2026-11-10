@@ -2475,7 +2475,7 @@ function qzRender() {
       return '<button class="qz-opt" onclick="qzPick(' + i + ')"><span class="k">' + String.fromCharCode(65 + i) + '</span><span>' + o.t + '</span></button>';
     }).join('') + '</div>' +
     '<div class="qz-slip"><div class="slip-h"><span>NO.' + String(qzIdx + 1).padStart(2, '0') + '</span><span>双11 花开心 · 购格测试</span></div>' +
-    '<div class="barcode"></div><div class="slip-f">选完自动下一题 · 不用点确认</div></div>' +
+    '<div class="barcode"></div></div>' +
     '<div class="qz-fill"><div class="bloom"><i></i><i></i><i></i><i></i><i></i><i></i><b>花</b></div>' +
     '<div class="qbubble">这题没有标准答案，只有你的答案。</div></div>' +
     '<div class="qz-dots">' + qzSet.map(function (x, i) { return '<i class="' + (i < qzIdx ? 'on' : '') + '"></i>'; }).join('') + '</div>' +
