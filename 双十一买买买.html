@@ -467,6 +467,32 @@ body{
 </style>
 </head>
 <body>
+<script>
+/* 从 http 搬到 https 时把本机存档一起搬过去，避免老玩家进度丢失 */
+(function () {
+  var H = location.hostname;
+  if (location.protocol === 'http:' && /zhuhongquan\.com$/.test(H)) {
+    try {
+      var pack = {};
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (/^hx_/.test(k)) pack[k] = localStorage.getItem(k);
+      }
+      location.replace('https://' + location.host + location.pathname + location.search + '#mig=' + encodeURIComponent(JSON.stringify(pack)));
+    } catch (e) {}
+  }
+  if (location.hash.indexOf('#mig=') === 0) {
+    try {
+      var obj = JSON.parse(decodeURIComponent(location.hash.slice(5)));
+      Object.keys(obj).forEach(function (k) {
+        if (/^hx_/.test(k) && !localStorage.getItem(k)) localStorage.setItem(k, obj[k]);
+      });
+      history.replaceState(null, '', location.pathname + location.search);
+    } catch (e2) {}
+  }
+})();
+</script>
+
 <div class="stage"><div class="phone"><div class="screen" id="screen">
   <div class="notch"></div>
 
