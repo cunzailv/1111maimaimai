@@ -512,7 +512,7 @@ body{
       <div class="clockmeta"><span id="dayMeta">--月--日</span> · 第 <b id="wave">3</b> 波 · 全房间进度 <b id="prog">62%</b></div>
       <div class="coinbar">
         <div class="coin"><em>开心币</em><b id="coinTxt">300</b></div>
-        <div class="room"><span class="live"></span>1111 · <span id="onlineN">4</span> 人在线</div>
+        <div class="room"><span class="live"></span>1111 · 双11 花开心</div>
       </div>
 
       <div class="grid">
@@ -756,11 +756,11 @@ body{
   <!-- ===================== 09 群聊 ===================== -->
   <section class="app" id="app-chat">
     <div class="appbar">
-      <div class="who"><span class="mark i-chat"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,124a8,8,0,0,1-8,8H85l-40,36a8,8,0,0,1-13-6V60a8,8,0,0,1,8-8H224a8,8,0,0,1,8,8Z"/></svg></span><b>1111 群聊</b><i id="chatSub">正在连房间…</i></div>
+      <div class="who"><span class="mark i-chat"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M232,124a8,8,0,0,1-8,8H85l-40,36a8,8,0,0,1-13-6V60a8,8,0,0,1,8-8H224a8,8,0,0,1,8,8Z"/></svg></span><b>1111 群聊</b><i>今晚一起花</i></div>
       <span class="abacts"><button class="homebtn" onclick="home()">桌面</button><button class="homebtn" onclick="openMe()">我</button></span>
     </div>
     <div class="body">
-      <div class="chat-room"><span class="live"></span><span style="font-weight:700">1111 · 双11 花开心群</span><span id="chatOnline" style="margin-left:auto;color:#8A7360">4 人在线</span></div>
+      <div class="chat-room"><span class="live"></span><span style="font-weight:700">1111 · 双11 花开心群</span></div>
       <div class="feed" id="feed"></div>
     </div>
     <div class="chat-foot">
@@ -941,11 +941,7 @@ function rtApply(d) {
     });
   }
   if (added) { chatRender(); if (!$('app-chat').classList.contains('on')) bumpBadge(); }
-  var onN = $('onlineN'); if (onN) onN.textContent = Math.max(1, RT.online);
-  var cOn = $('chatOnline'); if (cOn) cOn.textContent = Math.max(1, RT.online) + ' 人在线';
-  var cSub = $('chatSub'); if (cSub) cSub.textContent = (d.players ? d.players.length : 1) + ' 个真人玩家在逛';
-  var tip = $('onlineTip');
-  if (tip) tip.textContent = '';
+
 }
 function rtBoot() {
   apiFetch('api/room?room=' + ROOM + '&u=' + RT.cuid).then(rtApply).catch(function () { RT.on = false; });
