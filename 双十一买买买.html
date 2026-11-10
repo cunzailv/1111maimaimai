@@ -497,7 +497,7 @@ body{
   <div class="notch"></div>
 
   <div class="status">
-    <div class="left"><span class="clk" id="clk">21:07</span><span class="day" id="day">11月11日 · 周三</span></div>
+    <div class="left"><span class="clk" id="clk">--:--</span><span class="day" id="day">--月--日 · 周-</span></div>
     <div class="right">
       <svg width="16" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
       <span style="font-size:10px;font-weight:700">5G</span>
@@ -508,8 +508,8 @@ body{
   <!-- ===================== 桌面 ===================== -->
   <div class="layer launcher" id="home">
     <div class="in">
-      <div class="clockbig" id="clockbig">21:07</div>
-      <div class="clockmeta">11月11日 · 第 <b id="wave">3</b> 波 · 全房间进度 <b id="prog">62%</b></div>
+      <div class="clockbig" id="clockbig">--:--</div>
+      <div class="clockmeta"><span id="dayMeta">--月--日</span> · 第 <b id="wave">3</b> 波 · 全房间进度 <b id="prog">62%</b></div>
       <div class="coinbar">
         <div class="coin"><em>开心币</em><b id="coinTxt">300</b></div>
         <div class="room"><span class="live"></span>1111 · <span id="onlineN">4</span> 人在线</div>
@@ -985,19 +985,27 @@ function saveNick() {
   RT.lastState = 0; rtState();
   toast('群昵称改成「' + S.nick + '」，群里的人都看得到');
 }
+var WEEKDAY = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+function pad2(n) { return String(n).padStart(2, '0'); }
 function nowTime() {
-  var m = Math.max(0, Math.min(1439, S.clock));
-  var hh = Math.floor(m / 60), mm = m % 60;
-  return String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
+  var d = new Date();
+  return pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+}
+function nowDateText() {
+  var d = new Date();
+  return (d.getMonth() + 1) + '月' + d.getDate() + '日';
 }
 function renderClock() {
   var t = nowTime();
   var c = $('clk'); if (c) c.textContent = t;
   var b = $('clockbig'); if (b) b.textContent = t;
+  var day = nowDateText();
+  var wd = WEEKDAY[new Date().getDay()];
+  var dEl = $('day'); if (dEl) dEl.textContent = day + ' · ' + wd;
+  var dm = $('dayMeta'); if (dm) dm.textContent = day;
   var ms = $('meSub'); if (ms) ms.textContent = '会话 ' + ROOM + ' · 第 3 波 · ' + t;
 }
 function tickClock() {
-  S.clock = Math.min(1439, S.clock + 1);
   renderClock();
 }
 function pushEvt(who, appKey, text, quiet, meta) {
@@ -2916,6 +2924,7 @@ function closeSheets() {
   seed.forEach(function (x) { pushEvt(x[0], x[1], x[2], true); });
   clearBadge();
   renderClock();
+  setInterval(renderClock, 30000);
   chatRender();
   hud();
   qzRenderStart();
