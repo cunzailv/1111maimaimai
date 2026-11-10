@@ -917,7 +917,7 @@ function rtApply(d) {
   RT.on = true;
   if (!RT.sent) { RT.sent = 1; rtState(true); }
   if (typeof d.online === 'number') RT.online = d.online;
-  if (d.players) RT.players = d.players;
+  if (d.players) { RT.players = d.players; renderClock(); }
   var added = 0;
   (d.evts || []).forEach(function (e) {
     if (e.cid && e.cid.indexOf(RT.cuid + ':') === 0) return;
@@ -995,8 +995,23 @@ function nowDateText() {
   var d = new Date();
   return (d.getMonth() + 1) + '月' + d.getDate() + '日';
 }
+function waveNo() {
+  var h = new Date().getHours();
+  return h < 10 ? 1 : (h < 20 ? 2 : 3);
+}
+function roomProgressPct() {
+  var spent = S.spent, n = 1;
+  (RT.players || []).forEach(function (p) {
+    if (!p || p.u === RT.cuid) return;
+    var v = +p.spent;
+    if (isFinite(v)) { spent += v; n++; }
+  });
+  return Math.max(0, Math.min(100, Math.round(spent / (n * 300) * 100)));
+}
 function renderClock() {
   var t = nowTime();
+  var w = $('wave'); if (w) w.textContent = waveNo();
+  var pg = $('prog'); if (pg) pg.textContent = roomProgressPct() + '%';
   var c = $('clk'); if (c) c.textContent = t;
   var b = $('clockbig'); if (b) b.textContent = t;
   var day = nowDateText();
