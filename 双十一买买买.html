@@ -813,6 +813,7 @@ function hud() {
   if ($('nowCoin')) $('nowCoin').textContent = yuan(S.coin);
   if ($('nowDebt')) $('nowDebt').textContent = S.debt;
   if ($('nowRank')) $('nowRank').textContent = '第 ' + myRank();
+  scheduleSave();
   rtState();
 }
 function spend(n) {
@@ -2159,13 +2160,48 @@ const QZ_TRAP = {
   P:'你的坑：为牌子多付的钱，够你再买一件。'
 };
 const QZ_FRIENDS = { '阿May':'CGQP', '老陈':'SDWP', '小周':'CDQL' };
-let qzSet = [], qzIdx = 0, qzScore = { S:0,C:0,G:0,D:0,W:0,Q:0,L:0,P:0 }, qzDone = false, qzCode = '';
+let qzSet = [], qzIds = [], qzIdx = 0, qzScore = { S:0,C:0,G:0,D:0,W:0,Q:0,L:0,P:0 }, qzDone = false, qzCode = '';
+
+/* ============ 本地存档：刷新 / 更新页面不丢这一局 ============ */
+const SAVE_KEY = 'hx_save';
+let saveTimer = null;
+function scheduleSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveGame, 300); }
+function saveGame() {
+  try {
+    const keys = ['coin','start','spent','items','joy','debt','granted','drawLeft','usedCoupon','spin','spinMax',
+      'pddFirst','pddCut','pddDone','pddStolen','liveTrap','liveCatch','tbRight','qz','clock','settled','giveUsed'];
+    const o = { v: 2, t: Date.now(), S: {}, qz: null };
+    keys.forEach(function (k) { o.S[k] = S[k]; });
+    o.qz = { ids: qzIds, idx: qzIdx, score: qzScore, done: qzDone, code: qzCode };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(o));
+  } catch (e) {}
+}
+function loadGame() {
+  try {
+    const o = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
+    if (!o || !o.S) return false;
+    Object.keys(o.S).forEach(function (k) { if (o.S[k] !== undefined && o.S[k] !== null) S[k] = o.S[k]; });
+    if (Array.isArray(S.items)) S.items = S.items.filter(function (x) { return x && x.n; });
+    if (o.qz) {
+      qzIds = Array.isArray(o.qz.ids) ? o.qz.ids : [];
+      qzSet = qzIds.map(function (i) { return QZ_POOL[i]; }).filter(Boolean);
+      qzIdx = Math.max(0, Math.min(qzSet.length, +o.qz.idx || 0));
+      if (o.qz.score) Object.keys(qzScore).forEach(function (k) { if (+o.qz.score[k] >= 0) qzScore[k] = +o.qz.score[k]; });
+      qzDone = !!o.qz.done;
+      qzCode = String(o.qz.code || '');
+      if (qzCode) S.qz = qzCode;
+    }
+    return true;
+  } catch (e) { return false; }
+}
 function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 function qzStart() {
   qzSet = shuffle(QZ_POOL).slice(0, 15);
+  qzIds = qzSet.map(function (q) { return QZ_POOL.indexOf(q); });
   qzIdx = 0; qzDone = false;
   qzScore = { S:0,C:0,G:0,D:0,W:0,Q:0,L:0,P:0 };
   if ($('qzBarSub')) $('qzBarSub').textContent = '随机 15 题 / 题库 24 题';
+  saveGame();
   qzRender();
 }
 function qzRenderStart() {
@@ -2203,7 +2239,7 @@ function qzPick(i) {
   if (!qzSet[qzIdx] || !qzSet[qzIdx].o[i]) return;
   qzScore[qzSet[qzIdx].o[i].v]++;
   qzIdx++;
-  if (qzIdx >= qzSet.length) qzResult(); else qzRender();
+  if (qzIdx >= qzSet.length) qzResult(); else { saveGame(); qzRender(); }
 }
 function qzAxes() {
   var A = qzScore.S >= qzScore.C ? 'S' : 'C';
@@ -2227,6 +2263,7 @@ function qzResult(again) {
   qzCode = code; qzDone = true;
   S.qz = code;
   try { localStorage.setItem('hx_qz', code); } catch (e) {}
+  saveGame();
   var name = QZ_PRE[A + B] + ' · ' + QZ_SUF[C + D];
   var axes = qzAxes();
   var pl = [];
@@ -2598,9 +2635,10 @@ function closeSheets() {
 
 /* ============ 启动 ============ */
 (function boot() {
+  var hadSave = loadGame();
   try {
     var saved = localStorage.getItem('hx_qz');
-    if (saved && saved.length === 4) { qzCode = saved; S.qz = saved; qzDone = true; }
+    if (!qzCode && saved && saved.length === 4) { qzCode = saved; S.qz = saved; qzDone = true; }
   } catch (e) {}
   var qs = new URLSearchParams(location.search);
   var fromQz = qs.get('qz');
@@ -2616,10 +2654,12 @@ function closeSheets() {
     if (wj) {
       var arr = JSON.parse(wj);
       if (arr && arr.length) arr.forEach(function (w, i) {
-        if (w && S.wish[i] && S.wish[i].mine && w.name) {
-          S.wish[i].name = String(w.name).slice(0, 12);
-          if (+w.price > 0) S.wish[i].price = +w.price;
-        }
+        if (!w || !S.wish[i] || !w.name) return;
+        S.wish[i].name = String(w.name).slice(0, 14);
+        if (+w.price > 0) S.wish[i].price = +w.price;
+        if (typeof w.mine === 'boolean') S.wish[i].mine = w.mine;
+        S.wish[i].got = !!w.got;
+        if (w.from) S.wish[i].from = String(w.from).slice(0, 12);
       });
     }
   } catch (e) {}

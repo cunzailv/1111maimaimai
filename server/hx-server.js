@@ -1,8 +1,45 @@
 /* 双11 花开心 · 房间实时服务（无依赖，Node 20）
    房间事件流 + 在线人数 + 玩家快照 + 群友助力（转盘次数 / 砍价一刀） */
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const PORT = 4100;
 const rooms = new Map();
+const STATE_FILE = path.join(__dirname, '.room-state.json');
+
+/* 落盘：服务重启 / 更新代码后房间数据不再清零 */
+let saveTimer = null;
+function scheduleSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 800); }
+function saveNow() {
+  try {
+    const data = { v: 1, t: Date.now(), rooms: [] };
+    rooms.forEach((r, id) => {
+      data.rooms.push({
+        id, seq: r.seq, helps: r.helps, evts: r.evts.slice(-200),
+        players: [...r.players.entries()], helpList: r.helpList.slice(-300)
+      });
+    });
+    const tmp = STATE_FILE + '.tmp';
+    fs.writeFileSync(tmp, JSON.stringify(data));
+    fs.renameSync(tmp, STATE_FILE);
+  } catch (e) { console.error('save state failed:', e.message); }
+}
+function loadState() {
+  try {
+    if (!fs.existsSync(STATE_FILE)) return;
+    const data = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8'));
+    const now = Date.now();
+    (data.rooms || []).forEach(r => {
+      const players = new Map((r.players || []).filter(p => p && p[1] && now - (p[1].ts || 0) < 7 * 864e5));
+      rooms.set(r.id, {
+        seq: r.seq || 0, helps: r.helps || 0, evts: Array.isArray(r.evts) ? r.evts : [],
+        players, helpList: Array.isArray(r.helpList) ? r.helpList : []
+      });
+    });
+    console.log('state restored:', [...rooms.keys()].join(',') || '(none)');
+  } catch (e) { console.error('load state failed:', e.message); }
+}
+loadState();
 
 function getRoom(id) {
   if (!rooms.has(id)) rooms.set(id, { seq: 0, helps: 0, evts: [], players: new Map(), helpList: [] });
@@ -85,6 +122,7 @@ const server = http.createServer((req, res) => {
       };
       r.helpList.push(help);
       if (r.helpList.length > 300) r.helpList.shift();
+      scheduleSave();
       json(res, 200, { ok: true, id: help.id });
     });
   }
@@ -109,6 +147,7 @@ const server = http.createServer((req, res) => {
       };
       r.evts.push(evt);
       if (r.evts.length > 200) r.evts.shift();
+      scheduleSave();
       json(res, 200, { ok: true, id: evt.id, online: online(r) });
     });
   }
@@ -126,12 +165,15 @@ const server = http.createServer((req, res) => {
         wishes: Array.isArray(b.wishes) ? b.wishes.slice(0, 3).map(w => String(w).slice(0, 20)) : [],
         ts: Date.now()
       });
+      scheduleSave();
       json(res, 200, { ok: true, online: online(r) });
     });
   }
 
   json(res, 404, { ok: false });
 });
+
+['SIGINT', 'SIGTERM'].forEach(sig => process.on(sig, () => { saveNow(); process.exit(0); }));
 
 server.listen(PORT, '127.0.0.1', () => {
   console.log('hx-server listening on 127.0.0.1:' + PORT);
