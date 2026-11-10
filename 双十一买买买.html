@@ -185,6 +185,7 @@ body{
 .shop .nm{flex:1;min-width:0}
 .shop .nm b{font-size:12.5px}
 .shop .nm i{display:block;font-style:normal;font-size:10px;color:var(--muted);margin-top:3px}
+.shop .calc{display:block;margin-top:4px;font:600 10.5px var(--body);color:var(--muted);letter-spacing:.01em}
 .shop .tot{font-family:var(--disp);font-size:18px;color:var(--son,var(--ink));white-space:nowrap;text-align:right}
 .shop .tot small{display:block;font:400 9px var(--body);color:var(--muted);margin-top:2px}
 .shop.ok{border-color:var(--mint);background:#E9FBF7}
@@ -198,6 +199,21 @@ body{
 .knife-hero b{font-size:13.5px}
 .knife-hero .was{font-size:10.5px;color:var(--muted);text-decoration:line-through}
 .knife-hero .now{font-family:var(--disp);font-size:27px;color:var(--red);line-height:1}
+.spoils{margin-top:12px;padding:10px 12px;border:1.5px dashed rgba(36,24,17,.3);border-radius:12px;background:#FFFDF8;font:600 11.5px/1.7 var(--body);color:var(--ink2)}
+.spoils b{color:var(--red)}
+.spoils .empty{color:var(--muted);font-weight:600}
+.loot{margin-top:12px;padding:10px 12px;border:1.5px dashed rgba(36,24,17,.3);border-radius:12px;background:#fff;font:600 12px/1.8 var(--body);color:var(--ink2)}
+.loot .row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(36,24,17,.12);padding:3px 0}
+.loot .row:last-child{border-bottom:0}
+.loot .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.loot .pr{color:var(--red)}
+.loot .empty{color:var(--muted)}
+.kwall{display:flex;gap:7px;margin:10px 0 0;flex-wrap:wrap;align-items:center}
+.kwall .kv{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:800 12px var(--body);border:1.5px solid var(--line);background:#fff;color:var(--ink);box-shadow:0 2px 0 var(--line)}
+.kwall .kv.used{background:var(--mint);color:#fff;border-color:var(--mint);box-shadow:0 2px 0 #0a8a7c}
+.kwall .kv.you{background:var(--mango);color:#fff;border-color:var(--mango);box-shadow:0 2px 0 #c9820a}
+.kwall .kv.slot{border-style:dashed;color:var(--muted);box-shadow:none;font-weight:700;font-size:11px}
+.ktip{margin-top:8px;font:600 11.5px/1.6 var(--body);color:var(--muted)}
 .kprog{margin-top:14px;height:14px;border-radius:var(--pill);background:#FFE7D2;border:2px solid var(--line);position:relative;overflow:hidden}
 .kprog i{display:block;height:100%;width:0%;background:repeating-linear-gradient(45deg,var(--red),var(--red) 8px,#FF7A5C 8px,#FF7A5C 16px);transition:width .45s}
 .kmeta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:8px}
@@ -410,7 +426,14 @@ body{
 .rank-row.me{background:#FFF3D2}
 
 /* ---- 补贴货架 ---- */
-.scard{display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:12px;border:2px solid var(--line);background:#fff;box-shadow:0 3px 0 var(--line);cursor:pointer;text-align:left}
+.scard{position:relative;display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:12px;border:2px solid var(--line);background:#fff;box-shadow:0 3px 0 var(--line);cursor:pointer;text-align:left}
+.scard.on{border-color:var(--red);background:#FFF5F1;box-shadow:0 0 0 2px #FFD8D1,0 3px 0 var(--red)}
+.scard .tk{position:absolute;right:6px;top:6px;z-index:2;padding:2px 7px;border-radius:999px;font:800 10px var(--body);letter-spacing:.02em}
+.scard .tk.incart{background:var(--red);color:#fff}
+.scard .tk.bought{background:#241811;color:#fff}
+.jdselect{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.schip{border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;background:#fff;font:700 12px var(--body);cursor:pointer;box-shadow:0 2px 0 var(--line)}
+.schip.on{background:var(--mango);color:#fff}
 .scard:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
 .scard .pic{position:relative;display:grid;place-items:center;height:74px;border-radius:9px;font:700 26px var(--disp);color:#7A3200;overflow:hidden}
 .scard .pic img{width:100%;height:100%;object-fit:cover}
@@ -525,6 +548,11 @@ body{
       <button class="btn" id="jdPay" style="margin-top:14px" onclick="jdPay()">结算这一车</button>
 
       <div class="h3">今日货架<em id="jdShelfTip">28 件，点一下进凑单区</em></div>
+      <div class="jdselect" id="jdSort">
+        <button class="schip on" onclick="jdSortBy('hot')">默认</button>
+        <button class="schip" onclick="jdSortBy('price')">价格从低到高</button>
+        <button class="schip" onclick="jdSortBy('off')">补贴力度</button>
+      </div>
       <div class="grid jdgrid" id="jdShelf" style="margin-top:9px;gap:10px;grid-template-columns:1fr 1fr"></div>
     </div>
   </section>
@@ -561,6 +589,8 @@ body{
       </div>
       <div class="kprog"><i id="pddBar"></i></div>
       <div class="kmeta"><span>已砍掉 <b style="color:#FF3D2E" id="pddCut">0.00</b> 元</span><span>还给 <b id="pddLeft">100.00</b> 就到手</span></div>
+      <div class="kwall" id="pddWall"></div>
+      <div class="ktip" id="pddTip">还差 199.00 元 · 已经砍了 0%</div>
       <div class="klist" id="pddList"></div>
       <button class="btn" style="margin-top:14px" onclick="pddSelf()">自己砍一刀</button>
       <button class="btn ghost" style="margin-top:9px" onclick="pddShare()">甩到 1111 群，让人来砍</button>
@@ -607,6 +637,8 @@ body{
           <button class="btn ghost" style="width:76px;font-size:12px;padding:0" onclick="liveNext()">换一个</button>
         </div>
       </div>
+
+      <div class="spoils" id="liveSpoils"></div>
 
       <div class="h3">今晚还有这些<em id="liveCount">整场 12 件，换着抢</em></div>
       <div class="liveshelf" id="liveShelf"></div>
@@ -675,6 +707,7 @@ body{
         <span>预算 <b id="setCoin">300</b></span><span>已花 <b id="setSpent">0</b></span><span>心愿 <b id="setWish">0/3</b></span>
       </div>
       <div class="report" id="settleReport"></div>
+      <div class="loot" id="settleLoot"></div>
       <div style="display:flex;gap:9px;margin-top:14px">
         <button class="btn" onclick="shareSettle()">生成战报</button>
         <button class="btn ghost" onclick="restart()">再来一局</button>
@@ -779,11 +812,11 @@ body{
 const ROOM = '1111';
 const S = {
   coin: 300, start: 300, spent: 0,
-  items: [],
+  items: [], cart: [], bought: [],
   joy: 0, debt: 2,
   granted: 0, drawLeft: 3, usedCoupon: false, spin: 3, spinMax: 10, pddFirst: false,
   pddCut: 0, pddDone: false, pddStolen: false,
-  liveTrap: false, liveCatch: 0, tbRight: 0,
+  liveTrap: false, liveCatch: 0, liveSaved: 0, tbRight: 0,
   qz: null, nick: '你', clock: 21 * 60 + 7, settled: false, giveUsed: false,
   wish: [
     { name: '羊毛毯', price: 89, mine: true, got: false },
@@ -1048,6 +1081,7 @@ function go(id) {
   const el = $('app-' + id);
   if (el) el.classList.add('on');
   if (id === 'jd') jdRender();
+  if (id === 'live' && typeof liveSpoilsRender === 'function') liveSpoilsRender();
   if (id === 'tb') tbRender();
   if (id === 'pdd') pddRender();
   if (id === 'live') liveInit();
@@ -1079,14 +1113,7 @@ function jdDraw() {
   pushEvt('你', 'jd', '抽到一张 ¥' + amt + ' 补贴券，得凑满 300 才生效。');
   jdRender();
 }
-function jdAdd(i) {
-  const g = JD_SHELF[i];
-  if (!g) return;
-  jdCart.push({ name: g.n, price: g.p, img: g.img || '' });
-  jdRender();
-  toast(g.n + ' 进了凑单区');
-}
-function jdDel(i) { jdCart.splice(i, 1); jdRender(); }
+function jdDel(i) { jdCart.splice(i, 1); hud(); jdRender(); }
 function jdRender() {
   const box = $('jdCart');
   if (!box) return;
@@ -1122,12 +1149,16 @@ function jdPay() {
   const pay = Math.max(0, total - disc);
   if (!spend(pay)) return;
   S.items = S.items.concat(jdCart.map(o => o.name));
+  (jdCart).forEach(function (o) {
+    S.bought = (S.bought || []).filter(function (b) { return b.i !== o.i; });
+    S.bought.push({ i: o.i, name: o.name, price: o.price, orig: o.orig || o.price, save: o.price });
+  });
   S.usedCoupon = true;
   S.joy += 1;
   pushEvt('你', 'jd', '结算了一车：原价 ¥' + yuan(total) + '，用券省 ¥' + yuan(disc) + '，实付 ¥' + yuan(pay) + '。');
   toast('这一车结算了：省 ¥' + yuan(disc) + '，实付 ¥' + yuan(pay));
   jdCart = [];
-  hud(); jdRender();
+  hud(); jdRender(true); jdShelfRender(true);
   setTimeout(function () { pushEvt('老陈', 'jd', '你这车比我便宜 8 块，券是哪来的？'); }, 2200);
 }
 
@@ -1224,22 +1255,58 @@ const JD_SHELF = [
   { n: '香薰蜡烛', p: 39, o: 79, img: 'assets/candle.jpg', bg: '#FFF0E4' },
   { n: '挂耳咖啡', p: 59.9, o: 89, img: 'assets/coffee.jpg', bg: '#EFE7DC' }
 ];
-function jdShelfRender() {
+let jdOrder = JD_SHELF.map(function (_, i) { return i; });
+function jdSortBy(m) {
+  if (m === 'price') jdOrder = JD_SHELF.map(function (_, i) { return i; }).sort(function (a, b) { return JD_SHELF[a].p - JD_SHELF[b].p; });
+  else if (m === 'off') jdOrder = JD_SHELF.map(function (_, i) { return i; }).sort(function (a, b) { return (JD_SHELF[b].o - JD_SHELF[b].p) - (JD_SHELF[a].o - JD_SHELF[a].p); });
+  else jdOrder = JD_SHELF.map(function (_, i) { return i; });
+  document.querySelectorAll('#jdSort .schip').forEach(function (x, i) {
+    x.classList.toggle('on', ['hot', 'price', 'off'][i] === m);
+  });
+  jdShelfRender(true);
+}
+function jdShelfRender(force) {
   const box = $('jdShelf');
-  if (!box || box.dataset.ready) return;
+  if (!box) return;
+  if (box.dataset.ready && !force) { jdMark(); return; }
   box.dataset.ready = '1';
-  box.innerHTML = JD_SHELF.map(function (g, i) {
+  box.innerHTML = jdOrder.map(function (i) {
+    const g = JD_SHELF[i];
+    const inCart = jdCart.some(function (c) { return c.i === i; });
+    const bought = (S.bought || []).some(function (b) { return b.i === i; });
+    const tag = bought ? '<span class="tk bought">已买</span>' : (inCart ? '<span class="tk incart">已加入</span>' : '');
     const pic = g.img
       ? '<span class="pic" style="background:' + g.bg + '"><img src="' + g.img + '" alt="' + g.n + '" loading="lazy"></span>'
       : '<span class="pic" style="background:' + g.bg + '"><span class="chit">' + (g.chit || g.n.slice(0, 1)) + '</span></span>';
-    return '<button class="scard" onclick="jdAdd(' + i + ')">' +
+    return '<button class="scard' + (inCart ? ' on' : '') + '" onclick="jdAdd(' + i + ')">' + tag +
       pic + '<span class="nm">' + g.n + '</span>' +
       '<span class="pr">¥' + (g.p % 1 ? g.p.toFixed(1) : g.p) + '<i>补贴</i><s>¥' + g.o + '</s></span></button>';
   }).join('');
   const tip = $('jdShelfTip');
-  if (tip) tip.textContent = JD_SHELF.length + ' 件，点一下进凑单区';
+  if (tip) tip.textContent = JD_SHELF.length + ' 件 · ' + (jdCart.length ? '已加 ' + jdCart.length + ' 件' : '点一下进凑单区');
 }
-
+function jdMark() {
+  document.querySelectorAll('#jdShelf .scard').forEach(function (el, k) {
+    const i = jdOrder[k];
+    const inCart = jdCart.some(function (c) { return c.i === i; });
+    const bought = (S.bought || []).some(function (b) { return b.i === i; });
+    el.classList.toggle('on', inCart);
+    let tk = el.querySelector('.tk');
+    if (bought || inCart) {
+      if (!tk) { tk = document.createElement('span'); tk.className = 'tk'; el.prepend(tk); }
+      tk.className = 'tk ' + (bought ? 'bought' : 'incart');
+      tk.textContent = bought ? '已买' : '已加入';
+    } else if (tk) tk.remove();
+  });
+}
+function jdAdd(i) {
+  const g = JD_SHELF[i];
+  if (!g) return;
+  const k = jdCart.findIndex(function (c) { return c.i === i; });
+  if (k >= 0) { jdCart.splice(k, 1); toast('把「' + g.n + '」拿出来了'); }
+  else { jdCart.push({ i: i, name: g.n, price: g.p, orig: g.o, img: g.img || '' }); toast(g.n + ' 进了凑单区'); }
+  hud(); jdRender();
+}
 /* ============ 02 比价神器 ============ */
 const TB = [
   { name: '羊毛毯', img: 'assets/blanket.jpg', desc: '四家店都卖同一条毯子，到手价不一样。谁最低？',
@@ -1321,7 +1388,88 @@ const TB = [
       { n: '丙店 · 旗舰店', p: 75, c: 15, f: 0, note: '标价 75 / 券 15 / 包邮' },
       { n: '丁店 · 会员价', p: 66, c: 5, f: 5, note: '标价 66 / 券 5 / 运费 5' }
     ], right: 0,
-    explain: '甲 58、乙 68、丙 60、丁 66。产地直发扣完券最低，剩下三家都在 60 以上。' }
+    explain: '甲 58、乙 68、丙 60、丁 66。产地直发扣完券最低，剩下三家都在 60 以上。' },
+  { name: '手机支架', img: 'assets/stand.jpg', desc: '四家都卖同款铝合金支架，运费和券各不同。到手价谁最低？',
+    shops: [
+      { n: '甲店 · 数码配件', p: 19.9, c: 3, f: 0, note: '标价 19.9 / 券 3 / 包邮' },
+      { n: '乙店 · 百货仓', p: 17.9, c: 0, f: 3, note: '标价 17.9 / 无券 / 运费 3' },
+      { n: '丙店 · 直播同款', p: 22, c: 5, f: 0, note: '标价 22 / 券 5 / 包邮' },
+      { n: '丁店 · 拼单直降', p: 18.9, c: 1, f: 2, note: '标价 18.9 / 券 1 / 运费 2' }
+    ], right: 0,
+    explain: '甲 16.9、乙 20.9、丙 17、丁 19.9。标价最低的乙，加 3 块运费直接垫底。' },
+  { name: '充电宝', img: 'assets/powerbank.jpg', desc: '同样的 10000mAh，一家把运费藏进「配送服务费」。算到手。',
+    shops: [
+      { n: '甲店 · 官方自营', p: 89, c: 5, f: 0, note: '标价 89 / 券 5 / 包邮' },
+      { n: '乙店 · 数码专营', p: 82, c: 0, f: 6, note: '标价 82 / 无券 / 运费 6' },
+      { n: '丙店 · 补贴专区', p: 95, c: 12, f: 0, note: '标价 95 / 券 12 / 包邮' },
+      { n: '丁店 · 学生特惠', p: 86, c: 0, f: 0, note: '标价 86 / 无券 / 包邮' }
+    ], right: 2,
+    explain: '甲 84、乙 88、丙 83、丁 86。丙店标价最高，扣完券最便宜 —— 券面大不等于虚高。' },
+  { name: '瑜伽垫', img: 'assets/yoga.jpg', desc: '四家都在卖 6mm 加厚款，看谁到手低。',
+    shops: [
+      { n: '甲店 · 运动旗舰', p: 49.9, c: 3, f: 0, note: '标价 49.9 / 券 3 / 包邮' },
+      { n: '乙店 · 工厂店', p: 45.9, c: 0, f: 5, note: '标价 45.9 / 无券 / 运费 5' },
+      { n: '丙店 · 直播爆款', p: 52, c: 8, f: 0, note: '标价 52 / 券 8 / 包邮' },
+      { n: '丁店 · 拼单', p: 47.9, c: 2, f: 3, note: '标价 47.9 / 券 2 / 运费 3' }
+    ], right: 2,
+    explain: '甲 46.9、乙 50.9、丙 44、丁 48.9。丙店贵在标价、赢在券，到手最低。' },
+  { name: '猫抓板', img: 'assets/cat.jpg', desc: '猫用的东西最容易闭眼买，四家差出 20 多块。',
+    shops: [
+      { n: '甲店 · 宠物旗舰', p: 129, c: 15, f: 0, note: '标价 129 / 券 15 / 包邮' },
+      { n: '乙店 · 宠物百货', p: 119, c: 5, f: 8, note: '标价 119 / 券 5 / 运费 8' },
+      { n: '丙店 · 工厂直供', p: 139, c: 24, f: 0, note: '标价 139 / 券 24 / 包邮' },
+      { n: '丁店 · 会员店', p: 125, c: 10, f: 4, note: '标价 125 / 券 10 / 运费 4' }
+    ], right: 0,
+    explain: '甲 114、乙 122、丙 115、丁 119。甲店和丙店只差 1 块，标价更高的丙反而咬得很紧。' },
+  { name: '泡面一箱', img: 'assets/noodle.jpg', desc: '囤货型商品，运费和整箱券差一点点就翻盘。',
+    shops: [
+      { n: '甲店 · 官方直营', p: 69, c: 5, f: 0, note: '标价 69 / 券 5 / 包邮' },
+      { n: '乙店 · 超市到家', p: 62, c: 0, f: 6, note: '标价 62 / 无券 / 运费 6' },
+      { n: '丙店 · 整箱特惠', p: 75, c: 12, f: 0, note: '标价 75 / 券 12 / 包邮' },
+      { n: '丁店 · 拼单直降', p: 66, c: 3, f: 2, note: '标价 66 / 券 3 / 运费 2' }
+    ], right: 2,
+    explain: '甲 64、乙 68、丙 63、丁 65。四家差距只有 5 块，但丙店确实最低。' },
+  { name: '小夜灯', img: 'assets/lamp.jpg', desc: '标价最低那家不包邮 —— 这类小件最容易被运费吃回去。',
+    shops: [
+      { n: '甲店 · 家居自营', p: 45, c: 0, f: 0, note: '标价 45 / 无券 / 包邮' },
+      { n: '乙店 · 灯具仓', p: 38, c: 0, f: 6, note: '标价 38 / 无券 / 运费 6' },
+      { n: '丙店 · 直播同款', p: 49, c: 8, f: 0, note: '标价 49 / 券 8 / 包邮' },
+      { n: '丁店 · 清仓', p: 42, c: 2, f: 2, note: '标价 42 / 券 2 / 运费 2' }
+    ], right: 2,
+    explain: '甲 45、乙 44、丙 41、丁 42。标价 38 的乙加运费变 44，反倒不如 49 扣券的丙。' },
+  { name: '洗碗手套', img: 'assets/gloves.jpg', desc: '五双装，四家都在卖。小额商品也别懒得算。',
+    shops: [
+      { n: '甲店 · 家居日用', p: 179, c: 20, f: 0, note: '标价 179 / 券 20 / 包邮' },
+      { n: '乙店 · 批发仓', p: 165, c: 10, f: 10, note: '标价 165 / 券 10 / 运费 10' },
+      { n: '丙店 · 工厂直供', p: 189, c: 35, f: 0, note: '标价 189 / 券 35 / 包邮' },
+      { n: '丁店 · 会员价', p: 172, c: 0, f: 8, note: '标价 172 / 无券 / 运费 8' }
+    ], right: 2,
+    explain: '甲 159、乙 165、丙 154、丁 180。丙店靠 35 块券压下来，标价最高反而最便宜。' },
+  { name: '早八闹钟', img: 'assets/clock.jpg', desc: '这家昨晚把标价从 289 抬到 319 再发券 —— 老套路了。',
+    shops: [
+      { n: '甲店 · 品牌自营', p: 329, c: 40, f: 0, note: '标价 329 / 券 40 / 包邮' },
+      { n: '乙店 · 家居百货', p: 309, c: 25, f: 12, note: '标价 309 / 券 25 / 运费 12' },
+      { n: '丙店 · 限时补贴', p: 349, c: 62, f: 0, note: '标价 349（昨 329）/ 券 62 / 包邮' },
+      { n: '丁店 · 秒杀', p: 319, c: 30, f: 8, note: '标价 319 / 券 30 / 运费 8' }
+    ], right: 2,
+    explain: '甲 289、乙 296、丙 287、丁 297。丙店先涨价再发大券，到手仍然低 2 块 —— 先涨后降也不总是坑，得算。' },
+  { name: '快递拆箱刀', img: 'assets/knife.jpg', desc: '9.9 的小东西，运费 5 块就翻倍。',
+    shops: [
+      { n: '甲店 · 日用旗舰', p: 29.9, c: 0, f: 0, note: '标价 29.9 / 无券 / 包邮' },
+      { n: '乙店 · 文具仓', p: 26.9, c: 0, f: 5, note: '标价 26.9 / 无券 / 运费 5' },
+      { n: '丙店 · 直播同款', p: 32, c: 4, f: 0, note: '标价 32 / 券 4 / 包邮' },
+      { n: '丁店 · 拼单', p: 27.9, c: 2, f: 2, note: '标价 27.9 / 券 2 / 运费 2' }
+    ], right: 3,
+    explain: '甲 29.9、乙 31.9、丙 28、丁 27.9。丁店券加运费算完最低，只比丙便宜 1 毛。' },
+  { name: '懒人沙发', img: 'assets/beanbag.jpg', desc: '大件商品的运费最贵，别只看标价。',
+    shops: [
+      { n: '甲店 · 家居旗舰', p: 99, c: 10, f: 0, note: '标价 99 / 券 10 / 包邮' },
+      { n: '乙店 · 家具仓', p: 89, c: 0, f: 8, note: '标价 89 / 无券 / 运费 8' },
+      { n: '丙店 · 工厂直供', p: 105, c: 18, f: 0, note: '标价 105 / 券 18 / 包邮' },
+      { n: '丁店 · 会员价', p: 95, c: 5, f: 3, note: '标价 95 / 券 5 / 运费 3' }
+    ], right: 2,
+    explain: '甲 89、乙 97、丙 87、丁 93。乙标价最低却因运费最贵，丙店到手 87 最低。' }
+
 ];
 let tbIdx = 0, tbScore = 0, tbDone = false;
 function tbRender() {
@@ -1350,6 +1498,10 @@ function tbPick(i) {
   nodes.forEach(function (n, k) {
     var sp = q.shops[k];
     n.querySelector('.tot').innerHTML = '¥' + yuan(sp.p - sp.c + sp.f) + '<small>到手</small>';
+    var calc = document.createElement('span');
+    calc.className = 'calc';
+    calc.textContent = yuan(sp.p) + (sp.c ? ' − ' + yuan(sp.c) : '') + (sp.f ? ' + ' + yuan(sp.f) + ' 运费' : '') + ' = ' + yuan(sp.p - sp.c + sp.f);
+    n.appendChild(calc);
     if (k === q.right) n.classList.add('ok'); else if (k === i) n.classList.add('bad');
   });
   $('tbExplain').textContent = q.explain;
@@ -1401,6 +1553,20 @@ function pddRender() {
     : (S.pddCut >= 1 ? S.pddCut.toFixed(2) : fmtDrop(S.pddCut));
   $('pddLeft').textContent = big(left);
   $('pddBar').style.width = Math.min(99.99, S.pddCut / PDD_GOAL * 100).toFixed(2) + '%';
+  const pct = Math.min(99.99, S.pddCut / PDD_GOAL * 100);
+  if ($('pddTip')) {
+    $('pddTip').textContent = S.pddDone ? '已经 0 元到手，这一单归你了'
+      : '还差 ¥' + big(left) + ' · 已经砍了 ' + (pct < 1 ? pct.toFixed(2) : pct.toFixed(1)) + '% · 房间里有 ' + (RT.online || 1) + ' 人可喊';
+  }
+  if ($('pddWall')) {
+    const wall = PDD_FRIENDS.map(function (f) {
+      const used = pddUsed[f.k];
+      return '<span class="kv ' + (used ? 'used' : '') + '" title="' + f.name + (used ? ' 已砍 ' + fmtDrop(f.drop) : ' 还没砍') + '">' + f.ch + '</span>';
+    });
+    wall.push('<span class="kv you" title="你自己">你</span>');
+    if (!S.pddDone) wall.push('<span class="kv slot">待砍</span><span class="kv slot">待砍</span>');
+    $('pddWall').innerHTML = wall.join('');
+  }
   $('pddList').innerHTML = PDD_FRIENDS.map(function (f) {
     const used = pddUsed[f.k];
     return '<button class="krow" onclick="pddAsk(\'' + f.k + '\')"><span class="av ' + f.av + '">' + f.ch + '</span>' +
@@ -1606,6 +1772,7 @@ function liveGrab() {
     S.liveTrap = true;
     if (spend(price)) {
       S.items.push(liveCur.item);
+      S.liveSaved -= Math.max(0, price - liveReal);
       S.joy -= 1;
       toast('抢到了，但昨天它才 ¥' + yuan(liveReal) + ' —— 你被「先涨后降」收了一笔');
       pushEvt('你', 'live', '抢了「' + liveCur.name + '」¥' + price + '，昨天它才 ¥' + yuan(liveReal) + '。');
@@ -1614,11 +1781,24 @@ function liveGrab() {
     if (spend(price)) {
       S.items.push(liveCur.item);
       S.joy += 1; S.liveCatch++;
+      S.liveSaved += Math.max(0, liveReal - price);
       toast('抢到了：¥' + price + '，真低价。手速这支烟抽得值');
       pushEvt('你', 'live', '抢到「' + liveCur.name + '」¥' + price + '，真低价。');
     }
   }
   hud();
+  liveSpoilsRender();
+}
+function liveSpoilsRender() {
+  const box = $('liveSpoils');
+  if (!box) return;
+  if (!S.liveCatch && !S.liveTrap) {
+    box.innerHTML = '<span class="empty">还没抢到货。倒计时结束后点「抢」，手慢一步就没了。</span>';
+    return;
+  }
+  const saved = Math.round(S.liveSaved * 100) / 100;
+  box.innerHTML = '今晚抢到 <b>' + S.liveCatch + ' 件</b> · 比日常价省 <b>¥' + yuan(saved) + '</b>' +
+    (S.liveTrap ? '<br>其中 1 件是「先涨后降」，被多收了钱。' : '<br>全抢在真低价上，手速没白练。');
 }
 function liveNext() {
   liveIdx = (liveIdx + 1) % LIVE_GOODS.length;
@@ -2042,6 +2222,18 @@ function settleRender() {
     '比价答对 ' + S.tbRight + ' 次，直播间' + (S.liveCatch ? '抢到 ' + S.liveCatch + ' 件' : '没抢到') + (S.liveTrap ? '，其中一件是先涨后降。' : '。'),
     '人情债 ' + S.debt + ' 笔' + (S.debt >= 4 ? '，下一局第一件事就是还账。' : '。')
   ].join('\n');
+  const lootBox = $('settleLoot');
+  if (lootBox) {
+    if (!(S.bought || []).length) {
+      lootBox.innerHTML = '<div class="empty">这局没在货架上成交 —— 钱都花在别处了。</div>';
+    } else {
+      const savedAll = (S.bought || []).reduce(function (a, b) { return a + Math.max(0, (b.orig || b.price) - b.price); }, 0);
+      lootBox.innerHTML = (S.bought || []).slice(0, 6).map(function (b) {
+        return '<div class="row"><span class="nm">' + b.name + '</span><span class="pr">¥' + yuan(b.price) + '</span><span>省 ¥' + yuan((b.orig || b.price) - b.price) + '</span></div>';
+      }).join('') +
+        '<div class="row" style="margin-top:6px;border-top:1.5px solid rgba(36,24,17,.2);padding-top:6px"><span class="nm">货架合计省</span><span class="pr">¥' + yuan(savedAll + Math.max(0, S.liveSaved)) + '</span><span>' + (S.bought || []).length + ' 件</span></div>';
+    }
+  }
   hud();
   rtState(true);
   if (!S.settled) {
@@ -2168,11 +2360,12 @@ let saveTimer = null;
 function scheduleSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveGame, 300); }
 function saveGame() {
   try {
-    const keys = ['coin','start','spent','items','joy','debt','granted','drawLeft','usedCoupon','spin','spinMax',
-      'pddFirst','pddCut','pddDone','pddStolen','liveTrap','liveCatch','tbRight','qz','clock','settled','giveUsed'];
+    const keys = ['coin','start','spent','items','bought','joy','debt','granted','drawLeft','usedCoupon','spin','spinMax',
+      'pddFirst','pddCut','pddDone','pddStolen','liveTrap','liveCatch','liveSaved','tbRight','qz','clock','settled','giveUsed'];
     const o = { v: 2, t: Date.now(), S: {}, qz: null };
     keys.forEach(function (k) { o.S[k] = S[k]; });
     o.qz = { ids: qzIds, idx: qzIdx, score: qzScore, done: qzDone, code: qzCode };
+    o.cart = (typeof jdCart !== 'undefined' ? jdCart : []).map(function (c) { return { i: c.i, name: c.name, price: c.price, orig: c.orig, img: c.img }; });
     localStorage.setItem(SAVE_KEY, JSON.stringify(o));
   } catch (e) {}
 }
@@ -2182,6 +2375,10 @@ function loadGame() {
     if (!o || !o.S) return false;
     Object.keys(o.S).forEach(function (k) { if (o.S[k] !== undefined && o.S[k] !== null) S[k] = o.S[k]; });
     if (Array.isArray(S.items)) S.items = S.items.filter(function (x) { return x && x.n; });
+    if (Array.isArray(o.cart)) {
+      jdCart.length = 0;
+      o.cart.forEach(function (c) { if (c && c.name) jdCart.push(c); });
+    }
     if (o.qz) {
       qzIds = Array.isArray(o.qz.ids) ? o.qz.ids : [];
       qzSet = qzIds.map(function (i) { return QZ_POOL[i]; }).filter(Boolean);
@@ -2320,7 +2517,7 @@ function shareQuiz() {
 
 /* ============ 分享 / 海报 ============ */
 function baseUrl() {
-  if (location.protocol === 'file:') return 'http://1111maimaimai.zhuhongquan.com/';
+  if (location.protocol === 'file:') return 'https://1111maimaimai.zhuhongquan.com/';
   var u = location.href.split('#')[0].split('?')[0];
   return u;
 }
@@ -2466,6 +2663,10 @@ function makePoster(kind, data) {
       ctx.fillStyle = '#241811'; ctx.font = '26px "ZCOOL QingKe HuangYou","PingFang SC",sans-serif';
       ctx.textAlign = 'right'; ctx.fillText(r[1], x + 284, y + 6); ctx.textAlign = 'left';
     });
+    if (data.loot) {
+      ctx.fillStyle = '#FF3D2E'; ctx.font = '19px "PingFang SC",sans-serif';
+      ctx.fillText(data.loot, 60, 606);
+    }
     ctx.fillStyle = '#4A3527'; ctx.font = '19px "PingFang SC",sans-serif';
     if (data.qz) ctx.fillText('购格：' + data.qz.split('').join('·') + ' ' + data.qzName, 60, 640);
     ctx.fillStyle = '#8A7360';
@@ -2550,8 +2751,10 @@ function downloadPoster() {
 }
 function closePoster() { $('posterWrap').classList.remove('on'); }
 function shareSettle() {
+  const savedPoster = (S.bought || []).reduce(function (a, b) { return a + Math.max(0, (b.orig || b.price) - b.price); }, 0);
   makePoster('settle', {
     petals: petalsNow(), title: $('settleTitle').textContent,
+    loot: (S.bought || []).length ? ('买了 ' + (S.bought || []).length + ' 件 · 省 ¥' + yuan(savedPoster + Math.max(0, S.liveSaved)) + ' · 直播抢 ' + S.liveCatch + ' 件') : '',
     spent: yuan(S.spent), left: yuan(S.coin),
     wish: S.wish.filter(function (w) { return w.got; }).length,
     debt: S.debt, qz: qzCode, qzName: qzCode ? QZ_PRE[qzCode.slice(0, 2)] : ''
